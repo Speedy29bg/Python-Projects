@@ -1,3 +1,26 @@
+"""
+UI Module Facade
+
+This module re-exports UI components from the app_modules.ui package.
+"""
+
+from modules.app_modules.ui import MainWindow
+from modules.app_modules.ui import FileSelectionFrame
+from modules.app_modules.ui import AxesSelectionFrame
+from modules.app_modules.ui import ChartOptionsFrame
+from modules.app_modules.ui import PreviewFrame
+from modules.app_modules.ui import OutputOptionsFrame
+
+__all__ = [
+    'MainWindow',
+    'FileSelectionFrame',
+    'AxesSelectionFrame',
+    'ChartOptionsFrame',
+    'PreviewFrame',
+    'OutputOptionsFrame'
+]
+
+# Legacy code below - will be deprecated in future versions
 import tkinter as tk
 from tkinter import filedialog, messagebox, ttk
 import queue

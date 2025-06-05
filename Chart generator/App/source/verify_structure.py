@@ -42,18 +42,51 @@ def verify_project_structure() -> None:
     """Verify that all required project files exist"""
     print_header("VERIFYING PROJECT STRUCTURE")
     
-    # Required files
+    # Required files    
     required_files = [
-        "ChartGenerator_new.py",
+        "ChartGenerator_new_modular.py",
+        "MODULE_STRUCTURE.md",
+        "REFACTORING.md",
+        
+        # Main module facade files
         "modules/app.py",
         "modules/chart_generator.py",
-        "modules/chart_export.py",
         "modules/data_processor.py",
         "modules/data_analysis.py",
         "modules/excel_export.py",
-        "modules/chart_generator_utils.py",
-        "modules/ui_components.py",
         "modules/logger.py",
+        "modules/ui_components.py",
+        
+        # Module directories and their __init__.py files
+        "modules/core/__init__.py",
+        "modules/ui/__init__.py",
+        "modules/data/__init__.py",
+        "modules/data_processor/__init__.py",
+        "modules/chart_generator_module/__init__.py",
+        "modules/data_analysis_module/__init__.py",
+        "modules/export_module/__init__.py",
+        "modules/logger_module/__init__.py",
+        "modules/ui_components_module/__init__.py",
+        "modules/utils/__init__.py",
+        
+        # Core implementation files
+        "modules/core/app_controller.py",
+        
+        # Chart generator module files
+        "modules/chart_generator_module/figure_management.py",
+        "modules/chart_generator_module/plotting.py",
+        "modules/chart_generator_module/canvas.py",
+        
+        # Logger module files
+        "modules/logger_module/setup.py",
+        "modules/logger_module/exception_handler.py",
+        
+        # UI components module files
+        "modules/ui_components_module/loading.py",
+        "modules/ui_components_module/progress.py",
+        "modules/ui_components_module/preview.py",
+        "modules/ui_components_module/listbox.py",
+        
         "requirements.txt",
         "README.md"
     ]
@@ -83,13 +116,20 @@ def verify_module_imports() -> None:
     required_modules = [
         "modules.app",
         "modules.chart_generator",
-        "modules.chart_export",
         "modules.data_processor",
         "modules.data_analysis",
         "modules.excel_export",
-        "modules.chart_generator_utils",
         "modules.ui_components",
-        "modules.logger"
+        "modules.logger",
+        "modules.core",
+        "modules.ui",
+        "modules.data",
+        "modules.chart_generator_module",
+        "modules.data_analysis_module",
+        "modules.export_module",
+        "modules.logger_module",
+        "modules.ui_components_module",
+        "modules.utils"
     ]
     
     # Check each module
@@ -114,13 +154,19 @@ def verify_key_functions() -> None:
     
     # Required functions by module
     required_functions = {
-        "modules.chart_generator": ["create_preview_plot", "clear_figure"],
-        "modules.chart_export": ["export_chart"],
-        "modules.data_processor": ["read_csv_file", "process_data_for_scaling"],
-        "modules.data_analysis": ["calculate_statistics", "analyze_correlation", "filter_outliers"],
-        "modules.excel_export": ["generate_excel_workbook"],
-        "modules.chart_generator_utils": ["apply_color_scheme"],
-        "modules.logger": ["setup_logging", "handle_exception"]
+        "modules.chart_generator": ["create_preview_plot", "clear_figure", "create_tkinter_canvas"],
+        "modules.data_processor": ["read_csv_file", "process_data_for_scaling", "detect_header_row"],
+        "modules.data_analysis": ["calculate_statistics", "analyze_correlation", "filter_outliers", "smooth_data"],
+        "modules.excel_export": ["generate_excel_workbook", "export_figure"],
+        "modules.logger": ["setup_logging", "handle_exception"],
+        "modules.ui_components": ["create_loading_indicator", "create_progress_dialog", "create_data_preview"],
+        
+        # New modular components
+        "modules.chart_generator_module": ["create_preview_plot", "clear_figure", "create_tkinter_canvas"],
+        "modules.data_analysis_module": ["calculate_statistics", "filter_outliers", "smooth_data"],
+        "modules.export_module": ["generate_excel_workbook", "export_figure"],
+        "modules.logger_module": ["setup_logging", "handle_exception"],
+        "modules.ui_components_module": ["create_loading_indicator", "create_progress_dialog"]
     }
     
     # Check each function

@@ -1,6 +1,7 @@
 from openpyxl import Workbook
 from openpyxl.chart import LineChart, Reference, ScatterChart, Series
-from openpyxl.chart.axis import ChartLines
+from openpyxl.chart.series import SeriesLabel
+from openpyxl.chart.axis import ChartLines, NumericAxis
 import pandas as pd
 import logging
 from typing import List, Dict, Tuple, Optional, Any
@@ -53,28 +54,27 @@ def add_line_chart_to_worksheet(ws, df, x_axis, y_axes, secondary_axes):
         # Create references to data
         x_values = Reference(ws, min_col=1, min_row=2, max_row=len(df)+1)
         y_values = Reference(ws, min_col=idx, min_row=2, max_row=len(df)+1)
-        
         series = Series(y_values, x_values, title_from_data=False)
-        series.title = Reference(ws, min_col=idx, min_row=1, max_row=1)
+        # Set the series label using SeriesLabel, not Reference
+        series.title = SeriesLabel(v=str(y_axis))
         chart.series.append(series)
     
     # Add secondary Y-axis data if available
     if secondary_axes:
-        # Create a secondary y-axis
-        second_y_axis = chart.y_axis.copy()
-        chart._axes.append(second_y_axis)
+        # Create a new secondary y-axis
+        second_y_axis = NumericAxis()
         second_y_axis.axId = 200  # arbitrary unique id
         second_y_axis.title = "Secondary Y-Axes"
         second_y_axis.crosses = "max"  # Place axis on the right
-        
+        chart._axes.append(second_y_axis)
         # Add secondary series
         for idx, sec_axis in enumerate(secondary_axes, start=len(y_axes)+2):
             x_values = Reference(ws, min_col=1, min_row=2, max_row=len(df)+1)
             y_values = Reference(ws, min_col=idx, min_row=2, max_row=len(df)+1)
             series = Series(y_values, x_values, title_from_data=False)
-            series.title = Reference(ws, min_col=idx, min_row=1, max_row=1)
+            # Set the series label using SeriesLabel, not Reference
+            series.title = SeriesLabel(v=str(sec_axis))
             chart.series.append(series)
-            
             # Mark this series to use the secondary axis
             series.axId = second_y_axis.axId
     
@@ -103,23 +103,24 @@ def add_scatter_chart_to_worksheet(ws, df, x_axis, y_axes, secondary_axes):
     # Add primary Y-axis series
     for idx, y_axis in enumerate(y_axes, start=2):
         y_values = Reference(ws, min_col=idx, min_row=2, max_row=len(df)+1)
-        series = chart.series.append(y_values, x_values)
-        series.title = Reference(ws, min_col=idx, min_row=1, max_row=1)
+        series = Series(y_values, x_values, title_from_data=False)
+        series.title = SeriesLabel(v=str(y_axis))
+        chart.series.append(series)
     
     # Add secondary Y-axis series if available
     if secondary_axes:
-        # Create a secondary y-axis
-        second_y_axis = chart.y_axis.copy()
-        chart._axes.append(second_y_axis)
+        # Create a new secondary y-axis
+        second_y_axis = NumericAxis()
         second_y_axis.axId = 200  # arbitrary unique id
         second_y_axis.title = "Secondary Y-Axes"
         second_y_axis.crosses = "max"  # Place axis on the right
-        
+        chart._axes.append(second_y_axis)
         # Add secondary series
         for idx, sec_axis in enumerate(secondary_axes, start=len(y_axes)+2):
             y_values = Reference(ws, min_col=idx, min_row=2, max_row=len(df)+1)
-            series = chart.series.append(y_values, x_values)
-            series.title = Reference(ws, min_col=idx, min_row=1, max_row=1)
+            series = Series(y_values, x_values, title_from_data=False)
+            series.title = SeriesLabel(v=str(sec_axis))
+            chart.series.append(series)
             # Mark this series to use the secondary axis
             series.axId = second_y_axis.axId
     
@@ -165,16 +166,20 @@ def generate_excel_workbook(files, file_data_cache, x_axis, y_axes, secondary_ax
                 file_data_cache[file_path] = df
             
             if df.empty:
-                logging.warning(f"Skipping empty file: {os.path.basename(file_path)}")
+                logging.warning(f"Skipping empty file: {os.path.basename(file_path)}. DataFrame columns: {list(df.columns)}")
                 skipped_files += 1
                 continue
-                
+
             # Check if selected columns exist in the dataframe
             all_columns = [x_axis] + y_axes + secondary_axes
             missing_columns = [col for col in all_columns if col not in df.columns]
-            
+
             if missing_columns:
-                logging.warning(f"Skipping file {os.path.basename(file_path)} due to missing columns: {', '.join(missing_columns)}")
+                logging.warning(
+                    f"Skipping file {os.path.basename(file_path)} due to missing columns: {', '.join(missing_columns)}\n"
+                    f"  DataFrame columns: {list(df.columns)}\n"
+                    f"  Required columns: {all_columns}"
+                )
                 skipped_files += 1
                 continue
                 
