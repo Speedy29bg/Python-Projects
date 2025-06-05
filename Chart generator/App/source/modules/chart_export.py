@@ -4,7 +4,8 @@ Chart export utilities for the Lab Chart Generator
 This module contains functions for exporting charts to different formats
 such as images (PNG), PDF documents, and Excel files with embedded charts.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import matplotlib.pyplot as plt

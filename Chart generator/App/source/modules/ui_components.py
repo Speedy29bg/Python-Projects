@@ -3,7 +3,8 @@ User interface component utilities for the Lab Chart Generator
 
 This module is a facade over the more detailed ui_components_module.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 from modules.ui_components_module import (

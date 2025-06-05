@@ -3,7 +3,8 @@ Header Detection Module
 
 This module provides functions for detecting header rows in CSV files.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import csv

@@ -5,7 +5,8 @@ This module provides functions for analyzing and manipulating chart data,
 including statistical analysis, data filtering, and transformations
 beyond basic scaling provided by the data_processor module.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import pandas as pd

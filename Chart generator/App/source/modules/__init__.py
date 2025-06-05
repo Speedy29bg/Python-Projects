@@ -4,7 +4,8 @@ Package initialization file for the Chart Generator modules package
 This file ensures that all modules and subpackages are properly imported
 and accessible from the top level of the application.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 # Import subpackages

@@ -3,7 +3,8 @@ Data Scaling Module
 
 This module provides functions for scaling and transforming data for chart visualization.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import pandas as pd

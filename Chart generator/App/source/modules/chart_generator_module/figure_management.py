@@ -3,7 +3,8 @@ Figure Management Module
 
 This module provides functions for managing matplotlib figures.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import matplotlib.pyplot as plt

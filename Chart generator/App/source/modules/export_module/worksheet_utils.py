@@ -3,7 +3,8 @@ Worksheet Utilities Module
 
 This module provides functions for manipulating Excel worksheets.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 from openpyxl.chart import LineChart, Reference, ScatterChart, Series

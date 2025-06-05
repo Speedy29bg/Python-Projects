@@ -4,7 +4,8 @@ Chart Options UI Component
 This module provides UI components for chart scaling and display options
 in the Lab Chart Generator application.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import tkinter as tk

@@ -7,7 +7,8 @@ Main entry point for the Chart Generator application that allows users to create
 customize, and export charts from CSV data files. The application provides a GUI
 with various options for chart styling, scaling, and export.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 Version: 1.0
 Date: May 30, 2025
 """

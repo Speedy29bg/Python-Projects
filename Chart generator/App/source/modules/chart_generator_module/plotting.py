@@ -3,7 +3,8 @@ Plotting Module
 
 This module provides functions for creating and configuring plots.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import matplotlib.pyplot as plt

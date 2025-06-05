@@ -1,5 +1,6 @@
 # Chart Generator Application Dependencies
-# Author: Lab Chart Tools Team
+# 
+Author: Speedy29bg
 # Date: May 30, 2025
 
 # Core dependencies

@@ -3,7 +3,8 @@ Excel Export Module
 
 This module provides functions for generating Excel workbooks with chart data.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 from openpyxl import Workbook

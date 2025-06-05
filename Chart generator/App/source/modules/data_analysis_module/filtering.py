@@ -3,7 +3,8 @@ Filtering Module
 
 This module provides functions for filtering and cleaning data.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import pandas as pd

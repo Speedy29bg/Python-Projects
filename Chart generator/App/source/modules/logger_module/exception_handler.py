@@ -3,7 +3,8 @@ Exception Handler Module
 
 This module provides exception handling functionality for the Chart Generator application.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import logging

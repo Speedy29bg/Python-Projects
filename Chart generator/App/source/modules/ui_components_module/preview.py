@@ -3,7 +3,8 @@ Data Preview Module
 
 This module provides functions for creating data preview windows.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import tkinter as tk

@@ -3,7 +3,8 @@ Transformations Module
 
 This module provides functions for creating derived columns and data transformations.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import pandas as pd

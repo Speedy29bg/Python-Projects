@@ -4,7 +4,8 @@ Chart generator utility functions for the Lab Chart Generator
 This module provides helper functions for chart customization and formatting
 that supplement the main chart generation functionality.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import matplotlib.pyplot as plt

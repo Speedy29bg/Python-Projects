@@ -3,7 +3,8 @@ Figure Export Module
 
 This module provides functions for exporting matplotlib figures to various file formats.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import logging

@@ -3,7 +3,8 @@ Data Processor Utility Functions
 
 This module provides utility functions for data processing tasks.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import re

@@ -3,7 +3,8 @@ Loading Indicator Module
 
 This module provides functions for creating loading indicators in the UI.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import tkinter as tk

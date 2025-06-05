@@ -4,7 +4,8 @@ Main Window Component
 This module defines the main window UI components for the Lab Chart Generator application.
 It sets up the overall layout and main frames.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import tkinter as tk

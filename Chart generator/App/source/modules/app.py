@@ -5,7 +5,8 @@ This module contains the main LabChartGenerator class that orchestrates the over
 functionality of the application, including UI setup, data loading, chart creation,
 and export features.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import tkinter as tk

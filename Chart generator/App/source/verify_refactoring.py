@@ -6,7 +6,8 @@ Chart Generator Refactoring Verification
 This script verifies that the Chart Generator application has been
 successfully refactored into a modular structure.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 Version: 1.1
 Date: June 5, 2025
 """

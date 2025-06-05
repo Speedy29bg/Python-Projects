@@ -9,7 +9,8 @@ with various options for chart styling, scaling, and export.
 
 This version has been refactored for better modularity and maintainability.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 Version: 1.2
 Date: June 5, 2025
 """

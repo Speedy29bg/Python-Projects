@@ -3,7 +3,8 @@ Correlation Analysis Module
 
 This module provides functions for analyzing correlations between data columns.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import pandas as pd

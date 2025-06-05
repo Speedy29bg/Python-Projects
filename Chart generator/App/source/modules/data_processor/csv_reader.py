@@ -3,7 +3,8 @@ CSV Reader Module
 
 This module provides functions for reading CSV files with various encodings and delimiters.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import csv

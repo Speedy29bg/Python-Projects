@@ -3,7 +3,8 @@ Progress Dialog Module
 
 This module provides functions for creating progress dialogs in the UI.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import tkinter as tk

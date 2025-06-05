@@ -3,7 +3,8 @@ Canvas Generation Module
 
 This module provides functions for creating interactive matplotlib canvases in Tkinter.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import tkinter as tk

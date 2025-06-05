@@ -7,7 +7,8 @@ This package contains the core application components:
 - ui: User interface components
 - utils: Utility functions and helpers
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 from modules.app_modules import core

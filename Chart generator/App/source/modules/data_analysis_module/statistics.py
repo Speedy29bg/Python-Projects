@@ -3,7 +3,8 @@ Statistics Module
 
 This module provides functions for calculating statistical metrics from data.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import pandas as pd

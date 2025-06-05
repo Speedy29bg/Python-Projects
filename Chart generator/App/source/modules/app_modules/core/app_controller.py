@@ -4,7 +4,8 @@ Core application class for the Lab Chart Generator
 This module contains the refactored LabChartGenerator class that orchestrates the overall
 functionality of the application, delegating to the modular components.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import tkinter as tk

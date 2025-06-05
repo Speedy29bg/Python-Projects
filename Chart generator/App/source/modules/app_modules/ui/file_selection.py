@@ -4,7 +4,8 @@ File Selection UI Component
 This module provides UI components for file selection functionality
 in the Lab Chart Generator application.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import tkinter as tk

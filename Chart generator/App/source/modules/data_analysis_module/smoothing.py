@@ -3,7 +3,8 @@ Smoothing Module
 
 This module provides functions for smoothing and filtering time series data.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import pandas as pd

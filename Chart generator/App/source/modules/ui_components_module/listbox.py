@@ -3,7 +3,8 @@ Listbox Utilities Module
 
 This module provides functions for working with tkinter Listbox widgets.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import tkinter as tk

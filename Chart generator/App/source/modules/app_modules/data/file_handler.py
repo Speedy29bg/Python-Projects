@@ -4,7 +4,8 @@ File Data Handler Module
 This module handles file loading and data management 
 for the Lab Chart Generator application.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import pandas as pd

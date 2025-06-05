@@ -3,7 +3,8 @@ Logger Setup Module
 
 This module provides functions for setting up the application logging system.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 """
 
 import logging

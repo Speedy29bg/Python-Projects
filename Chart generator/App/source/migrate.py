@@ -6,7 +6,8 @@ Chart Generator Migration Script
 This script handles the migration from the original monolithic ChartGenerator.py
 to the new modular implementation.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 Date: May 30, 2025
 """
 

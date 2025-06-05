@@ -6,7 +6,8 @@ Chart Generator Project Structure Verification Script
 This script verifies the structure and module functionality 
 of the Chart Generator project after restructuring.
 
-Author: Lab Chart Tools Team
+
+Author: Speedy29bg
 Date: May 30, 2025
 """
 
