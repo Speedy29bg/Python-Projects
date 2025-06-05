@@ -1,0 +1,18 @@
+# Chart Generator Application Dependencies
+# Author: Lab Chart Tools Team
+# Date: May 30, 2025
+
+# Core dependencies
+numpy>=1.20.0
+pandas>=1.3.0
+matplotlib>=3.4.0
+openpyxl>=3.0.7
+
+# Data analysis dependencies
+scipy>=1.7.0
+scikit-learn>=1.0.0  # Optional: needed only for isolation forest anomaly detection
+
+# Optional dependencies for enhanced functionality
+seaborn>=0.11.0  # For advanced visualization options
+xlsxwriter>=3.0.0  # Alternative Excel export engine
+pillow>=8.2.0  # For image export support
