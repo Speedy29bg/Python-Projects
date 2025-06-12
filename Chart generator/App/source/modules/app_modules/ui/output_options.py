@@ -59,6 +59,7 @@ class OutputOptionsFrame:
         ttk.Button(self.button_frame, text="Clear Selections", command=self.app.clear_selections).pack(side=tk.LEFT, padx=5)
         ttk.Button(self.button_frame, text="Apply Custom Scaling", command=self.app.update_preview).pack(side=tk.LEFT, padx=5)
         ttk.Button(self.button_frame, text="Export Current Chart", command=self.app.export_current_chart).pack(side=tk.LEFT, padx=5)
+        ttk.Button(self.button_frame, text="Clean Cache", command=self.app.cleanup_temp_files).pack(side=tk.LEFT, padx=5)
         
     def get_output_filename(self):
         """Get the current output filename

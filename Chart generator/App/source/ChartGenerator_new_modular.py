@@ -19,14 +19,18 @@ import tkinter as tk
 import sys
 from modules.logger import setup_logging, handle_exception
 from modules.core import AppController
+from modules.cleanup import register_cleanup_on_exit
 
 if __name__ == "__main__":
+    # Setup logging first
+    logger = setup_logging()
+    
+    # Register cleanup to run when program exits
+    register_cleanup_on_exit()
+    
     # Initialize the main application window
     root = tk.Tk()
     root.title("Lab Chart Generator")
-    
-    # Setup logging
-    logger = setup_logging()
     
     # Create the application instance
     app = AppController(root)
@@ -36,10 +40,16 @@ if __name__ == "__main__":
         exc_type, exc_value, exc_traceback, app.status_label if hasattr(app, 'status_label') else None
     )
     
-    # Start the application
-    root.mainloop()
-    root.destroy()
+    try:
+        # Start the application
+        root.mainloop()
+    finally:
+        # Ensure cleanup runs even if there's an error
+        root.destroy()
 
 
 #TODO focus on generating PNG
 #TODO if i select more than one file, it should generate a chart for each file
+#TODO implement the logic for mode visualization
+#TODO check why date time is not working properly while there is an empty row
+#TODO make option to rename X and Y on the chart
