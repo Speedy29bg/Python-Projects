@@ -20,6 +20,7 @@ from modules.app_modules.ui.main_window import MainWindow
 from modules.app_modules.ui.file_selection import FileSelectionFrame
 from modules.app_modules.ui.axes_selection import AxesSelectionFrame
 from modules.app_modules.ui.chart_options import ChartOptionsFrame
+from modules.app_modules.ui.chart_scaling import ChartScalingFrame
 from modules.app_modules.ui.preview_frame import PreviewFrame
 from modules.app_modules.ui.output_options import OutputOptionsFrame
 
@@ -79,13 +80,13 @@ class LabChartGenerator:
         
         Args:
             root: The tkinter root window
-        """
-        # Store references to the window and internal state
+        """        # Store references to the window and internal state
         self.root = root
         self.files = []
         self.file_data_cache = {}
         self.column_headers = []
         self.current_figure = None
+        self.canvas = None
           # Set up the main application container
         self.main_window = MainWindow(self.root)
         
@@ -98,17 +99,23 @@ class LabChartGenerator:
             self.main_window.get_top_frame(),
             self
         )
-        
-        # Setup the axes selection frame
+          # Setup the axes selection frame
         self.axes_selection_frame = AxesSelectionFrame(
-            self.main_window.get_middle_left_frame(),
+            self.main_window.get_axes_selection_frame(),
             self
         )
         
-        # Setup the chart options frame
+        # Create a new chart scaling frame component for scaling and color options
+        self.chart_scaling_frame = ChartScalingFrame(
+            self.main_window.get_chart_scaling_frame(),
+            self
+        )
+        
+        # Setup the chart options frame (remaining options)
         self.chart_options_frame = ChartOptionsFrame(
             self.main_window.get_middle_right_frame(),
-            self
+            self,
+            exclude_scaling_and_colors=True
         )
         
         # Setup the preview frame
@@ -130,6 +137,23 @@ class LabChartGenerator:
         self.update_status("Ready")
         
         logging.info("Application initialized with modular components")
+        
+    def get_combined_chart_settings(self):
+        """Get combined chart settings from both scaling and options frames
+        
+        Returns:
+            dict: Combined dictionary containing all chart settings
+        """
+        # Get settings from chart scaling frame (scaling options and color scheme)
+        scaling_settings = self.chart_scaling_frame.get_scaling_settings()
+        
+        # Get settings from chart options frame (chart type and export format)
+        options_settings = self.chart_options_frame.get_settings()
+        
+        # Combine the settings
+        combined_settings = {**scaling_settings, **options_settings}
+        
+        return combined_settings
         
     def update_status(self, message):
         """
@@ -221,9 +245,8 @@ class LabChartGenerator:
         if not x_axis or not y_axes:
             self.status_label.config(text="Please select X-axis and at least one Y-axis column")
             return
-        
-        # Get chart options
-        chart_settings = self.chart_options_frame.get_settings()
+          # Get chart options
+        chart_settings = self.get_combined_chart_settings()
         
         try:
             # Get the data from the first file
@@ -270,10 +293,8 @@ class LabChartGenerator:
 
         if not x_axis or not y_axes:
             self.status_label.config(text="Please select X-axis and at least one Y-axis column")
-            return
-
-        # Get chart options
-        chart_settings = self.chart_options_frame.get_settings()
+            return        # Get chart options
+        chart_settings = self.get_combined_chart_settings()
         export_format = chart_settings.get('export_format', 'xlsx')
 
         if export_format == 'xlsx':
@@ -399,7 +420,7 @@ class LabChartGenerator:
                 x_axis = self.axes_selection_frame.get_x_column()
                 y_axes = self.axes_selection_frame.get_primary_y_columns()
                 secondary_axes = self.axes_selection_frame.get_secondary_y_columns()
-                chart_settings = self.chart_options_frame.get_settings()
+                chart_settings = self.get_combined_chart_settings()
                 
                 df = self.file_data_handler.get_data_from_file(self.files[0])
                 from modules.data_processor import process_data_for_scaling

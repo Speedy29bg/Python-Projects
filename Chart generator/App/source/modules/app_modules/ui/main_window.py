@@ -63,24 +63,36 @@ class MainWindow:
         # Middle frame (contains left and right sections and chart preview)
         self.middle_frame = ttk.Frame(self.main_frame)
         self.middle_frame.grid(row=1, column=0, sticky="nsew", padx=5, pady=5)
-        
-        # Configure middle frame grid
-        self.middle_frame.columnconfigure(0, weight=1)  # Left panel
-        self.middle_frame.columnconfigure(1, weight=1)  # Right panel
-        self.middle_frame.columnconfigure(2, weight=3)  # Chart area - takes more space
+          # Configure middle frame grid - make chart preview take half the width
+        self.middle_frame.columnconfigure(0, weight=1)  # Left panel (controls)
+        self.middle_frame.columnconfigure(1, weight=1)  # Right panel (chart preview) - equal weight for half the space
         self.middle_frame.rowconfigure(0, weight=1)
         
-        # Middle left frame (axis selection)
+        # Left panel for controls (axes selection and chart options)
         self.middle_left_frame = ttk.Frame(self.middle_frame)
         self.middle_left_frame.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
         
-        # Middle right frame (chart options)
-        self.middle_right_frame = ttk.Frame(self.middle_frame)
-        self.middle_right_frame.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
+        # Configure left panel to stack components vertically
+        self.middle_left_frame.rowconfigure(0, weight=0)  # Axes selection
+        self.middle_left_frame.rowconfigure(1, weight=0)  # Chart scaling options
+        self.middle_left_frame.rowconfigure(2, weight=1)  # Chart options (remaining space)
+        self.middle_left_frame.columnconfigure(0, weight=1)
         
-        # Chart preview frame
+        # Axes selection frame (top of left panel)
+        self.axes_selection_frame = ttk.Frame(self.middle_left_frame)
+        self.axes_selection_frame.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
+        
+        # Chart scaling and color scheme frame (middle of left panel)
+        self.chart_scaling_frame = ttk.Frame(self.middle_left_frame)
+        self.chart_scaling_frame.grid(row=1, column=0, sticky="ew", padx=5, pady=5)
+        
+        # Chart options frame (bottom of left panel) 
+        self.middle_right_frame = ttk.Frame(self.middle_left_frame)
+        self.middle_right_frame.grid(row=2, column=0, sticky="nsew", padx=5, pady=5)
+        
+        # Chart preview frame (right side - takes half the application width)
         self.chart_frame = ttk.Frame(self.middle_frame)
-        self.chart_frame.grid(row=0, column=2, sticky="nsew", padx=5, pady=5)
+        self.chart_frame.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
         
         # Bottom frame (output options)
         self.bottom_frame = ttk.Frame(self.main_frame)
@@ -137,6 +149,22 @@ class MainWindow:
             ttk.Frame: The chart frame widget
         """
         return self.chart_frame
+        
+    def get_axes_selection_frame(self):
+        """Get the axes selection frame
+        
+        Returns:
+            ttk.Frame: The axes selection frame widget
+        """
+        return self.axes_selection_frame
+        
+    def get_chart_scaling_frame(self):
+        """Get the chart scaling frame
+        
+        Returns:
+            ttk.Frame: The chart scaling frame widget
+        """
+        return self.chart_scaling_frame
         
     def get_bottom_frame(self):
         """Get the bottom frame for output options

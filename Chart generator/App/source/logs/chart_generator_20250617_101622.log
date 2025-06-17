@@ -946,3 +946,12 @@ dtype: object
 2025-06-17 10:16:35 [DEBUG] PngImagePlugin.py:778 - b'sBIT' 41 4 (unknown)
 2025-06-17 10:16:35 [DEBUG] PngImagePlugin.py:198 - STREAM b'pHYs' 57 9
 2025-06-17 10:16:35 [DEBUG] PngImagePlugin.py:198 - STREAM b'IDAT' 78 364
+2025-06-17 10:17:45 [ERROR] exception_handler.py:23 - Uncaught exception
+Traceback (most recent call last):
+  File "c:\Users\GILIEV\Documents\GitHub\Python-Projects\Chart generator\App\source\ChartGenerator_new_modular.py", line 40, in <module>
+    root.mainloop()
+    ~~~~~~~~~~~~~^^
+  File "C:\Users\GILIEV\AppData\Local\Programs\Python\Python313\Lib\tkinter\__init__.py", line 1599, in mainloop
+    self.tk.mainloop(n)
+    ~~~~~~~~~~~~~~~~^^^
+KeyboardInterrupt
