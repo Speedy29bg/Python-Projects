@@ -79,17 +79,18 @@ class LabChartGenerator:
         
         Args:
             root: The tkinter root window
-        """        # Store references to the window and internal state
+        """
+        # Store references to the window and internal state
         self.root = root
         self.files = []
         self.file_data_cache = {}
         self.column_headers = []
         self.current_figure = None
-        
-        # Set up the main application container
+          # Set up the main application container
         self.main_window = MainWindow(self.root)
         
         # Create status bar at the bottom
+        self.status_label = self.main_window.create_status_bar()
         self.status_label = self.main_window.create_status_bar()
         
         # Setup the file selection frame
@@ -660,35 +661,3 @@ class LabChartGenerator:
             logging.exception("Error in data analysis")
             messagebox.showerror("Error", f"Analysis failed: {str(e)}")
             self.status_label.config(text=f"Error: {str(e)}")
-    
-    def cleanup_temp_files(self):
-        """Manually clean up temporary files and caches"""
-        from modules.cleanup import full_cleanup
-        from tkinter import messagebox
-        
-        try:
-            self.status_label.config(text="Cleaning up temporary files...")
-            
-            # Perform cleanup
-            results = full_cleanup()
-            
-            # Show results to user
-            total_removed = results['total_items_removed']
-            pycache_dirs = results['pycache_dirs_removed']
-            temp_files = results['temp_files_removed']
-            
-            if total_removed > 0:
-                message = f"Cleanup completed successfully!\n\n"
-                message += f"Removed:\n"
-                message += f"• {pycache_dirs} __pycache__ directories\n"
-                message += f"• {temp_files} temporary files\n"
-                message += f"\nTotal: {total_removed} items cleaned up"
-                messagebox.showinfo("Cleanup Complete", message)
-                self.status_label.config(text=f"Cleanup complete: {total_removed} items removed")
-            else:
-                messagebox.showinfo("Cleanup Complete", "No temporary files found to clean up.")
-                self.status_label.config(text="No temporary files found")
-                
-        except Exception as e:
-            messagebox.showerror("Cleanup Error", f"Error during cleanup: {str(e)}")
-            self.status_label.config(text=f"Cleanup error: {str(e)}")

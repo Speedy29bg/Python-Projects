@@ -44,7 +44,8 @@ class ChartOptionsFrame:
         # Chart type and export options
         self.chart_type = tk.StringVar(value="line")
         self.export_format = tk.StringVar(value="xlsx")
-          # Color scheme for charts
+        
+        # Color scheme for charts
         self.color_schemes = ["default", "viridis", "plasma", "inferno", "magma", "cividis"]
         self.selected_color_scheme = tk.StringVar(value=self.color_schemes[0])
         
@@ -56,13 +57,13 @@ class ChartOptionsFrame:
         self.scaling_frame = ttk.LabelFrame(self.parent, text="Chart Scaling Options")
         self.scaling_frame.pack(fill=tk.X, pady=5)
         
-        # Left and right sections for scaling options (using pack for more compact layout)
+        # Left and right sections for scaling options
         scale_left = ttk.Frame(self.scaling_frame)
         scale_right = ttk.Frame(self.scaling_frame)
         scale_left.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
         scale_right.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=5, pady=5)
         
-        # Scale options (left side)
+        # Scale options
         ttk.Checkbutton(scale_left, text="Auto Scale", variable=self.auto_scale, 
                        command=self.toggle_manual_scaling).pack(anchor=tk.W)
         ttk.Checkbutton(scale_left, text="Log Scale X-Axis", variable=self.log_scale_x,
@@ -74,7 +75,7 @@ class ChartOptionsFrame:
         ttk.Checkbutton(scale_left, text="Normalize Data (0-1)", variable=self.normalize_data,
                        command=self.app.update_preview).pack(anchor=tk.W)
         
-        # Chart type selection (left side)
+        # Chart type selection
         ttk.Label(scale_left, text="Chart Type:").pack(anchor=tk.W, pady=(10, 0))
         chart_type_frame = ttk.Frame(scale_left)
         chart_type_frame.pack(anchor=tk.W)
@@ -84,7 +85,7 @@ class ChartOptionsFrame:
         ttk.Radiobutton(chart_type_frame, text="Scatter", variable=self.chart_type, 
                        value="scatter", command=self.app.update_preview).pack(side=tk.LEFT)
         
-        # Export format selection (left side)
+        # Export format selection
         ttk.Label(scale_left, text="Export Format:").pack(anchor=tk.W, pady=(10, 0))
         export_format_frame = ttk.Frame(scale_left)
         export_format_frame.pack(anchor=tk.W)
@@ -96,35 +97,35 @@ class ChartOptionsFrame:
         ttk.Radiobutton(export_format_frame, text="PDF", variable=self.export_format, 
                        value="pdf").pack(side=tk.LEFT)
         
-        # Custom range inputs (right side - more compact)
+        # Custom range inputs
         range_frame = ttk.Frame(scale_right)
         range_frame.pack(fill=tk.X)
         
         # X-Axis range
         ttk.Label(range_frame, text="X-Axis Range:").grid(row=0, column=0, sticky=tk.W, pady=2)
-        ttk.Label(range_frame, text="Min:").grid(row=0, column=1, sticky=tk.E, padx=3, pady=2)
-        self.x_min_entry = ttk.Entry(range_frame, textvariable=self.x_min, width=8, state='disabled')
+        ttk.Label(range_frame, text="Min:").grid(row=0, column=1, sticky=tk.E, padx=5, pady=2)
+        self.x_min_entry = ttk.Entry(range_frame, textvariable=self.x_min, width=10, state='disabled')
         self.x_min_entry.grid(row=0, column=2, pady=2)
-        ttk.Label(range_frame, text="Max:").grid(row=0, column=3, sticky=tk.E, padx=3, pady=2)
-        self.x_max_entry = ttk.Entry(range_frame, textvariable=self.x_max, width=8, state='disabled')
+        ttk.Label(range_frame, text="Max:").grid(row=0, column=3, sticky=tk.E, padx=5, pady=2)
+        self.x_max_entry = ttk.Entry(range_frame, textvariable=self.x_max, width=10, state='disabled')
         self.x_max_entry.grid(row=0, column=4, pady=2)
         
         # Primary Y-Axis range
-        ttk.Label(range_frame, text="Primary Y-Axis:").grid(row=1, column=0, sticky=tk.W, pady=2)
-        ttk.Label(range_frame, text="Min:").grid(row=1, column=1, sticky=tk.E, padx=3, pady=2)
-        self.y1_min_entry = ttk.Entry(range_frame, textvariable=self.y1_min, width=8, state='disabled')
+        ttk.Label(range_frame, text="Primary Y-Axis Range:").grid(row=1, column=0, sticky=tk.W, pady=2)
+        ttk.Label(range_frame, text="Min:").grid(row=1, column=1, sticky=tk.E, padx=5, pady=2)
+        self.y1_min_entry = ttk.Entry(range_frame, textvariable=self.y1_min, width=10, state='disabled')
         self.y1_min_entry.grid(row=1, column=2, pady=2)
-        ttk.Label(range_frame, text="Max:").grid(row=1, column=3, sticky=tk.E, padx=3, pady=2)
-        self.y1_max_entry = ttk.Entry(range_frame, textvariable=self.y1_max, width=8, state='disabled')
+        ttk.Label(range_frame, text="Max:").grid(row=1, column=3, sticky=tk.E, padx=5, pady=2)
+        self.y1_max_entry = ttk.Entry(range_frame, textvariable=self.y1_max, width=10, state='disabled')
         self.y1_max_entry.grid(row=1, column=4, pady=2)
         
         # Secondary Y-Axis range
-        ttk.Label(range_frame, text="Secondary Y-Axis:").grid(row=2, column=0, sticky=tk.W, pady=2)
-        ttk.Label(range_frame, text="Min:").grid(row=2, column=1, sticky=tk.E, padx=3, pady=2)
-        self.y2_min_entry = ttk.Entry(range_frame, textvariable=self.y2_min, width=8, state='disabled')
+        ttk.Label(range_frame, text="Secondary Y-Axis Range:").grid(row=2, column=0, sticky=tk.W, pady=2)
+        ttk.Label(range_frame, text="Min:").grid(row=2, column=1, sticky=tk.E, padx=5, pady=2)
+        self.y2_min_entry = ttk.Entry(range_frame, textvariable=self.y2_min, width=10, state='disabled')
         self.y2_min_entry.grid(row=2, column=2, pady=2)
-        ttk.Label(range_frame, text="Max:").grid(row=2, column=3, sticky=tk.E, padx=3, pady=2)
-        self.y2_max_entry = ttk.Entry(range_frame, textvariable=self.y2_max, width=8, state='disabled')
+        ttk.Label(range_frame, text="Max:").grid(row=2, column=3, sticky=tk.E, padx=5, pady=2)
+        self.y2_max_entry = ttk.Entry(range_frame, textvariable=self.y2_max, width=10, state='disabled')
         self.y2_max_entry.grid(row=2, column=4, pady=2)
         
         # Store references to the entry widgets for enabling/disabling
@@ -134,7 +135,7 @@ class ChartOptionsFrame:
             self.y2_min_entry, self.y2_max_entry
         ]
         
-        # Color scheme selection (more compact)
+        # Color scheme selection
         color_scheme_frame = ttk.LabelFrame(self.parent, text="Color Scheme")
         color_scheme_frame.pack(fill=tk.X, pady=5)
         

@@ -63,22 +63,24 @@ class MainWindow:
         # Middle frame (contains left and right sections and chart preview)
         self.middle_frame = ttk.Frame(self.main_frame)
         self.middle_frame.grid(row=1, column=0, sticky="nsew", padx=5, pady=5)
-          # Configure middle frame grid for 2 columns instead of 3
-        self.middle_frame.columnconfigure(0, weight=1)  # Left panel (axes + chart options)
-        self.middle_frame.columnconfigure(1, weight=2)  # Chart area - takes more space (about half)
+        
+        # Configure middle frame grid
+        self.middle_frame.columnconfigure(0, weight=1)  # Left panel
+        self.middle_frame.columnconfigure(1, weight=1)  # Right panel
+        self.middle_frame.columnconfigure(2, weight=3)  # Chart area - takes more space
         self.middle_frame.rowconfigure(0, weight=1)
         
-        # Middle left frame (axis selection and chart options)
+        # Middle left frame (axis selection)
         self.middle_left_frame = ttk.Frame(self.middle_frame)
         self.middle_left_frame.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
         
-        # Chart preview frame (now takes up the right half)
-        self.chart_frame = ttk.Frame(self.middle_frame)
-        self.chart_frame.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
+        # Middle right frame (chart options)
+        self.middle_right_frame = ttk.Frame(self.middle_frame)
+        self.middle_right_frame.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
         
-        # Create a frame for chart options that will be placed under axes selection
-        self.middle_right_frame = ttk.Frame(self.middle_left_frame)
-        self.middle_right_frame.pack(fill=tk.X, pady=(10, 0))
+        # Chart preview frame
+        self.chart_frame = ttk.Frame(self.middle_frame)
+        self.chart_frame.grid(row=0, column=2, sticky="nsew", padx=5, pady=5)
         
         # Bottom frame (output options)
         self.bottom_frame = ttk.Frame(self.main_frame)
