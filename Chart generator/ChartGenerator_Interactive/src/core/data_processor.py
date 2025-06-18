@@ -156,6 +156,52 @@ class DataProcessor:
         
         return self.data.select_dtypes(include=[np.number]).columns.tolist()
     
+    def get_chartable_columns(self) -> List[str]:
+        """
+        Get list of columns that can be used for charting (numeric + date/time)
+        
+        Returns:
+            List[str]: Chartable column names
+        """
+        if self.data is None:
+            return []
+        
+        chartable_cols = []
+        
+        for col in self.data.columns:
+            # Include numeric columns
+            if pd.api.types.is_numeric_dtype(self.data[col]):
+                chartable_cols.append(col)
+            # Include datetime columns
+            elif pd.api.types.is_datetime64_any_dtype(self.data[col]):
+                chartable_cols.append(col)
+            # Include columns that can be converted to numeric
+            elif self.data[col].dtype == 'object':
+                # Try to convert a sample to see if it's numeric
+                sample = self.data[col].dropna().head(10)
+                if len(sample) > 0:
+                    try:
+                        pd.to_numeric(sample, errors='raise')
+                        chartable_cols.append(col)
+                    except (ValueError, TypeError):
+                        # Check if it could be a date
+                        try:
+                            pd.to_datetime(sample, errors='raise')
+                            chartable_cols.append(col)
+                        except (ValueError, TypeError):
+                            pass
+        
+        return chartable_cols
+    
+    def get_all_columns(self) -> List[str]:
+        """
+        Get all column names including text columns
+        
+        Returns:
+            List[str]: All column names
+        """
+        return self.get_columns()
+    
     def get_column_data(self, column_name: str) -> Optional[pd.Series]:
         """
         Get data for a specific column
@@ -170,6 +216,56 @@ class DataProcessor:
             return None
         
         return self.data[column_name]
+    
+    def get_column_data_for_charting(self, column_name: str) -> Optional[pd.Series]:
+        """
+        Get data for a specific column, with automatic conversion for charting
+        
+        Args:
+            column_name: Name of the column
+            
+        Returns:
+            pd.Series: Column data converted for charting, or None if not possible
+        """
+        if self.data is None or column_name not in self.columns:
+            return None
+        
+        column_data = self.data[column_name].copy()
+        
+        # If already numeric, return as-is
+        if pd.api.types.is_numeric_dtype(column_data):
+            return column_data
+        
+        # Try to convert to numeric
+        try:
+            numeric_data = pd.to_numeric(column_data, errors='coerce')
+            if not numeric_data.isna().all():  # If at least some values could be converted
+                logger.info(f"Converted column '{column_name}' to numeric for charting")
+                return numeric_data
+        except Exception:
+            pass
+        
+        # Try to convert to datetime and then to numeric (timestamp)
+        try:
+            datetime_data = pd.to_datetime(column_data, errors='coerce')
+            if not datetime_data.isna().all():
+                logger.info(f"Converted column '{column_name}' to datetime for charting")
+                return datetime_data
+        except Exception:
+            pass
+        
+        # If it's categorical, try to convert to numeric codes
+        if column_data.dtype == 'object':
+            try:
+                # Create categorical codes
+                categorical_data = pd.Categorical(column_data)
+                logger.info(f"Converted column '{column_name}' to categorical codes for charting")
+                return pd.Series(categorical_data.codes, index=column_data.index)
+            except Exception:
+                pass
+        
+        logger.warning(f"Could not convert column '{column_name}' to chartable format")
+        return None
     
     def get_data_stats(self, column_name: str) -> Dict[str, Any]:
         """

@@ -174,23 +174,30 @@ class InteractiveChartApp:
                       "• Coordinate display",
                  justify='center',
                  font=('Arial', 11)).grid(row=0, column=0)
-    
     def on_file_loaded(self, filepath: str) -> bool:
         """Handle file loading"""
         try:
             success = self.data_processor.load_csv_file(filepath)
             if success:
-                # Update UI with new data
-                columns = self.data_processor.get_numeric_columns()
+                # Update UI with new data - use all columns, not just numeric
+                columns = self.data_processor.get_all_columns()
                 if not columns:
-                    self.status_frame.set_status("No numeric columns found in file")
-                    tk.messagebox.showerror("Error", "No numeric columns found in the selected CSV file.")
+                    self.status_frame.set_status("No columns found in file")
+                    tk.messagebox.showerror("Error", "No columns found in the selected CSV file.")
                     return False
                 self.axes_frame.update_columns(columns)
+                
+                # Log column types for user information
+                numeric_cols = self.data_processor.get_numeric_columns()
+                chartable_cols = self.data_processor.get_chartable_columns()
+                logger.info(f"All columns: {columns}")
+                logger.info(f"Numeric columns: {numeric_cols}")
+                logger.info(f"Chartable columns: {chartable_cols}")
+                
                 # Update status
                 info = self.data_processor.get_data_info() if hasattr(self.data_processor, 'get_data_info') else {'filename': filepath, 'rows': len(self.data_processor.data) if self.data_processor.data is not None else 0, 'columns': len(self.data_processor.columns) if self.data_processor.columns else 0}
                 self.status_frame.set_status(f"Loaded: {info['filename']}")
-                self.status_frame.set_info(f"{info['rows']} rows, {info['columns']} columns")
+                self.status_frame.set_info(f"{info['rows']} rows, {len(columns)} columns ({len(numeric_cols)} numeric)")
                 # Auto-update chart if axes are selected
                 self.update_chart_preview()
                 return True
@@ -223,22 +230,28 @@ class InteractiveChartApp:
             axes = self.axes_frame.get_selected_axes()
             if not axes['x_axis'] or not axes['y_axes']:
                 return
-            
-            # Get chart options
+              # Get chart options
             options = self.options_frame.get_options()
             
-            # Get data
-            x_data = self.data_processor.get_column_data(axes['x_axis'])
+            # Get data with automatic conversion for charting
+            x_data = self.data_processor.get_column_data_for_charting(axes['x_axis'])
+            if x_data is None:
+                self.status_frame.set_status("X-axis data cannot be converted for charting")
+                return
+                
             y_data_list = []
             y_labels = []
             
             for y_axis in axes['y_axes']:
-                y_data = self.data_processor.get_column_data(y_axis)
+                y_data = self.data_processor.get_column_data_for_charting(y_axis)
                 if y_data is not None:
                     y_data_list.append(y_data)
                     y_labels.append(y_axis)
+                else:
+                    logger.warning(f"Could not convert Y-axis '{y_axis}' for charting")
             
             if not y_data_list:
+                self.status_frame.set_status("No Y-axis data could be converted for charting")
                 return
               # Create the interactive chart
             self.chart_generator.create_interactive_chart(
