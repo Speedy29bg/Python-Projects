@@ -342,7 +342,6 @@ class InteractiveChartApp:
             
             self.status_frame.set_status("Chart copied to clipboard")
             tk.messagebox.showinfo("Success", "Chart copied to clipboard successfully!")
-            
         except ImportError:
             tk.messagebox.showwarning("Warning", "Clipboard functionality requires PIL and win32clipboard.\\nPlease install: pip install pillow pywin32")
         except Exception as e:
@@ -363,5 +362,6 @@ class InteractiveChartApp:
         self.axes_frame.update_columns([])
         self.status_frame.set_status("Data cleared")
         self.status_frame.set_info("")
-        self.file_frame.file_label.config(text="No file selected", foreground="gray")
+        self.file_frame.file_label.config(text="No files selected", foreground="gray")
+        self.file_frame.current_files = []  # Clear the files list
         self.update_chart_preview()

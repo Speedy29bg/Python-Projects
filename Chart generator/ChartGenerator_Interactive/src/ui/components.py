@@ -28,11 +28,11 @@ class FileSelectionFrame:
         """
         self.parent = parent
         self.on_file_loaded = on_file_loaded
-        self.current_file = None
+        self.current_files = []  # Support multiple files
         self.preview_callback: Optional[Callable] = None
         self.clear_callback: Optional[Callable] = None
         
-        self.create_ui()    
+        self.create_ui()
     def create_ui(self):
         """Create the UI components"""
         # Main frame
@@ -77,36 +77,46 @@ class FileSelectionFrame:
         
         for path in possible_paths:
             if os.path.exists(path):
-                csv_files = [f for f in os.listdir(path) if f.endswith('.csv')][:3]  # Limit to 3 files
+                csv_files = [f for f in os.listdir(path) if f.endswith('.csv')][:5]  # Limit to 5 files
                 for filename in csv_files:
                     filepath = os.path.join(path, filename)
                     btn = ttk.Button(self.quick_frame, text=filename[:15] + "..." if len(filename) > 15 else filename,
                                    command=lambda f=filepath: self.load_specific_file(f))
                     btn.pack(side=tk.LEFT, padx=5)
-                break
+                    break
     
     def load_file(self):
-        """Load a CSV file using file dialog"""
+        """Load CSV files using file dialog (supports multiple selection)"""
         filetypes = [
             ("CSV files", "*.csv"),
             ("All files", "*.*")
         ]
         
-        filename = filedialog.askopenfilename(
-            title="Select CSV file",
+        filenames = filedialog.askopenfilenames(
+            title="Select CSV files",
             filetypes=filetypes,
             initialdir=os.path.expanduser("~")
         )
         
-        if filename:
-            self.load_specific_file(filename)
-    
+        if filenames:
+            self.current_files = list(filenames)
+            # Use the first file for processing (can be extended later)
+            self.load_specific_file(filenames[0])
+            # Update label to show multiple files
+            if len(filenames) > 1:
+                self.file_label.config(text=f"Selected: {len(filenames)} files", foreground="blue")
+            else:
+                filename = os.path.basename(filenames[0])
+                self.file_label.config(text=f"Selected: {filename}", foreground="blue")
+
     def load_specific_file(self, filepath: str):
         """Load a specific file"""
         try:
             success = self.on_file_loaded(filepath)
             if success:
-                self.current_file = filepath
+                # If this is not part of a multi-file selection, update the files list
+                if filepath not in self.current_files:
+                    self.current_files = [filepath]
                 filename = os.path.basename(filepath)
                 self.file_label.config(text=f"Loaded: {filename}", foreground="green")
                 logger.info(f"File loaded successfully: {filename}")

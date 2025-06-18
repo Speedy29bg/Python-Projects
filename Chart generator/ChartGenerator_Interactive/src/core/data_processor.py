@@ -9,6 +9,7 @@ Handles CSV file loading, data validation, and preprocessing.
 import pandas as pd
 import numpy as np
 import os
+import csv
 from typing import List, Dict, Optional, Tuple, Any
 from utils.logger import get_logger
 
@@ -25,7 +26,7 @@ class DataProcessor:
         
     def load_csv_file(self, filepath: str) -> bool:
         """
-        Load a CSV file
+        Load a CSV file with smart header detection
         
         Args:
             filepath: Path to the CSV file
@@ -44,9 +45,26 @@ class DataProcessor:
                 logger.error(f"Invalid file type. Expected CSV file: {filepath}")
                 return False
             
-            # Load the CSV file
-            logger.info(f"Loading CSV file: {filepath}")
-            self.data = pd.read_csv(filepath)
+            # Smart header detection - look for non-empty cell in column E (index 4)
+            logger.info(f"Loading CSV file with smart header detection: {filepath}")
+            header_row_idx = self._detect_header_row(filepath)
+            
+            # Load the CSV file with detected header row
+            if header_row_idx is not None:
+                logger.info(f"Detected header row at index {header_row_idx} (line {header_row_idx + 1})")
+                try:
+                    self.data = pd.read_csv(filepath, encoding='utf-8', skiprows=header_row_idx, header=0)
+                except UnicodeDecodeError:
+                    logger.warning("UTF-8 encoding failed, trying latin1")
+                    self.data = pd.read_csv(filepath, encoding='latin1', skiprows=header_row_idx, header=0)
+            else:
+                logger.warning("No header row detected, loading with default settings")
+                try:
+                    self.data = pd.read_csv(filepath, encoding='utf-8')
+                except UnicodeDecodeError:
+                    logger.warning("UTF-8 encoding failed, trying latin1")
+                    self.data = pd.read_csv(filepath, encoding='latin1')
+            
             self.filename = os.path.basename(filepath)
             
             # Process column names
@@ -61,13 +79,40 @@ class DataProcessor:
             self._clean_data()
             
             logger.info(f"Successfully loaded {len(self.data)} rows and {len(self.columns)} columns")
-            logger.info(f"Columns: {self.columns}")
+            logger.info(f"Headers: {self.columns}")
+            logger.info(f"Data types: {dict(self.data.dtypes)}")
             
             return True
             
         except Exception as e:
             logger.error(f"Error loading CSV file: {e}")
             return False
+    
+    def _detect_header_row(self, filepath: str) -> Optional[int]:
+        """
+        Detect the header row by looking for non-empty cell in column E (index 4)
+        
+        Args:
+            filepath: Path to the CSV file
+            
+        Returns:
+            int or None: Index of the header row, or None if not found
+        """
+        try:
+            with open(filepath, 'r', encoding='utf-8', errors='replace') as f:
+                reader = csv.reader(f)
+                for i, row in enumerate(reader):
+                    # Check if row has at least 5 columns and column E (index 4) is not empty
+                    if len(row) > 4 and row[4].strip():
+                        logger.info(f"Found non-empty cell in column E at row {i}")
+                        return i
+                        
+            logger.warning("No non-empty cell found in column E")
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error detecting header row: {e}")
+            return None
     
     def _clean_data(self):
         """Clean and preprocess the loaded data"""
