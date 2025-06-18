@@ -39,6 +39,10 @@ def create_tkinter_canvas(figure, frame):
     from matplotlib.backends.backend_tkagg import NavigationToolbar2Tk
     import matplotlib.pyplot as plt
     
+    # Debug output
+    print(f"DEBUG: create_tkinter_canvas called with figure={figure}, frame={frame}")
+    print(f"DEBUG: Frame children before clearing: {len(frame.winfo_children())}")
+    
     # Clear frame first to avoid stacking multiple charts
     for widget in frame.winfo_children():
         widget.destroy()
@@ -47,16 +51,22 @@ def create_tkinter_canvas(figure, frame):
     chart_frame = ttk.Frame(frame)
     chart_frame.pack(fill='both', expand=True)
     
+    print("DEBUG: Creating FigureCanvasTkAgg...")
+    
     # Create chart area
     canvas = FigureCanvasTkAgg(figure, master=chart_frame)
     canvas.draw()
     canvas.get_tk_widget().pack(fill='both', expand=True)
+    
+    print("DEBUG: Canvas created, adding navigation toolbar...")
     
     # Add matplotlib's built-in navigation toolbar for zoom, pan, etc.
     toolbar_frame = ttk.Frame(chart_frame)
     toolbar_frame.pack(fill='x', pady=2)
     toolbar = NavigationToolbar2Tk(canvas, toolbar_frame)
     toolbar.update()
+    
+    print("DEBUG: Navigation toolbar added, creating interactive controls...")
     
     # Create frame for custom buttons
     button_frame = ttk.Frame(chart_frame)
@@ -100,17 +110,214 @@ def create_tkinter_canvas(figure, frame):
     legend_btn = ttk.Checkbutton(button_frame, text="Show Legend", variable=legend_var, 
                                command=toggle_legend)
     legend_btn.pack(side='left', padx=5)
-    
-    # Toggle automatic updates
+      # Toggle automatic updates
     autoupdate_var = tk.BooleanVar(value=True)
     autoupdate_btn = ttk.Checkbutton(button_frame, text="Auto-update", variable=autoupdate_var)
     autoupdate_btn.pack(side='left', padx=5)
     
-    # Get autoupdate status
+    # Add data cursor functionality
+    try:
+        import mplcursors
+        cursor_var = tk.BooleanVar(value=False)
+        
+        def toggle_cursor():
+            if cursor_var.get():
+                # Enable cursor on all lines
+                cursor = mplcursors.cursor(figure.get_axes(), hover=True)
+                cursor.connect("add", lambda sel: sel.annotation.set_text(
+                    f"X: {sel.target[0]:.4f}\nY: {sel.target[1]:.4f}\nSeries: {sel.artist.get_label()}"
+                ))
+                cursor.connect("add", lambda sel: sel.annotation.set_bbox(
+                    dict(boxstyle="round,pad=0.3", facecolor="yellow", alpha=0.8)
+                ))
+                canvas.cursor = cursor
+            else:                # Disable cursor
+                if hasattr(canvas, 'cursor'):
+                    canvas.cursor.remove()
+                    delattr(canvas, 'cursor')
+            canvas.draw()
+        
+        cursor_btn = ttk.Checkbutton(button_frame, text="Data Cursor", variable=cursor_var, 
+                                   command=toggle_cursor)
+        cursor_btn.pack(side='left', padx=5)
+    except ImportError:
+        # mplcursors not available, add basic hover functionality
+        hover_var = tk.BooleanVar(value=False)
+        
+        def toggle_hover():
+            if hover_var.get():
+                def on_hover(event):
+                    if event.inaxes:
+                        # Find the closest data point
+                        for line in event.inaxes.get_lines():
+                            if line.contains(event)[0]:
+                                coord_label_var.set(f"Hovering: {line.get_label()} - X: {event.xdata:.4f}, Y: {event.ydata:.4f}")
+                                break
+                
+                canvas.mpl_connect('motion_notify_event', on_hover)
+            canvas.draw()
+        
+        hover_btn = ttk.Checkbutton(button_frame, text="Hover Info", variable=hover_var, 
+                                  command=toggle_hover)
+        hover_btn.pack(side='left', padx=5)
+    
+    # Add crosshair cursor
+    crosshair_var = tk.BooleanVar(value=False)
+    
+    def toggle_crosshair():
+        for ax in figure.get_axes():
+            if crosshair_var.get():
+                # Add crosshair lines
+                if not hasattr(ax, 'crosshair_h'):
+                    ax.crosshair_h = ax.axhline(color='red', linestyle='--', alpha=0.7, visible=False)
+                    ax.crosshair_v = ax.axvline(color='red', linestyle='--', alpha=0.7, visible=False)
+                
+                def on_mouse_move(event):
+                    if event.inaxes == ax and crosshair_var.get():
+                        ax.crosshair_h.set_ydata([event.ydata, event.ydata])
+                        ax.crosshair_v.set_xdata([event.xdata, event.xdata])
+                        ax.crosshair_h.set_visible(True)
+                        ax.crosshair_v.set_visible(True)
+                        canvas.draw_idle()
+                
+                def on_mouse_leave(event):
+                    if hasattr(ax, 'crosshair_h'):
+                        ax.crosshair_h.set_visible(False)
+                        ax.crosshair_v.set_visible(False)
+                        canvas.draw_idle()
+                
+                canvas.mpl_connect('motion_notify_event', on_mouse_move)
+                canvas.mpl_connect('axes_leave_event', on_mouse_leave)
+            else:
+                # Hide crosshair
+                if hasattr(ax, 'crosshair_h'):
+                    ax.crosshair_h.set_visible(False)
+                    ax.crosshair_v.set_visible(False)
+        canvas.draw()
+    
+    crosshair_btn = ttk.Checkbutton(button_frame, text="Crosshair", variable=crosshair_var, 
+                                  command=toggle_crosshair)
+    crosshair_btn.pack(side='left', padx=5)
+    
+    # Add line width control
+    linewidth_var = tk.DoubleVar(value=1.0)
+    
+    def update_linewidth(val):
+        width = float(val)
+        for ax in figure.get_axes():
+            for line in ax.get_lines():
+                line.set_linewidth(width)
+        canvas.draw()
+    
+    ttk.Label(button_frame, text="Line Width:").pack(side='left', padx=(10, 2))
+    linewidth_scale = ttk.Scale(button_frame, from_=0.5, to=5.0, 
+                              variable=linewidth_var, command=update_linewidth,
+                              orient='horizontal', length=80)
+    linewidth_scale.pack(side='left', padx=5)
+    
+    # Add transparency control
+    alpha_var = tk.DoubleVar(value=1.0)
+    
+    def update_alpha(val):
+        alpha = float(val)
+        for ax in figure.get_axes():
+            for line in ax.get_lines():
+                line.set_alpha(alpha)
+        canvas.draw()
+    
+    ttk.Label(button_frame, text="Transparency:").pack(side='left', padx=(10, 2))
+    alpha_scale = ttk.Scale(button_frame, from_=0.1, to=1.0, 
+                          variable=alpha_var, command=update_alpha,
+                          orient='horizontal', length=80)
+    alpha_scale.pack(side='left', padx=5)
+    
+    # Add coordinate display on click
+    coord_label_var = tk.StringVar(value="Click on chart to see coordinates")
+    coord_label = ttk.Label(button_frame, textvariable=coord_label_var, foreground="blue")
+    coord_label.pack(side='left', padx=10)
+    
+    def on_click(event):
+        if event.inaxes:
+            coord_label_var.set(f"X: {event.xdata:.4f}, Y: {event.ydata:.4f}")
+        else:
+            coord_label_var.set("Click on chart to see coordinates")
+    
+    canvas.mpl_connect('button_press_event', on_click)
+    
+    # Add second row of buttons for additional features
+    button_frame2 = ttk.Frame(chart_frame)
+    button_frame2.pack(fill='x', pady=2)
+    
+    # Reset zoom button
+    def reset_zoom():
+        for ax in figure.get_axes():
+            ax.relim()
+            ax.autoscale()
+        canvas.draw()
+    
+    reset_btn = ttk.Button(button_frame2, text="Reset Zoom", command=reset_zoom)
+    reset_btn.pack(side='left', padx=5)
+    
+    # Toggle animation for smooth transitions
+    animation_var = tk.BooleanVar(value=False)
+    
+    def toggle_animation():
+        import matplotlib as mpl
+        if animation_var.get():
+            mpl.rcParams['animation.html'] = 'jshtml'
+        else:
+            mpl.rcParams['animation.html'] = 'none'
+    
+    animation_btn = ttk.Checkbutton(button_frame2, text="Smooth Transitions", 
+                                  variable=animation_var, command=toggle_animation)
+    animation_btn.pack(side='left', padx=5)
+    
+    # Add data statistics display
+    stats_var = tk.BooleanVar(value=False)
+    
+    def toggle_stats():
+        if stats_var.get():
+            # Add text box with statistics
+            stats_text = ""
+            for ax in figure.get_axes():
+                for line in ax.get_lines():
+                    y_data = line.get_ydata()
+                    if len(y_data) > 0:
+                        label = line.get_label()
+                        if label and not label.startswith('_'):
+                            stats_text += f"{label}: "
+                            stats_text += f"Mean={y_data.mean():.3f}, "
+                            stats_text += f"Std={y_data.std():.3f}, "
+                            stats_text += f"Min={y_data.min():.3f}, "
+                            stats_text += f"Max={y_data.max():.3f}\n"
+            
+            # Add text box to the plot
+            if stats_text and not hasattr(figure, 'stats_text'):
+                figure.stats_text = figure.text(0.02, 0.98, stats_text, 
+                                               transform=figure.transFigure,
+                                               verticalalignment='top',
+                                               bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.8),
+                                               fontsize=8)
+        else:
+            # Remove stats text
+            if hasattr(figure, 'stats_text'):
+                figure.stats_text.remove()
+                delattr(figure, 'stats_text')
+        canvas.draw()
+    
+    stats_btn = ttk.Checkbutton(button_frame2, text="Show Statistics", 
+                              variable=stats_var, command=toggle_stats)
+    stats_btn.pack(side='left', padx=5)    # Get autoupdate status
     canvas.autoupdate = lambda: autoupdate_var.get()
     
-    # Set a reasonable height for the frame
-    frame.config(height=450)  # Increased height to accommodate buttons
+    # Set a reasonable height for the frame and ensure it's expandable
+    frame.config(height=600)  # Increased height to accommodate all controls
+    
+    # Force frame update to ensure everything is visible
+    frame.update_idletasks()
+    
+    print(f"DEBUG: Interactive canvas setup complete. Total interactive controls added.")
+    print(f"DEBUG: Chart frame children: {len(chart_frame.winfo_children())}")
     
     return canvas
 

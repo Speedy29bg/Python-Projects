@@ -34,10 +34,9 @@ class PreviewFrame:
         # Preview frame
         self.preview_container = ttk.LabelFrame(self.parent, text="Chart Preview")
         self.preview_container.pack(fill=tk.BOTH, expand=True, pady=5)
-        
-        # Inner frame to hold the matplotlib canvas
+          # Inner frame to hold the matplotlib canvas
         self.preview_frame = ttk.Frame(self.preview_container)
         self.preview_frame.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
         
-        # Set a reasonable height for the frame
-        self.preview_container.config(height=450)
+        # Set a larger height to accommodate interactive controls
+        self.preview_container.config(height=650)  # Increased for interactive features

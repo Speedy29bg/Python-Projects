@@ -24,9 +24,11 @@ if __name__ == "__main__":
     # Initialize the main application window
     root = tk.Tk()
     root.title("Lab Chart Generator")
+    root.geometry("1400x900")  # Larger window to accommodate interactive features
     
     # Setup logging
     logger = setup_logging()
+    logger.info("Starting Chart Generator with Interactive Features")
     
     # Create the application instance
     app = AppController(root)
@@ -35,6 +37,9 @@ if __name__ == "__main__":
     sys.excepthook = lambda exc_type, exc_value, exc_traceback: handle_exception(
         exc_type, exc_value, exc_traceback, app.status_label if hasattr(app, 'status_label') else None
     )
+    
+    # Log that interactive features are enabled
+    logger.info("Chart Generator started with interactive preview features")
     
     # Start the application
     root.mainloop()

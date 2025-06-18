@@ -9,10 +9,17 @@ The Lab Chart Generator provides a graphical user interface for scientists and l
 ## Features
 
 - **Data Loading**: Automatic detection of CSV format, headers, and data types
+- **Interactive Chart Preview**: Enhanced with comprehensive interactive controls
+  - Navigation toolbar with zoom, pan, and reset functionality
+  - Data cursor with hover tooltips for precise value reading
+  - Crosshair cursor for coordinate precision
+  - Real-time line width and transparency adjustment
+  - Grid, legend, and data points toggles
+  - Statistics display and coordinate clicking
 - **Chart Customization**: Support for multiple axes, log scaling, and normalization
+- **Improved Layout**: Chart scaling options positioned under axes selection, preview takes 50% width
 - **Data Analysis**: Statistical analysis, correlation detection, outlier detection, and data smoothing
 - **Export Options**: Export charts to Excel, PNG, PDF, and other formats
-- **Preview**: Real-time chart previews as you select columns and adjust settings
 
 ## Project Structure
 
@@ -74,6 +81,20 @@ The application includes advanced data analysis capabilities:
 1. Select columns for analysis
 2. Click "Analyze Data" button
 3. Use the tabbed interface to view statistics, correlations, outliers, and apply transformations
+
+## Interactive Features
+
+For a comprehensive guide to all interactive chart features, see `INTERACTIVE_FEATURES_GUIDE.md`.
+
+To test the interactive features with sample data, run:
+```bash
+python interactive_demo.py
+```
+
+To verify all features are properly installed, run:
+```bash
+python verify_interactive_features.py
+```
 
 ## License
 

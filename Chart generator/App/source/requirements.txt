@@ -14,6 +14,7 @@ scipy>=1.7.0
 scikit-learn>=1.0.0  # Optional: needed only for isolation forest anomaly detection
 
 # Optional dependencies for enhanced functionality
+mplcursors>=0.4.0  # For interactive data cursor functionality
 seaborn>=0.11.0  # For advanced visualization options
 xlsxwriter>=3.0.0  # Alternative Excel export engine
 pillow>=8.2.0  # For image export support
