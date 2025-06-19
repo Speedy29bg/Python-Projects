@@ -1,3 +1,0 @@
-2025-06-18 10:45:48,005 - InteractiveChartGenerator - INFO - Logging initialized. Log file: c:\Users\GILIEV\Documents\GitHub\Python-Projects\Chart generator\ChartGenerator_Interactive\logs\chart_generator_20250618_104548.log
-2025-06-18 10:45:48,006 - InteractiveChartGenerator - INFO - Starting Interactive Chart Generator v2.0
-2025-06-18 10:45:48,818 - InteractiveChartGenerator - ERROR - Failed to start application: cannot use geometry manager pack inside . which already has slaves managed by grid

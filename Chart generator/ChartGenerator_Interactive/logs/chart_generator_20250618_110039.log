@@ -1,3 +1,0 @@
-2025-06-18 11:00:39,193 - InteractiveChartGenerator - INFO - Logging initialized. Log file: c:\Users\GILIEV\Documents\GitHub\Python-Projects\Chart generator\ChartGenerator_Interactive\logs\chart_generator_20250618_110039.log
-2025-06-18 11:00:39,194 - InteractiveChartGenerator - INFO - Starting Interactive Chart Generator v2.0
-2025-06-18 11:00:39,344 - InteractiveChartGenerator - ERROR - Failed to start application: 'FileSelectionFrame' object has no attribute 'preview_data'
