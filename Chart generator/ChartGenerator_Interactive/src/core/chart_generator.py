@@ -65,13 +65,28 @@ class InteractiveChartGenerator:
         
         # Clear any existing content
         for widget in parent_frame.winfo_children():
-            widget.destroy()
-          # Create main container
+            widget.destroy()        # Create main container
         main_container = ttk.Frame(parent_frame)
         main_container.pack(fill='both', expand=True)
         
-        # Create the matplotlib figure with size optimized for 50% of app width
-        self.figure = plt.Figure(figsize=(8, 6), dpi=100)
+        # Calculate responsive figure size based on parent frame
+        # Get the root window to calculate size
+        root = parent_frame.winfo_toplevel()
+        try:
+            # Get current window dimensions
+            window_width = root.winfo_width()
+            window_height = root.winfo_height()
+            
+            # Calculate figure size (approximately 40% of window width, maintain aspect ratio)
+            fig_width = max(min(window_width * 0.4 / 100, 12), 6)  # Convert pixels to inches, clamp between 6-12
+            fig_height = max(min(window_height * 0.5 / 100, 9), 4)  # Convert pixels to inches, clamp between 4-9
+            
+        except:
+            # Fallback to default size if window size can't be determined
+            fig_width, fig_height = 8, 6
+        
+        # Create the matplotlib figure with responsive size
+        self.figure = plt.Figure(figsize=(fig_width, fig_height), dpi=100)
         ax = self.figure.add_subplot(111)
         
         # Prepare data

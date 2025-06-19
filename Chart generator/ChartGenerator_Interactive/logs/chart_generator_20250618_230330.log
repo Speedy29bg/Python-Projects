@@ -1,0 +1,218 @@
+2025-06-18 23:03:30,307 - InteractiveChartGenerator - INFO - Logging initialized. Log file: c:\Users\GILIEV\Documents\GitHub\Python-Projects\Chart generator\ChartGenerator_Interactive\logs\chart_generator_20250618_230330.log
+2025-06-18 23:03:30,308 - InteractiveChartGenerator - INFO - Starting Interactive Chart Generator v2.0
+2025-06-18 23:03:31,557 - InteractiveChartGenerator - INFO - Interactive Chart Application initialized
+2025-06-18 23:03:31,762 - InteractiveChartGenerator - INFO - Application started successfully
+2025-06-18 23:04:16,711 - InteractiveChartGenerator - INFO - Loading CSV file with smart header detection: C:/Users/GILIEV/Desktop/Chart generator/DUT Logs/DUT_2.csv
+2025-06-18 23:04:16,749 - InteractiveChartGenerator - INFO - Found non-empty cell in column E at row 7
+2025-06-18 23:04:16,750 - InteractiveChartGenerator - INFO - Detected header row at index 7 (line 8)
+2025-06-18 23:04:16,791 - InteractiveChartGenerator - INFO - Numeric columns: ['No.', 'Humidity', ' Temperature', 'Voltage_Ref', 'Current (A) ', ' Sence (V)', 'CANStatus', 'Reset counter', 'Dimming']
+2025-06-18 23:04:16,792 - InteractiveChartGenerator - INFO - Text columns: ['Date Time', ' Mode', 'Time', 'Time.1', 'Time.2', 'Time.3', 'DTC', 'Time.4', 'Cause', 'Time.5', 'Bouton_IN (CAFR or LKA)', 'Bouton_OUT (STT)']
+2025-06-18 23:04:16,795 - InteractiveChartGenerator - INFO - Successfully loaded 517 rows and 21 columns
+2025-06-18 23:04:16,795 - InteractiveChartGenerator - INFO - Headers: ['No.', 'Date Time', ' Mode', 'Humidity', ' Temperature', 'Voltage_Ref', 'Time', 'Current (A) ', 'Time.1', ' Sence (V)', 'Time.2', 'CANStatus', 'Time.3', 'DTC', 'Time.4', 'Reset counter', 'Cause', 'Time.5', 'Bouton_IN (CAFR or LKA)', 'Bouton_OUT (STT)', 'Dimming']
+2025-06-18 23:04:16,797 - InteractiveChartGenerator - INFO - Data types: {'No.': dtype('float64'), 'Date Time': dtype('O'), ' Mode': dtype('O'), 'Humidity': dtype('float64'), ' Temperature': dtype('float64'), 'Voltage_Ref': dtype('float64'), 'Time': dtype('O'), 'Current (A) ': dtype('float64'), 'Time.1': dtype('O'), ' Sence (V)': dtype('float64'), 'Time.2': dtype('O'), 'CANStatus': dtype('float64'), 'Time.3': dtype('O'), 'DTC': dtype('O'), 'Time.4': dtype('O'), 'Reset counter': dtype('float64'), 'Cause': dtype('O'), 'Time.5': dtype('O'), 'Bouton_IN (CAFR or LKA)': dtype('O'), 'Bouton_OUT (STT)': dtype('O'), 'Dimming': dtype('float64')}
+2025-06-18 23:04:16,851 - InteractiveChartGenerator - INFO - All columns: ['No.', 'Date Time', ' Mode', 'Humidity', ' Temperature', 'Voltage_Ref', 'Time', 'Current (A) ', 'Time.1', ' Sence (V)', 'Time.2', 'CANStatus', 'Time.3', 'DTC', 'Time.4', 'Reset counter', 'Cause', 'Time.5', 'Bouton_IN (CAFR or LKA)', 'Bouton_OUT (STT)', 'Dimming']
+2025-06-18 23:04:16,852 - InteractiveChartGenerator - INFO - Numeric columns: ['No.', 'Humidity', ' Temperature', 'Voltage_Ref', 'Current (A) ', ' Sence (V)', 'CANStatus', 'Reset counter', 'Dimming']
+2025-06-18 23:04:16,857 - InteractiveChartGenerator - INFO - Chartable columns: ['No.', 'Date Time', 'Humidity', ' Temperature', 'Voltage_Ref', 'Time', 'Current (A) ', 'Time.1', ' Sence (V)', 'Time.2', 'CANStatus', 'Time.3', 'Time.4', 'Reset counter', 'Time.5', 'Dimming']
+2025-06-18 23:04:16,865 - InteractiveChartGenerator - INFO - Status: Loaded: DUT_2.csv
+2025-06-18 23:04:17,307 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series
+2025-06-18 23:04:17,307 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:04:17,308 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-18 23:04:17,308 - InteractiveChartGenerator - INFO - File loaded successfully: DUT_2.csv
+2025-06-18 23:04:23,465 - InteractiveChartGenerator - INFO - Converted column 'Date Time' to datetime for charting
+2025-06-18 23:04:23,610 - InteractiveChartGenerator - INFO - Created interactive line chart with 2 series
+2025-06-18 23:04:23,611 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:04:23,611 - InteractiveChartGenerator - INFO - Chart preview updated: 2 series, line type
+2025-06-18 23:04:24,618 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series
+2025-06-18 23:04:24,619 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:04:24,619 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-18 23:04:27,225 - InteractiveChartGenerator - INFO - Converted column 'Date Time' to datetime for charting
+2025-06-18 23:04:27,423 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series
+2025-06-18 23:04:27,423 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:04:27,424 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-18 23:04:29,984 - InteractiveChartGenerator - INFO - Converted column 'Date Time' to datetime for charting
+2025-06-18 23:04:29,990 - InteractiveChartGenerator - INFO - Converted column ' Mode' to categorical codes for charting
+2025-06-18 23:04:30,193 - InteractiveChartGenerator - INFO - Created interactive line chart with 2 series
+2025-06-18 23:04:30,200 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:04:30,201 - InteractiveChartGenerator - INFO - Chart preview updated: 2 series, line type
+2025-06-18 23:04:31,590 - InteractiveChartGenerator - INFO - Converted column 'Date Time' to datetime for charting
+2025-06-18 23:04:31,596 - InteractiveChartGenerator - INFO - Converted column ' Mode' to categorical codes for charting
+2025-06-18 23:04:31,765 - InteractiveChartGenerator - INFO - Created interactive line chart with 3 series
+2025-06-18 23:04:31,766 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:04:31,766 - InteractiveChartGenerator - INFO - Chart preview updated: 3 series, line type
+2025-06-18 23:04:32,581 - InteractiveChartGenerator - INFO - Converted column 'Date Time' to datetime for charting
+2025-06-18 23:04:32,586 - InteractiveChartGenerator - INFO - Converted column ' Mode' to categorical codes for charting
+2025-06-18 23:04:32,753 - InteractiveChartGenerator - INFO - Created interactive line chart with 4 series
+2025-06-18 23:04:32,754 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:04:32,754 - InteractiveChartGenerator - INFO - Chart preview updated: 4 series, line type
+2025-06-18 23:04:33,765 - InteractiveChartGenerator - INFO - Converted column 'Date Time' to datetime for charting
+2025-06-18 23:04:33,775 - InteractiveChartGenerator - INFO - Converted column ' Mode' to categorical codes for charting
+2025-06-18 23:04:34,017 - InteractiveChartGenerator - INFO - Created interactive line chart with 5 series
+2025-06-18 23:04:34,017 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:04:34,018 - InteractiveChartGenerator - INFO - Chart preview updated: 5 series, line type
+2025-06-18 23:04:55,820 - InteractiveChartGenerator - INFO - Converted column 'Date Time' to datetime for charting
+2025-06-18 23:04:55,835 - InteractiveChartGenerator - INFO - Converted column 'Date Time' to datetime for charting
+2025-06-18 23:04:55,857 - InteractiveChartGenerator - INFO - Converted column ' Mode' to categorical codes for charting
+2025-06-18 23:04:56,081 - InteractiveChartGenerator - INFO - Created interactive line chart with 6 series
+2025-06-18 23:04:56,082 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:04:56,084 - InteractiveChartGenerator - INFO - Chart preview updated: 6 series, line type
+2025-06-18 23:04:59,097 - InteractiveChartGenerator - INFO - Converted column 'Date Time' to datetime for charting
+2025-06-18 23:04:59,102 - InteractiveChartGenerator - INFO - Converted column ' Mode' to categorical codes for charting
+2025-06-18 23:04:59,288 - InteractiveChartGenerator - INFO - Created interactive line chart with 5 series
+2025-06-18 23:04:59,289 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:04:59,290 - InteractiveChartGenerator - INFO - Chart preview updated: 5 series, line type
+2025-06-18 23:05:11,214 - InteractiveChartGenerator - INFO - Loading CSV file with smart header detection: C:/Users/GILIEV/Desktop/Chart generator/DUT Logs/DUT5_SN_VLIMS_SS 1#9.csv
+2025-06-18 23:05:11,245 - InteractiveChartGenerator - INFO - Found non-empty cell in column E at row 24
+2025-06-18 23:05:11,246 - InteractiveChartGenerator - INFO - Detected header row at index 24 (line 25)
+2025-06-18 23:05:11,290 - InteractiveChartGenerator - INFO - Numeric columns: ['No:', ' Probe of Humidity(%)', 'Probe of Temperature(°C)', ' Reference Voltage(V)', 'Current[A]', ' CAN_status', 'CID ON/OFF', ' CDD ON/OFF', ' CID_BackLight ', ' CDD_BackLight', ' CID_X_Coordinates', ' CID_Y_Coordinates', ' CDD_X_Coordinates', ' CDD_Y_Coordinates', ' Light_Sensor_On', ' Light_Sensor_Off', ' Watchdog_reset', ' Hardware_reset', ' Power_reset', ' Clock_reset', ' DTC Stored']
+2025-06-18 23:05:11,291 - InteractiveChartGenerator - INFO - Text columns: [' Date & Time', ' DUT Mode', ' Dry contact value', 'Current[A] Status', 'CID_Display_Temp_Status', ' CDD_Display_Temp_Status']
+2025-06-18 23:05:11,292 - InteractiveChartGenerator - INFO - Successfully loaded 2411 rows and 29 columns
+2025-06-18 23:05:11,292 - InteractiveChartGenerator - INFO - Headers: ['No:', ' Date & Time', ' DUT Mode', ' Probe of Humidity(%)', 'Probe of Temperature(°C)', ' Dry contact value', ' Reference Voltage(V)', 'Current[A]', 'Current[A] Status', ' CAN_status', 'CID_Display_Temp_Status', ' CDD_Display_Temp_Status', 'CID ON/OFF', ' CDD ON/OFF', ' CID_BackLight ', ' CDD_BackLight', ' CID_X_Coordinates', ' CID_Y_Coordinates', ' CDD_X_Coordinates', ' CDD_Y_Coordinates', ' Light_Sensor_On', ' Light_Sensor_Off', ' Temp_1', 'Temp_2', ' Watchdog_reset', ' Hardware_reset', ' Power_reset', ' Clock_reset', ' DTC Stored']
+2025-06-18 23:05:11,294 - InteractiveChartGenerator - INFO - Data types: {'No:': dtype('int64'), ' Date & Time': dtype('O'), ' DUT Mode': dtype('O'), ' Probe of Humidity(%)': dtype('float64'), 'Probe of Temperature(°C)': dtype('float64'), ' Dry contact value': dtype('O'), ' Reference Voltage(V)': dtype('float64'), 'Current[A]': dtype('float64'), 'Current[A] Status': dtype('O'), ' CAN_status': dtype('int64'), 'CID_Display_Temp_Status': dtype('O'), ' CDD_Display_Temp_Status': dtype('O'), 'CID ON/OFF': dtype('int64'), ' CDD ON/OFF': dtype('int64'), ' CID_BackLight ': dtype('int64'), ' CDD_BackLight': dtype('int64'), ' CID_X_Coordinates': dtype('int64'), ' CID_Y_Coordinates': dtype('int64'), ' CDD_X_Coordinates': dtype('int64'), ' CDD_Y_Coordinates': dtype('int64'), ' Light_Sensor_On': dtype('int64'), ' Light_Sensor_Off': dtype('int64'), ' Temp_1': dtype('bool'), 'Temp_2': dtype('bool'), ' Watchdog_reset': dtype('int64'), ' Hardware_reset': dtype('int64'), ' Power_reset': dtype('int64'), ' Clock_reset': dtype('int64'), ' DTC Stored': dtype('int64')}
+2025-06-18 23:05:11,355 - InteractiveChartGenerator - INFO - All columns: ['No:', ' Date & Time', ' DUT Mode', ' Probe of Humidity(%)', 'Probe of Temperature(°C)', ' Dry contact value', ' Reference Voltage(V)', 'Current[A]', 'Current[A] Status', ' CAN_status', 'CID_Display_Temp_Status', ' CDD_Display_Temp_Status', 'CID ON/OFF', ' CDD ON/OFF', ' CID_BackLight ', ' CDD_BackLight', ' CID_X_Coordinates', ' CID_Y_Coordinates', ' CDD_X_Coordinates', ' CDD_Y_Coordinates', ' Light_Sensor_On', ' Light_Sensor_Off', ' Temp_1', 'Temp_2', ' Watchdog_reset', ' Hardware_reset', ' Power_reset', ' Clock_reset', ' DTC Stored']
+2025-06-18 23:05:11,356 - InteractiveChartGenerator - INFO - Numeric columns: ['No:', ' Probe of Humidity(%)', 'Probe of Temperature(°C)', ' Reference Voltage(V)', 'Current[A]', ' CAN_status', 'CID ON/OFF', ' CDD ON/OFF', ' CID_BackLight ', ' CDD_BackLight', ' CID_X_Coordinates', ' CID_Y_Coordinates', ' CDD_X_Coordinates', ' CDD_Y_Coordinates', ' Light_Sensor_On', ' Light_Sensor_Off', ' Watchdog_reset', ' Hardware_reset', ' Power_reset', ' Clock_reset', ' DTC Stored']
+2025-06-18 23:05:11,357 - InteractiveChartGenerator - INFO - Chartable columns: ['No:', ' Date & Time', ' Probe of Humidity(%)', 'Probe of Temperature(°C)', ' Reference Voltage(V)', 'Current[A]', ' CAN_status', 'CID ON/OFF', ' CDD ON/OFF', ' CID_BackLight ', ' CDD_BackLight', ' CID_X_Coordinates', ' CID_Y_Coordinates', ' CDD_X_Coordinates', ' CDD_Y_Coordinates', ' Light_Sensor_On', ' Light_Sensor_Off', ' Temp_1', 'Temp_2', ' Watchdog_reset', ' Hardware_reset', ' Power_reset', ' Clock_reset', ' DTC Stored']
+2025-06-18 23:05:11,361 - InteractiveChartGenerator - INFO - Status: Loaded: DUT5_SN_VLIMS_SS 1#9.csv
+2025-06-18 23:05:11,460 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series
+2025-06-18 23:05:11,461 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:05:11,461 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-18 23:05:11,462 - InteractiveChartGenerator - INFO - File loaded successfully: DUT5_SN_VLIMS_SS 1#9.csv
+2025-06-18 23:05:14,573 - InteractiveChartGenerator - INFO - Loading CSV file with smart header detection: c:\Users\GILIEV\Documents\GitHub\Python-Projects\Chart generator\ChartGenerator_Interactive\data\sample_environmental_data.csv
+2025-06-18 23:05:14,585 - InteractiveChartGenerator - WARNING - No non-empty cell found in column E
+2025-06-18 23:05:14,599 - InteractiveChartGenerator - WARNING - No header row detected, loading with default settings
+2025-06-18 23:05:14,608 - InteractiveChartGenerator - INFO - Numeric columns: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:05:14,610 - InteractiveChartGenerator - INFO - Successfully loaded 21 rows and 4 columns
+2025-06-18 23:05:14,611 - InteractiveChartGenerator - INFO - Headers: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:05:14,612 - InteractiveChartGenerator - INFO - Data types: {'Time': dtype('int64'), 'Temperature': dtype('float64'), 'Humidity': dtype('float64'), 'Pressure': dtype('float64')}
+2025-06-18 23:05:14,638 - InteractiveChartGenerator - INFO - All columns: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:05:14,640 - InteractiveChartGenerator - INFO - Numeric columns: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:05:14,641 - InteractiveChartGenerator - INFO - Chartable columns: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:05:14,643 - InteractiveChartGenerator - INFO - Status: Loaded: sample_environmental_data.csv
+2025-06-18 23:05:14,752 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series
+2025-06-18 23:05:14,755 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:05:14,756 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-18 23:05:14,758 - InteractiveChartGenerator - INFO - File loaded successfully: sample_environmental_data.csv
+2025-06-18 23:05:15,848 - InteractiveChartGenerator - INFO - Loading CSV file with smart header detection: c:\Users\GILIEV\Documents\GitHub\Python-Projects\Chart generator\ChartGenerator_Interactive\..\DUT Logs\DUT1 - Copy.csv
+2025-06-18 23:05:15,871 - InteractiveChartGenerator - INFO - Found non-empty cell in column E at row 2
+2025-06-18 23:05:15,875 - InteractiveChartGenerator - INFO - Detected header row at index 2 (line 3)
+2025-06-18 23:05:15,898 - InteractiveChartGenerator - INFO - Numeric columns: ['No:', ' Humidity ', ' Temperature ', ' Voltage ', ' Voltage_PCB', ' Current ', ' Dimming ', ' LightON ', ' LightOFF ', ' Y_Touch ', ' X_Touch ', ' Left Temp ', ' Right Temp ', ' Temp PCB ', ' Current Max ']
+2025-06-18 23:05:15,899 - InteractiveChartGenerator - INFO - Text columns: ['Date & Time ', ' DUT Mode ', ' Mode Max ', 'Unnamed: 18']
+2025-06-18 23:05:15,899 - InteractiveChartGenerator - INFO - Successfully loaded 1233 rows and 19 columns
+2025-06-18 23:05:15,899 - InteractiveChartGenerator - INFO - Headers: ['No:', 'Date & Time ', ' DUT Mode ', ' Humidity ', ' Temperature ', ' Voltage ', ' Voltage_PCB', ' Current ', ' Dimming ', ' LightON ', ' LightOFF ', ' Y_Touch ', ' X_Touch ', ' Left Temp ', ' Right Temp ', ' Temp PCB ', ' Mode Max ', ' Current Max ', 'Unnamed: 18']
+2025-06-18 23:05:15,900 - InteractiveChartGenerator - INFO - Data types: {'No:': dtype('int64'), 'Date & Time ': dtype('O'), ' DUT Mode ': dtype('O'), ' Humidity ': dtype('float64'), ' Temperature ': dtype('float64'), ' Voltage ': dtype('float64'), ' Voltage_PCB': dtype('float64'), ' Current ': dtype('float64'), ' Dimming ': dtype('int64'), ' LightON ': dtype('int64'), ' LightOFF ': dtype('int64'), ' Y_Touch ': dtype('int64'), ' X_Touch ': dtype('int64'), ' Left Temp ': dtype('float64'), ' Right Temp ': dtype('float64'), ' Temp PCB ': dtype('float64'), ' Mode Max ': dtype('O'), ' Current Max ': dtype('float64'), 'Unnamed: 18': dtype('O')}
+2025-06-18 23:05:15,921 - InteractiveChartGenerator - INFO - All columns: ['No:', 'Date & Time ', ' DUT Mode ', ' Humidity ', ' Temperature ', ' Voltage ', ' Voltage_PCB', ' Current ', ' Dimming ', ' LightON ', ' LightOFF ', ' Y_Touch ', ' X_Touch ', ' Left Temp ', ' Right Temp ', ' Temp PCB ', ' Mode Max ', ' Current Max ', 'Unnamed: 18']
+2025-06-18 23:05:15,923 - InteractiveChartGenerator - INFO - Numeric columns: ['No:', ' Humidity ', ' Temperature ', ' Voltage ', ' Voltage_PCB', ' Current ', ' Dimming ', ' LightON ', ' LightOFF ', ' Y_Touch ', ' X_Touch ', ' Left Temp ', ' Right Temp ', ' Temp PCB ', ' Current Max ']
+2025-06-18 23:05:15,925 - InteractiveChartGenerator - INFO - Chartable columns: ['No:', 'Date & Time ', ' Humidity ', ' Temperature ', ' Voltage ', ' Voltage_PCB', ' Current ', ' Dimming ', ' LightON ', ' LightOFF ', ' Y_Touch ', ' X_Touch ', ' Left Temp ', ' Right Temp ', ' Temp PCB ', ' Current Max ']
+2025-06-18 23:05:15,928 - InteractiveChartGenerator - INFO - Status: Loaded: DUT1 - Copy.csv
+2025-06-18 23:05:16,034 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series
+2025-06-18 23:05:16,036 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:05:16,047 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-18 23:05:16,049 - InteractiveChartGenerator - INFO - File loaded successfully: DUT1 - Copy.csv
+2025-06-18 23:05:17,355 - InteractiveChartGenerator - INFO - Loading CSV file with smart header detection: c:\Users\GILIEV\Documents\GitHub\Python-Projects\Chart generator\ChartGenerator_Interactive\data\sample_environmental_data.csv
+2025-06-18 23:05:17,362 - InteractiveChartGenerator - WARNING - No non-empty cell found in column E
+2025-06-18 23:05:17,363 - InteractiveChartGenerator - WARNING - No header row detected, loading with default settings
+2025-06-18 23:05:17,367 - InteractiveChartGenerator - INFO - Numeric columns: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:05:17,368 - InteractiveChartGenerator - INFO - Successfully loaded 21 rows and 4 columns
+2025-06-18 23:05:17,368 - InteractiveChartGenerator - INFO - Headers: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:05:17,371 - InteractiveChartGenerator - INFO - Data types: {'Time': dtype('int64'), 'Temperature': dtype('float64'), 'Humidity': dtype('float64'), 'Pressure': dtype('float64')}
+2025-06-18 23:05:17,391 - InteractiveChartGenerator - INFO - All columns: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:05:17,392 - InteractiveChartGenerator - INFO - Numeric columns: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:05:17,393 - InteractiveChartGenerator - INFO - Chartable columns: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:05:17,395 - InteractiveChartGenerator - INFO - Status: Loaded: sample_environmental_data.csv
+2025-06-18 23:05:17,504 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series
+2025-06-18 23:05:17,504 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:05:17,505 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-18 23:05:17,505 - InteractiveChartGenerator - INFO - File loaded successfully: sample_environmental_data.csv
+2025-06-18 23:05:20,308 - InteractiveChartGenerator - INFO - Created interactive line chart with 2 series
+2025-06-18 23:05:20,309 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:05:20,309 - InteractiveChartGenerator - INFO - Chart preview updated: 2 series, line type
+2025-06-18 23:05:21,283 - InteractiveChartGenerator - INFO - Created interactive line chart with 3 series
+2025-06-18 23:05:21,284 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:05:21,286 - InteractiveChartGenerator - INFO - Chart preview updated: 3 series, line type
+2025-06-18 23:05:22,274 - InteractiveChartGenerator - INFO - Created interactive line chart with 4 series
+2025-06-18 23:05:22,279 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:05:22,280 - InteractiveChartGenerator - INFO - Chart preview updated: 4 series, line type
+2025-06-18 23:05:27,628 - InteractiveChartGenerator - INFO - Loading CSV file with smart header detection: C:/Users/GILIEV/Desktop/Chart generator/DUT Logs/DUT_3.csv
+2025-06-18 23:05:27,658 - InteractiveChartGenerator - INFO - Found non-empty cell in column E at row 7
+2025-06-18 23:05:27,668 - InteractiveChartGenerator - INFO - Detected header row at index 7 (line 8)
+2025-06-18 23:05:27,688 - InteractiveChartGenerator - INFO - Numeric columns: ['No.', 'Humidity', ' Temperature', 'Voltage_Ref', 'Current (A) ', ' Sence (V)', 'CANStatus', 'Reset counter', 'Dimming', 'Unnamed: 21']
+2025-06-18 23:05:27,690 - InteractiveChartGenerator - INFO - Text columns: ['Date Time', ' Mode', 'Time', 'Time.1', 'Time.2', 'Time.3', 'DTC', 'Time.4', 'Cause', 'Time.5', 'Bouton_IN (CAFR or LKA)', 'Bouton_OUT (STT)']
+2025-06-18 23:05:27,691 - InteractiveChartGenerator - INFO - Successfully loaded 515 rows and 22 columns
+2025-06-18 23:05:27,692 - InteractiveChartGenerator - INFO - Headers: ['No.', 'Date Time', ' Mode', 'Humidity', ' Temperature', 'Voltage_Ref', 'Time', 'Current (A) ', 'Time.1', ' Sence (V)', 'Time.2', 'CANStatus', 'Time.3', 'DTC', 'Time.4', 'Reset counter', 'Cause', 'Time.5', 'Bouton_IN (CAFR or LKA)', 'Bouton_OUT (STT)', 'Dimming', 'Unnamed: 21']
+2025-06-18 23:05:27,693 - InteractiveChartGenerator - INFO - Data types: {'No.': dtype('int64'), 'Date Time': dtype('O'), ' Mode': dtype('O'), 'Humidity': dtype('float64'), ' Temperature': dtype('float64'), 'Voltage_Ref': dtype('float64'), 'Time': dtype('O'), 'Current (A) ': dtype('float64'), 'Time.1': dtype('O'), ' Sence (V)': dtype('int64'), 'Time.2': dtype('O'), 'CANStatus': dtype('int64'), 'Time.3': dtype('O'), 'DTC': dtype('O'), 'Time.4': dtype('O'), 'Reset counter': dtype('int64'), 'Cause': dtype('O'), 'Time.5': dtype('O'), 'Bouton_IN (CAFR or LKA)': dtype('O'), 'Bouton_OUT (STT)': dtype('O'), 'Dimming': dtype('int64'), 'Unnamed: 21': dtype('float64')}
+2025-06-18 23:05:27,759 - InteractiveChartGenerator - INFO - All columns: ['No.', 'Date Time', ' Mode', 'Humidity', ' Temperature', 'Voltage_Ref', 'Time', 'Current (A) ', 'Time.1', ' Sence (V)', 'Time.2', 'CANStatus', 'Time.3', 'DTC', 'Time.4', 'Reset counter', 'Cause', 'Time.5', 'Bouton_IN (CAFR or LKA)', 'Bouton_OUT (STT)', 'Dimming', 'Unnamed: 21']
+2025-06-18 23:05:27,759 - InteractiveChartGenerator - INFO - Numeric columns: ['No.', 'Humidity', ' Temperature', 'Voltage_Ref', 'Current (A) ', ' Sence (V)', 'CANStatus', 'Reset counter', 'Dimming', 'Unnamed: 21']
+2025-06-18 23:05:27,760 - InteractiveChartGenerator - INFO - Chartable columns: ['No.', 'Date Time', 'Humidity', ' Temperature', 'Voltage_Ref', 'Time', 'Current (A) ', 'Time.1', ' Sence (V)', 'Time.2', 'CANStatus', 'Time.3', 'Time.4', 'Reset counter', 'Time.5', 'Dimming', 'Unnamed: 21']
+2025-06-18 23:05:27,765 - InteractiveChartGenerator - INFO - Status: Loaded: DUT_3.csv
+2025-06-18 23:05:27,869 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series
+2025-06-18 23:05:27,869 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:05:27,870 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-18 23:05:27,871 - InteractiveChartGenerator - INFO - File loaded successfully: DUT_3.csv
+2025-06-18 23:06:18,784 - InteractiveChartGenerator - INFO - Created interactive line chart with 2 series
+2025-06-18 23:06:18,785 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:06:18,785 - InteractiveChartGenerator - INFO - Chart preview updated: 2 series, line type
+2025-06-18 23:10:02,087 - InteractiveChartGenerator - INFO - Status: Chart copied to clipboard
+2025-06-18 23:10:13,565 - InteractiveChartGenerator - INFO - Status: Chart copied to clipboard
+2025-06-18 23:10:39,713 - InteractiveChartGenerator - INFO - Status: Chart saved as PDF: C:/Users/GILIEV/Desktop/Chart generator/DUT Logs/untitled.pdf
+2025-06-18 23:11:28,351 - InteractiveChartGenerator - INFO - Status: Data cleared
+2025-06-18 23:11:37,211 - InteractiveChartGenerator - INFO - Loading CSV file with smart header detection: c:\Users\GILIEV\Documents\GitHub\Python-Projects\Chart generator\ChartGenerator_Interactive\..\DUT Logs\DUT1 - Copy.csv
+2025-06-18 23:11:37,213 - InteractiveChartGenerator - INFO - Found non-empty cell in column E at row 2
+2025-06-18 23:11:37,213 - InteractiveChartGenerator - INFO - Detected header row at index 2 (line 3)
+2025-06-18 23:11:37,224 - InteractiveChartGenerator - INFO - Numeric columns: ['No:', ' Humidity ', ' Temperature ', ' Voltage ', ' Voltage_PCB', ' Current ', ' Dimming ', ' LightON ', ' LightOFF ', ' Y_Touch ', ' X_Touch ', ' Left Temp ', ' Right Temp ', ' Temp PCB ', ' Current Max ']
+2025-06-18 23:11:37,225 - InteractiveChartGenerator - INFO - Text columns: ['Date & Time ', ' DUT Mode ', ' Mode Max ', 'Unnamed: 18']
+2025-06-18 23:11:37,225 - InteractiveChartGenerator - INFO - Successfully loaded 1233 rows and 19 columns
+2025-06-18 23:11:37,225 - InteractiveChartGenerator - INFO - Headers: ['No:', 'Date & Time ', ' DUT Mode ', ' Humidity ', ' Temperature ', ' Voltage ', ' Voltage_PCB', ' Current ', ' Dimming ', ' LightON ', ' LightOFF ', ' Y_Touch ', ' X_Touch ', ' Left Temp ', ' Right Temp ', ' Temp PCB ', ' Mode Max ', ' Current Max ', 'Unnamed: 18']
+2025-06-18 23:11:37,226 - InteractiveChartGenerator - INFO - Data types: {'No:': dtype('int64'), 'Date & Time ': dtype('O'), ' DUT Mode ': dtype('O'), ' Humidity ': dtype('float64'), ' Temperature ': dtype('float64'), ' Voltage ': dtype('float64'), ' Voltage_PCB': dtype('float64'), ' Current ': dtype('float64'), ' Dimming ': dtype('int64'), ' LightON ': dtype('int64'), ' LightOFF ': dtype('int64'), ' Y_Touch ': dtype('int64'), ' X_Touch ': dtype('int64'), ' Left Temp ': dtype('float64'), ' Right Temp ': dtype('float64'), ' Temp PCB ': dtype('float64'), ' Mode Max ': dtype('O'), ' Current Max ': dtype('float64'), 'Unnamed: 18': dtype('O')}
+2025-06-18 23:11:37,241 - InteractiveChartGenerator - INFO - All columns: ['No:', 'Date & Time ', ' DUT Mode ', ' Humidity ', ' Temperature ', ' Voltage ', ' Voltage_PCB', ' Current ', ' Dimming ', ' LightON ', ' LightOFF ', ' Y_Touch ', ' X_Touch ', ' Left Temp ', ' Right Temp ', ' Temp PCB ', ' Mode Max ', ' Current Max ', 'Unnamed: 18']
+2025-06-18 23:11:37,241 - InteractiveChartGenerator - INFO - Numeric columns: ['No:', ' Humidity ', ' Temperature ', ' Voltage ', ' Voltage_PCB', ' Current ', ' Dimming ', ' LightON ', ' LightOFF ', ' Y_Touch ', ' X_Touch ', ' Left Temp ', ' Right Temp ', ' Temp PCB ', ' Current Max ']
+2025-06-18 23:11:37,241 - InteractiveChartGenerator - INFO - Chartable columns: ['No:', 'Date & Time ', ' Humidity ', ' Temperature ', ' Voltage ', ' Voltage_PCB', ' Current ', ' Dimming ', ' LightON ', ' LightOFF ', ' Y_Touch ', ' X_Touch ', ' Left Temp ', ' Right Temp ', ' Temp PCB ', ' Current Max ']
+2025-06-18 23:11:37,243 - InteractiveChartGenerator - INFO - Status: Loaded: DUT1 - Copy.csv
+2025-06-18 23:11:37,347 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series
+2025-06-18 23:11:37,347 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:11:37,348 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-18 23:11:37,348 - InteractiveChartGenerator - INFO - File loaded successfully: DUT1 - Copy.csv
+2025-06-18 23:11:38,948 - InteractiveChartGenerator - INFO - Loading CSV file with smart header detection: c:\Users\GILIEV\Documents\GitHub\Python-Projects\Chart generator\ChartGenerator_Interactive\data\sample_environmental_data.csv
+2025-06-18 23:11:38,951 - InteractiveChartGenerator - WARNING - No non-empty cell found in column E
+2025-06-18 23:11:38,951 - InteractiveChartGenerator - WARNING - No header row detected, loading with default settings
+2025-06-18 23:11:38,957 - InteractiveChartGenerator - INFO - Numeric columns: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:11:38,957 - InteractiveChartGenerator - INFO - Successfully loaded 21 rows and 4 columns
+2025-06-18 23:11:38,958 - InteractiveChartGenerator - INFO - Headers: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:11:38,958 - InteractiveChartGenerator - INFO - Data types: {'Time': dtype('int64'), 'Temperature': dtype('float64'), 'Humidity': dtype('float64'), 'Pressure': dtype('float64')}
+2025-06-18 23:11:38,969 - InteractiveChartGenerator - INFO - All columns: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:11:38,969 - InteractiveChartGenerator - INFO - Numeric columns: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:11:38,970 - InteractiveChartGenerator - INFO - Chartable columns: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:11:38,971 - InteractiveChartGenerator - INFO - Status: Loaded: sample_environmental_data.csv
+2025-06-18 23:11:39,087 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series
+2025-06-18 23:11:39,087 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:11:39,088 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-18 23:11:39,088 - InteractiveChartGenerator - INFO - File loaded successfully: sample_environmental_data.csv
+2025-06-18 23:11:39,589 - InteractiveChartGenerator - INFO - Loading CSV file with smart header detection: c:\Users\GILIEV\Documents\GitHub\Python-Projects\Chart generator\ChartGenerator_Interactive\..\DUT Logs\DUT1 - Copy.csv
+2025-06-18 23:11:39,591 - InteractiveChartGenerator - INFO - Found non-empty cell in column E at row 2
+2025-06-18 23:11:39,591 - InteractiveChartGenerator - INFO - Detected header row at index 2 (line 3)
+2025-06-18 23:11:39,604 - InteractiveChartGenerator - INFO - Numeric columns: ['No:', ' Humidity ', ' Temperature ', ' Voltage ', ' Voltage_PCB', ' Current ', ' Dimming ', ' LightON ', ' LightOFF ', ' Y_Touch ', ' X_Touch ', ' Left Temp ', ' Right Temp ', ' Temp PCB ', ' Current Max ']
+2025-06-18 23:11:39,606 - InteractiveChartGenerator - INFO - Text columns: ['Date & Time ', ' DUT Mode ', ' Mode Max ', 'Unnamed: 18']
+2025-06-18 23:11:39,607 - InteractiveChartGenerator - INFO - Successfully loaded 1233 rows and 19 columns
+2025-06-18 23:11:39,607 - InteractiveChartGenerator - INFO - Headers: ['No:', 'Date & Time ', ' DUT Mode ', ' Humidity ', ' Temperature ', ' Voltage ', ' Voltage_PCB', ' Current ', ' Dimming ', ' LightON ', ' LightOFF ', ' Y_Touch ', ' X_Touch ', ' Left Temp ', ' Right Temp ', ' Temp PCB ', ' Mode Max ', ' Current Max ', 'Unnamed: 18']
+2025-06-18 23:11:39,607 - InteractiveChartGenerator - INFO - Data types: {'No:': dtype('int64'), 'Date & Time ': dtype('O'), ' DUT Mode ': dtype('O'), ' Humidity ': dtype('float64'), ' Temperature ': dtype('float64'), ' Voltage ': dtype('float64'), ' Voltage_PCB': dtype('float64'), ' Current ': dtype('float64'), ' Dimming ': dtype('int64'), ' LightON ': dtype('int64'), ' LightOFF ': dtype('int64'), ' Y_Touch ': dtype('int64'), ' X_Touch ': dtype('int64'), ' Left Temp ': dtype('float64'), ' Right Temp ': dtype('float64'), ' Temp PCB ': dtype('float64'), ' Mode Max ': dtype('O'), ' Current Max ': dtype('float64'), 'Unnamed: 18': dtype('O')}
+2025-06-18 23:11:39,622 - InteractiveChartGenerator - INFO - All columns: ['No:', 'Date & Time ', ' DUT Mode ', ' Humidity ', ' Temperature ', ' Voltage ', ' Voltage_PCB', ' Current ', ' Dimming ', ' LightON ', ' LightOFF ', ' Y_Touch ', ' X_Touch ', ' Left Temp ', ' Right Temp ', ' Temp PCB ', ' Mode Max ', ' Current Max ', 'Unnamed: 18']
+2025-06-18 23:11:39,622 - InteractiveChartGenerator - INFO - Numeric columns: ['No:', ' Humidity ', ' Temperature ', ' Voltage ', ' Voltage_PCB', ' Current ', ' Dimming ', ' LightON ', ' LightOFF ', ' Y_Touch ', ' X_Touch ', ' Left Temp ', ' Right Temp ', ' Temp PCB ', ' Current Max ']
+2025-06-18 23:11:39,622 - InteractiveChartGenerator - INFO - Chartable columns: ['No:', 'Date & Time ', ' Humidity ', ' Temperature ', ' Voltage ', ' Voltage_PCB', ' Current ', ' Dimming ', ' LightON ', ' LightOFF ', ' Y_Touch ', ' X_Touch ', ' Left Temp ', ' Right Temp ', ' Temp PCB ', ' Current Max ']
+2025-06-18 23:11:39,626 - InteractiveChartGenerator - INFO - Status: Loaded: DUT1 - Copy.csv
+2025-06-18 23:11:39,719 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series
+2025-06-18 23:11:39,719 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:11:39,720 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-18 23:11:39,720 - InteractiveChartGenerator - INFO - File loaded successfully: DUT1 - Copy.csv
+2025-06-18 23:11:40,020 - InteractiveChartGenerator - INFO - Loading CSV file with smart header detection: c:\Users\GILIEV\Documents\GitHub\Python-Projects\Chart generator\ChartGenerator_Interactive\data\sample_environmental_data.csv
+2025-06-18 23:11:40,027 - InteractiveChartGenerator - WARNING - No non-empty cell found in column E
+2025-06-18 23:11:40,028 - InteractiveChartGenerator - WARNING - No header row detected, loading with default settings
+2025-06-18 23:11:40,033 - InteractiveChartGenerator - INFO - Numeric columns: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:11:40,034 - InteractiveChartGenerator - INFO - Successfully loaded 21 rows and 4 columns
+2025-06-18 23:11:40,034 - InteractiveChartGenerator - INFO - Headers: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:11:40,035 - InteractiveChartGenerator - INFO - Data types: {'Time': dtype('int64'), 'Temperature': dtype('float64'), 'Humidity': dtype('float64'), 'Pressure': dtype('float64')}
+2025-06-18 23:11:40,045 - InteractiveChartGenerator - INFO - All columns: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:11:40,046 - InteractiveChartGenerator - INFO - Numeric columns: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:11:40,046 - InteractiveChartGenerator - INFO - Chartable columns: ['Time', 'Temperature', 'Humidity', 'Pressure']
+2025-06-18 23:11:40,047 - InteractiveChartGenerator - INFO - Status: Loaded: sample_environmental_data.csv
+2025-06-18 23:11:40,147 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series
+2025-06-18 23:11:40,147 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-18 23:11:40,147 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-18 23:11:40,147 - InteractiveChartGenerator - INFO - File loaded successfully: sample_environmental_data.csv

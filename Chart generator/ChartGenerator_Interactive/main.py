@@ -36,12 +36,28 @@ def main():
     logger = setup_logging()
     logger.info("Starting Interactive Chart Generator v2.0")
     
-    try:
-        # Create main window
+    try:        # Create main window
         root = tk.Tk()
         root.title("Interactive Chart Generator v2.0")
-        root.geometry("1400x900")
-        root.minsize(1200, 800)
+        
+        # Get screen dimensions
+        screen_width = root.winfo_screenwidth()
+        screen_height = root.winfo_screenheight()
+        
+        # Calculate window size as percentage of screen (85% width, 80% height)
+        window_width = int(screen_width * 0.85)
+        window_height = int(screen_height * 0.80)
+        
+        # Set minimum size (60% of screen or absolute minimum)
+        min_width = max(int(screen_width * 0.60), 1000)
+        min_height = max(int(screen_height * 0.60), 700)
+        
+        # Apply window size and minimum size
+        root.geometry(f"{window_width}x{window_height}")
+        root.minsize(min_width, min_height)
+        
+        # Make window resizable
+        root.resizable(True, True)
         
         # Set application icon (if available)
         try:
@@ -54,9 +70,17 @@ def main():
         
         # Center window on screen
         root.update_idletasks()
-        x = (root.winfo_screenwidth() // 2) - (root.winfo_width() // 2)
-        y = (root.winfo_screenheight() // 2) - (root.winfo_height() // 2)
-        root.geometry(f"+{x}+{y}")
+        x = (screen_width // 2) - (window_width // 2)
+        y = (screen_height // 2) - (window_height // 2)
+        root.geometry(f"{window_width}x{window_height}+{x}+{y}")
+        
+        # Optional: Start maximized on smaller screens
+        if screen_width <= 1366 or screen_height <= 768:
+            root.state('zoomed' if root.tk.call('tk', 'windowingsystem') == 'win32' else 'normal')
+        
+        logger.info(f"Screen size: {screen_width}x{screen_height}")
+        logger.info(f"Window size: {window_width}x{window_height}")
+        logger.info(f"Minimum size: {min_width}x{min_height}")
         
         # Set up exception handling
         def handle_exception(exc_type, exc_value, exc_traceback):

@@ -41,19 +41,40 @@ class InteractiveChartApp:
         self.setup_ui()
         self.setup_styles()
         
+        # Bind window resize event for responsive layout
+        self.root.bind('<Configure>', self.on_window_resize)
+        
         logger.info("Interactive Chart Application initialized")
-    
     def setup_styles(self):
-        """Setup UI styles"""
+        """Setup UI styles with responsive font sizing"""
         style = ttk.Style()
         
-        # Configure styles
-        style.configure('Title.TLabel', font=('Arial', 12, 'bold'))
-        style.configure('Header.TLabel', font=('Arial', 10, 'bold'))
-        style.configure('Info.TLabel', font=('Arial', 9), foreground='blue')
+        # Get screen size for responsive styling
+        screen_width = self.root.winfo_screenwidth()
+        
+        # Calculate responsive font sizes
+        if screen_width >= 1920:  # 4K/high-res displays
+            title_font_size = 14
+            header_font_size = 11
+            info_font_size = 10
+        elif screen_width >= 1366:  # Standard displays
+            title_font_size = 12
+            header_font_size = 10
+            info_font_size = 9
+        else:  # Smaller displays
+            title_font_size = 11
+            header_font_size = 9
+            info_font_size = 8
+        
+        # Configure styles with responsive fonts
+        style.configure('Title.TLabel', font=('Arial', title_font_size, 'bold'))
+        style.configure('Header.TLabel', font=('Arial', header_font_size, 'bold'))
+        style.configure('Info.TLabel', font=('Arial', info_font_size), foreground='blue')
         
         # Configure the main window
         self.root.configure(bg='#f0f0f0')
+        
+        logger.info(f"Applied responsive styling for {screen_width}px width screen")
     
     def setup_ui(self):
         """Setup the main UI layout"""
@@ -77,14 +98,17 @@ class InteractiveChartApp:
         version_label = ttk.Label(title_frame, 
                                  text="Advanced Interactive Features", 
                                  style='Info.TLabel')
-        version_label.grid(row=0, column=1, sticky='e')
-          # Main content frame
+        version_label.grid(row=0, column=1, sticky='e')        # Main content frame
         main_frame = ttk.Frame(self.root)
         main_frame.grid(row=1, column=0, sticky='nsew', padx=10, pady=5)
         
-        # Configure main frame grid for exact 50/50 split
-        main_frame.columnconfigure(0, weight=1, minsize=600)  # Left panel (controls) - minimum width
-        main_frame.columnconfigure(1, weight=1, minsize=600)  # Right panel (chart preview) - equal weight
+        # Get screen width for responsive sizing
+        screen_width = self.root.winfo_screenwidth()
+        min_panel_width = max(int(screen_width * 0.25), 400)  # 25% of screen or 400px minimum
+        
+        # Configure main frame grid for responsive 50/50 split
+        main_frame.columnconfigure(0, weight=1, minsize=min_panel_width)  # Left panel (controls)
+        main_frame.columnconfigure(1, weight=1, minsize=min_panel_width)  # Right panel (chart preview)
         main_frame.rowconfigure(0, weight=1)
         
         # Left panel (controls)
@@ -378,3 +402,14 @@ class InteractiveChartApp:
         self.file_frame.file_label.config(text="No files selected", foreground="gray")
         self.file_frame.current_files = []  # Clear the files list
         self.update_chart_preview()
+    
+    def on_window_resize(self, event):
+        """Handle window resize events"""
+        # Only handle resize events for the root window
+        if event.widget == self.root:
+            # Update chart size if there's an active chart
+            if hasattr(self, 'chart_generator') and self.chart_generator.figure is not None:
+                # Debounce resize events - only update after 500ms of no resize
+                if hasattr(self, '_resize_timer'):
+                    self.root.after_cancel(self._resize_timer)
+                self._resize_timer = self.root.after(500, self.update_chart_preview)

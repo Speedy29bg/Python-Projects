@@ -48,14 +48,15 @@ class FileSelectionFrame:
         button_frame = ttk.Frame(top_frame)
         button_frame.pack(side=tk.LEFT)
 
-        # Load file button (compact)
-        ttk.Button(button_frame, text="Browse CSV", width=12,
+        # Responsive button sizing - adjust based on available space
+        # Load file button
+        ttk.Button(button_frame, text="Browse CSV",
                   command=self.load_file).pack(side=tk.LEFT, padx=(0, 3))
-        # Preview Data button (compact)
-        ttk.Button(button_frame, text="Preview", width=8,
+        # Preview Data button
+        ttk.Button(button_frame, text="Preview",
                   command=self.preview_data).pack(side=tk.LEFT, padx=(0, 3))
-        # Clear Data button (compact)
-        ttk.Button(button_frame, text="Clear", width=6,
+        # Clear Data button
+        ttk.Button(button_frame, text="Clear",
                   command=self.clear_data).pack(side=tk.LEFT)
 
         # Quick load frame for recent files
@@ -186,12 +187,19 @@ class AxesSelectionFrame:
         self.x_combo = ttk.Combobox(left_frame, textvariable=self.x_var, state='readonly', width=25)
         self.x_combo.grid(row=1, column=0, sticky='ew', pady=(5, 15))
         self.x_combo.bind('<<ComboboxSelected>>', lambda e: self.on_selection_changed())
-        
-        # Y-axis selection
+          # Y-axis selection
         ttk.Label(right_frame, text="Y-Axis (select multiple):", font=('Arial', 10, 'bold')).grid(row=0, column=0, sticky='w')
         
-        # Scrollable frame for Y-axis checkboxes
-        self.y_canvas = tk.Canvas(right_frame, height=150)
+        # Scrollable frame for Y-axis checkboxes with responsive height
+        # Calculate responsive height based on available space
+        try:
+            root = self.parent.winfo_toplevel()
+            screen_height = root.winfo_screenheight()
+            canvas_height = max(min(int(screen_height * 0.2), 200), 100)  # 20% of screen height, clamped between 100-200
+        except:
+            canvas_height = 150  # Fallback
+            
+        self.y_canvas = tk.Canvas(right_frame, height=canvas_height)
         self.y_scrollbar = ttk.Scrollbar(right_frame, orient="vertical", command=self.y_canvas.yview)
         self.y_scrollable_frame = ttk.Frame(self.y_canvas)
         self.y_scrollable_frame.bind(
