@@ -65,7 +65,12 @@ class InteractiveChartGenerator:
         
         # Clear any existing content
         for widget in parent_frame.winfo_children():
-            widget.destroy()        # Create main container
+            widget.destroy()
+        
+        # Clean up any existing chart elements
+        self._cleanup_chart_elements()
+        
+        # Create main container
         main_container = ttk.Frame(parent_frame)
         main_container.pack(fill='both', expand=True)
         
@@ -240,14 +245,20 @@ class InteractiveChartGenerator:
                 self._disable_data_cursor()
         
         ttk.Checkbutton(controls_frame1, text="Data Cursor", variable=cursor_var, 
-                       command=toggle_cursor).pack(side='left', padx=5)
-          # Crosshair toggle
+                       command=toggle_cursor).pack(side='left', padx=5)        # Crosshair toggle
         crosshair_var = tk.BooleanVar(value=False)
         def toggle_crosshair():
-            if crosshair_var.get():
-                self._enable_crosshair(primary_ax)
-            else:
-                self._disable_crosshair(primary_ax)
+            try:
+                if crosshair_var.get():
+                    self._enable_crosshair(primary_ax)
+                    logger.info("Crosshair enabled")
+                else:
+                    self._disable_crosshair(primary_ax)
+                    logger.info("Crosshair disabled")
+            except Exception as e:
+                logger.error(f"Error toggling crosshair: {e}")
+                # Reset checkbox state on error
+                crosshair_var.set(False)
         
         ttk.Checkbutton(controls_frame1, text="Crosshair", variable=crosshair_var, 
                        command=toggle_crosshair).pack(side='left', padx=5)
@@ -379,34 +390,87 @@ class InteractiveChartGenerator:
     
     def _enable_crosshair(self, ax):
         """Enable crosshair cursor"""
-        # Add crosshair lines if they don't exist
-        if not hasattr(ax, 'crosshair_h'):
-            ax.crosshair_h = ax.axhline(color='red', linestyle='--', alpha=0.7, visible=False)
-            ax.crosshair_v = ax.axvline(color='red', linestyle='--', alpha=0.7, visible=False)
+        # Disable any existing crosshair first
+        self._disable_crosshair(ax)
+        
+        # Create crosshair lines if they don't exist
+        if not hasattr(self, 'crosshair_h'):
+            self.crosshair_h = ax.axhline(color='red', linestyle='--', alpha=0.7, visible=False)
+            self.crosshair_v = ax.axvline(color='red', linestyle='--', alpha=0.7, visible=False)
+        
+        # Keep track of the axis for validation
+        self.crosshair_ax = ax
         
         def on_mouse_move(event):
-            if event.inaxes == ax:
-                ax.crosshair_h.set_ydata([event.ydata, event.ydata])
-                ax.crosshair_v.set_xdata([event.xdata, event.xdata])
-                ax.crosshair_h.set_visible(True)
-                ax.crosshair_v.set_visible(True)
-                self.canvas.draw_idle()
+            if (event.inaxes == ax and hasattr(self, 'crosshair_h') and 
+                hasattr(self, 'crosshair_ax') and self.crosshair_ax == ax):
+                try:
+                    # Only update if we have valid data
+                    if event.xdata is not None and event.ydata is not None:
+                        self.crosshair_h.set_ydata([event.ydata, event.ydata])
+                        self.crosshair_v.set_xdata([event.xdata, event.xdata])
+                        self.crosshair_h.set_visible(True)
+                        self.crosshair_v.set_visible(True)
+                        # Use draw_idle for better performance and avoid blocking
+                        self.canvas.draw_idle()
+                except Exception as e:
+                    # Silently ignore errors during crosshair update
+                    pass
         
         def on_mouse_leave(event):
-            if hasattr(ax, 'crosshair_h'):
-                ax.crosshair_h.set_visible(False)
-                ax.crosshair_v.set_visible(False)
-                self.canvas.draw_idle()
+            if (hasattr(self, 'crosshair_h') and hasattr(self, 'crosshair_ax') and 
+                self.crosshair_ax == ax):
+                try:
+                    self.crosshair_h.set_visible(False)
+                    self.crosshair_v.set_visible(False)
+                    self.canvas.draw_idle()
+                except Exception as e:
+                    # Silently ignore errors during crosshair update
+                    pass
         
-        self.canvas.mpl_connect('motion_notify_event', on_mouse_move)
-        self.canvas.mpl_connect('axes_leave_event', on_mouse_leave)
+        # Store event connections for proper cleanup
+        self.crosshair_move_cid = self.canvas.mpl_connect('motion_notify_event', on_mouse_move)
+        self.crosshair_leave_cid = self.canvas.mpl_connect('axes_leave_event', on_mouse_leave)
     
     def _disable_crosshair(self, ax):
         """Disable crosshair cursor"""
-        if hasattr(ax, 'crosshair_h'):
-            ax.crosshair_h.set_visible(False)
-            ax.crosshair_v.set_visible(False)
-            self.canvas.draw()
+        # Disconnect event handlers
+        if hasattr(self, 'crosshair_move_cid'):
+            try:
+                self.canvas.mpl_disconnect(self.crosshair_move_cid)
+                delattr(self, 'crosshair_move_cid')
+            except:
+                pass
+            
+        if hasattr(self, 'crosshair_leave_cid'):
+            try:
+                self.canvas.mpl_disconnect(self.crosshair_leave_cid)
+                delattr(self, 'crosshair_leave_cid')
+            except:
+                pass
+        
+        # Remove crosshair lines
+        if hasattr(self, 'crosshair_h'):
+            try:
+                self.crosshair_h.remove()
+                self.crosshair_v.remove()
+            except:
+                pass  # Lines might already be removed
+            
+            # Clean up attributes
+            delattr(self, 'crosshair_h')
+            delattr(self, 'crosshair_v')
+            
+        # Clean up axis reference
+        if hasattr(self, 'crosshair_ax'):
+            delattr(self, 'crosshair_ax')
+            
+        # Redraw canvas only once to clear crosshairs
+        if hasattr(self, 'canvas') and self.canvas:
+            try:
+                self.canvas.draw_idle()
+            except:
+                pass
     
     def _show_statistics(self, ax):
         """Show statistics overlay"""
@@ -451,3 +515,41 @@ class InteractiveChartGenerator:
         self.canvas = None
         self.toolbar = None
         self.current_axes = []
+    
+    def _cleanup_chart_elements(self):
+        """Clean up chart elements to prevent conflicts"""
+        # Disable crosshair if active (more robust cleanup)
+        if hasattr(self, 'crosshair_h') or hasattr(self, 'crosshair_move_cid'):
+            try:
+                self._disable_crosshair(None)  # ax is not needed for cleanup
+            except Exception as e:
+                logger.debug(f"Error during crosshair cleanup: {e}")
+                # Force cleanup manually
+                for attr in ['crosshair_h', 'crosshair_v', 'crosshair_ax', 'crosshair_move_cid', 'crosshair_leave_cid']:
+                    if hasattr(self, attr):
+                        try:
+                            delattr(self, attr)
+                        except:
+                            pass
+                
+        # Clean up data cursor
+        if hasattr(self, 'cursor'):
+            try:
+                self._disable_data_cursor()
+            except Exception as e:
+                logger.debug(f"Error during cursor cleanup: {e}")
+                
+        # Clean up statistics
+        if hasattr(self.figure, 'stats_text'):
+            try:
+                self._hide_statistics()
+            except Exception as e:
+                logger.debug(f"Error during statistics cleanup: {e}")
+                
+        # Close previous figure if exists
+        if self.figure:
+            try:
+                plt.close(self.figure)
+            except Exception as e:
+                logger.debug(f"Error closing figure: {e}")
+            self.figure = None
