@@ -69,15 +69,15 @@ def test_app_with_data():
         app.file_selection_frame.update_file_label(1)
         app.update_status("Test data loaded - Interactive features should appear in chart preview")
         
-        # Trigger chart creation
-        app.update_preview()
+        # Trigger chart creation        app.update_preview()
         
-        print("App started! Check the chart preview area for interactive controls.")
-        print("You should see:")
-        print("- Navigation toolbar at the top of the chart")
-        print("- Interactive control buttons below the chart")
-        print("- Sliders for line width and transparency")
-        print("- Coordinate display when you click")
+        instructions = """App started! Check the chart preview area for interactive controls.
+You should see:
+- Navigation toolbar at the top of the chart
+- Interactive control buttons below the chart
+- Sliders for line width and transparency
+- Coordinate display when you click"""
+        print(instructions)
         
         # Add a label with instructions
         instruction_text = "Interactive Features Test - Look for controls below the chart!"

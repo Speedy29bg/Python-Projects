@@ -12,8 +12,53 @@ from tkinter import ttk, filedialog, messagebox
 import os
 from typing import List, Dict, Optional, Callable, Any
 from utils.logger import get_logger
+from .excel_table import ExcelDataTable
 
 logger = get_logger()
+
+class ExcelFilterFrame:
+    """Excel-style data filtering with AutoFilter"""
+    
+    def __init__(self, parent, data_processor, on_filter_changed: Callable):
+        """
+        Initialize Excel-style filter frame
+        
+        Args:
+            parent: Parent tkinter widget
+            data_processor: DataProcessor instance
+            on_filter_changed: Callback when filters change
+        """
+        self.parent = parent
+        self.data_processor = data_processor
+        self.on_filter_changed = on_filter_changed
+        
+        self.create_ui()
+    
+    def create_ui(self):
+        """Create the Excel-style filtering UI"""
+        # Main frame
+        self.frame = ttk.LabelFrame(self.parent, text="Data Preview & AutoFilter", padding=5)
+        
+        # Excel-style data table
+        self.excel_table = ExcelDataTable(self.frame, self.data_processor, self.on_data_changed)
+        self.excel_table.pack(fill='both', expand=True)
+    
+    def on_data_changed(self):
+        """Handle data changes from the Excel table"""
+        self.on_filter_changed()
+    
+    def update_data(self):
+        """Update when new data is loaded"""
+        if hasattr(self.excel_table, 'update_data'):
+            self.excel_table.update_data()
+    
+    def pack(self, **kwargs):
+        """Pack the frame"""
+        self.frame.pack(**kwargs)
+    
+    def grid(self, **kwargs):
+        """Grid the frame"""
+        self.frame.grid(**kwargs)
 
 class FileSelectionFrame:
     """File selection UI component"""

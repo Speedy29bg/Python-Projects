@@ -1,3 +1,0 @@
-2025-06-17 13:04:19,752 - InteractiveChartGenerator - INFO - Logging initialized. Log file: C:\Users\GILIEV\Documents\GitHub\Python-Projects\Chart generator\ChartGenerator_Interactive\src\logs\chart_generator_20250617_130419.log
-2025-06-17 13:04:19,753 - InteractiveChartGenerator - INFO - Starting Interactive Chart Generator v2.0
-2025-06-17 13:04:20,498 - InteractiveChartGenerator - ERROR - Failed to start application: module 'matplotlib.cm' has no attribute 'Warms_r'

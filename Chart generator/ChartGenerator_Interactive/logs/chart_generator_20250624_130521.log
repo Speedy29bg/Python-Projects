@@ -1,8 +1,0 @@
-2025-06-24 13:05:21,708 - InteractiveChartGenerator - INFO - Logging initialized. Log file: c:\Users\GILIEV\Documents\GitHub\Python-Projects\Chart generator\ChartGenerator_Interactive\logs\chart_generator_20250624_130521.log
-2025-06-24 13:05:21,708 - InteractiveChartGenerator - INFO - Starting Interactive Chart Generator v2.0
-2025-06-24 13:05:22,653 - InteractiveChartGenerator - INFO - Applied responsive styling for 1920px width screen
-2025-06-24 13:05:22,653 - InteractiveChartGenerator - INFO - Interactive Chart Application initialized
-2025-06-24 13:05:22,810 - InteractiveChartGenerator - INFO - Screen size: 1920x1080
-2025-06-24 13:05:22,810 - InteractiveChartGenerator - INFO - Window size: 1632x864
-2025-06-24 13:05:22,811 - InteractiveChartGenerator - INFO - Minimum size: 1152x700
-2025-06-24 13:05:22,811 - InteractiveChartGenerator - INFO - Application started successfully

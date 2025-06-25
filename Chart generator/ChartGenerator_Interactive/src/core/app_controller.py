@@ -13,6 +13,7 @@ from typing import Dict, List, Any, Optional
 from core.data_processor import DataProcessor
 from core.chart_generator import InteractiveChartGenerator
 from ui.components import FileSelectionFrame, AxesSelectionFrame, ChartOptionsFrame, StatusFrame
+from ui.filter_window import FilterWindow
 from utils.logger import get_logger
 
 logger = get_logger()
@@ -29,10 +30,9 @@ class InteractiveChartApp:
         """
         self.root = root
         self.data_processor = DataProcessor()
-        self.chart_generator = InteractiveChartGenerator()
-        
-        # UI Components
+        self.chart_generator = InteractiveChartGenerator()        # UI Components
         self.file_frame = None
+        self.filter_window = None  # Filter window
         self.axes_frame = None
         self.options_frame = None
         self.status_frame = None
@@ -129,9 +129,7 @@ class InteractiveChartApp:
         self.status_frame = StatusFrame(self.root)
         self.status_frame.frame.grid(row=2, column=0, sticky='ew', padx=10, pady=(5, 10))    
     def setup_left_panel(self, parent):
-        """Setup the left control panel"""
-        
-        # Configure parent grid
+        """Setup the left control panel"""        # Configure parent grid
         parent.columnconfigure(0, weight=1)
         parent.rowconfigure(0, weight=0)  # File selection
         parent.rowconfigure(1, weight=1)  # Axes selection
@@ -144,16 +142,49 @@ class InteractiveChartApp:
         self.file_frame.set_clear_callback(self.on_clear_data)
         self.file_frame.frame.grid(row=0, column=0, sticky='ew', pady=5)
         
+        # Initialize filter window (not shown until button is clicked)
+        self.filter_window = FilterWindow(self.root, self.data_processor, self.on_data_filtered)
+        
+        # Add Filter buttons to the file frame (using pack to match existing structure)
+        filter_button_frame = ttk.Frame(self.file_frame.frame)
+        filter_button_frame.pack(fill='x', pady=(10, 0))
+        
+        # Add a separator for visual clarity
+        separator = ttk.Separator(filter_button_frame, orient='horizontal')
+        separator.pack(fill='x', pady=(0, 5))
+        
+        # Label for filter section
+        filter_label = ttk.Label(filter_button_frame, text="Data Filtering:", font=('TkDefaultFont', 9, 'bold'))
+        filter_label.pack(anchor='w', pady=(0, 5))
+        
+        # Buttons frame
+        buttons_frame = ttk.Frame(filter_button_frame)
+        buttons_frame.pack(fill='x')
+        
+        self.filter_button = ttk.Button(buttons_frame, text="🔍 Add Filter", 
+                                       command=self.show_filter_window, state='disabled',
+                                       width=15)
+        self.filter_button.pack(side='left', padx=(0, 5))
+        
+        self.clear_filters_button = ttk.Button(buttons_frame, text="🗑️ Clear All Filters", 
+                                             command=self.clear_all_filters, state='disabled',
+                                             width=18)
+        self.clear_filters_button.pack(side='left')
+        
+        # Status label for filters
+        self.filter_status_label = ttk.Label(buttons_frame, text="No filters applied", 
+                                           foreground="gray", font=('TkDefaultFont', 8))
+        self.filter_status_label.pack(side='right', padx=(10, 0))
+        
         # Axes selection
         self.axes_frame = AxesSelectionFrame(parent, self.on_axes_changed)
         self.axes_frame.frame.grid(row=1, column=0, sticky='nsew', pady=5)
         
         # Chart options (positioned right under axes selection as requested)
         self.options_frame = ChartOptionsFrame(parent, self.on_options_changed)
-        self.options_frame.frame.grid(row=2, column=0, sticky='ew', pady=5)
-          # Export options frame (compact)
+        self.options_frame.frame.grid(row=2, column=0, sticky='ew', pady=5)          # Export options frame (compact)
         export_frame = ttk.LabelFrame(parent, text="Export", padding=8)
-        export_frame.grid(row=3, column=0, sticky='ew', pady=5)        
+        export_frame.grid(row=3, column=0, sticky='ew', pady=5)
         # Export buttons (compact)
         button_frame = ttk.Frame(export_frame)
         button_frame.grid(row=0, column=0, sticky='ew')
@@ -209,7 +240,12 @@ class InteractiveChartApp:
                     self.status_frame.set_status("No columns found in file")
                     tk.messagebox.showerror("Error", "No columns found in the selected CSV file.")
                     return False
+                
                 self.axes_frame.update_columns(columns)
+                
+                # TODO: Update filter frame when Excel-style filtering is implemented
+                # if hasattr(self.filter_frame, 'update_columns'):
+                #     self.filter_frame.update_columns()
                 
                 # Log column types for user information
                 numeric_cols = self.data_processor.get_numeric_columns()
@@ -217,6 +253,16 @@ class InteractiveChartApp:
                 logger.info(f"All columns: {columns}")
                 logger.info(f"Numeric columns: {numeric_cols}")
                 logger.info(f"Chartable columns: {chartable_cols}")
+                
+                # Update filter window when new data is loaded
+                if hasattr(self, 'filter_window') and self.filter_window:
+                    self.filter_window.refresh_data()
+                
+                # Enable filter buttons
+                if hasattr(self, 'filter_button'):
+                    self.filter_button.config(state='normal')
+                if hasattr(self, 'clear_filters_button'):
+                    self.clear_filters_button.config(state='normal')
                 
                 # Update status
                 info = self.data_processor.get_data_info() if hasattr(self.data_processor, 'get_data_info') else {'filename': filepath, 'rows': len(self.data_processor.data) if self.data_processor.data is not None else 0, 'columns': len(self.data_processor.columns) if self.data_processor.columns else 0}
@@ -234,7 +280,55 @@ class InteractiveChartApp:
             self.status_frame.set_status("Error loading file")
             tk.messagebox.showerror("Error", f"Error loading file:\n{e}")
             return False
+      # Filter window methods
+    def show_filter_window(self):
+        """Show the data filtering window"""
+        if self.filter_window:
+            self.filter_window.show_window()
     
+    def clear_all_filters(self):
+        """Clear all filters and restore original data"""
+        if self.filter_window:
+            self.filter_window.clear_all_filters()
+            self.filter_window.apply_filters_to_processor()
+            
+        # Update filter status label
+        if hasattr(self, 'filter_status_label'):
+            self.filter_status_label.config(text="No filters applied", foreground="gray")
+
+    # Excel-style filtering callback
+    def on_data_filtered(self):
+        """Handle data filter changes from Excel-style table"""
+        try:
+            # Update axes frame with available columns from filtered data
+            if self.data_processor.data is not None and not self.data_processor.data.empty:
+                columns = list(self.data_processor.data.columns)
+                self.axes_frame.update_columns(columns)
+            
+            # Update chart preview with filtered data
+            self.update_chart_preview()
+            
+            # Update status with filtered data info
+            if self.data_processor.data is not None:
+                filtered_rows = len(self.data_processor.data)
+                total_rows = len(self.data_processor.original_data) if self.data_processor.original_data is not None else 0
+                if filtered_rows != total_rows:
+                    self.status_frame.set_info(f"Showing {filtered_rows} of {total_rows} rows (filtered)")
+                    # Update filter status label
+                    if hasattr(self, 'filter_status_label'):
+                        active_filters = len(self.filter_window.filters) if self.filter_window else 0
+                        self.filter_status_label.config(text=f"{active_filters} filter(s) active", foreground="blue")
+                else:
+                    self.status_frame.set_info(f"{filtered_rows} rows, {len(self.data_processor.get_all_columns())} columns")
+                    # Update filter status label
+                    if hasattr(self, 'filter_status_label'):
+                        self.filter_status_label.config(text="No filters applied", foreground="gray")
+            
+            logger.info(f"Data filtered - showing {len(self.data_processor.data) if self.data_processor.data is not None else 0} rows")
+        except Exception as e:
+            logger.error(f"Error in data filter callback: {e}")
+            self.status_frame.set_status("Error applying filters")
+
     def on_axes_changed(self):
         """Handle axes selection changes"""
         self.update_chart_preview()
@@ -397,6 +491,17 @@ class InteractiveChartApp:
         """Clear loaded data and reset UI"""
         self.data_processor.clear_data()
         self.axes_frame.update_columns([])
+        
+        # Clear filter window
+        if hasattr(self, 'filter_window') and self.filter_window:
+            self.filter_window.clear_all_filters()
+        
+        # Disable filter buttons
+        if hasattr(self, 'filter_button'):
+            self.filter_button.config(state='disabled')
+        if hasattr(self, 'clear_filters_button'):
+            self.clear_filters_button.config(state='disabled')
+        
         self.status_frame.set_status("Data cleared")
         self.status_frame.set_info("")
         self.file_frame.file_label.config(text="No files selected", foreground="gray")

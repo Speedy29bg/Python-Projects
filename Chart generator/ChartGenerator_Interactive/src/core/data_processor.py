@@ -10,10 +10,124 @@ import pandas as pd
 import numpy as np
 import os
 import csv
-from typing import List, Dict, Optional, Tuple, Any
+from typing import List, Dict, Optional, Tuple, Any, Union
 from utils.logger import get_logger
 
 logger = get_logger()
+
+class DataFilter:
+    """Class to handle data filtering operations"""
+    
+    def __init__(self):
+        """Initialize data filter"""
+        self.filters = {}
+        self.sort_column = None
+        self.sort_ascending = True
+    
+    def add_filter(self, column: str, filter_type: str, value: Any, value2: Any = None):
+        """
+        Add a filter for a specific column
+        
+        Args:
+            column: Column name to filter
+            filter_type: Type of filter ('equals', 'not_equals', 'contains', 'not_contains', 
+                        'starts_with', 'ends_with', 'greater_than', 'less_than', 
+                        'between', 'in_list', 'not_in_list', 'is_null', 'is_not_null')
+            value: Filter value
+            value2: Second value for 'between' filter
+        """
+        self.filters[column] = {
+            'type': filter_type,
+            'value': value,
+            'value2': value2
+        }
+    
+    def remove_filter(self, column: str):
+        """Remove filter for a specific column"""
+        if column in self.filters:
+            del self.filters[column]
+    
+    def clear_filters(self):
+        """Clear all filters"""
+        self.filters.clear()
+    
+    def set_sort(self, column: str, ascending: bool = True):
+        """Set sorting column and direction"""
+        self.sort_column = column
+        self.sort_ascending = ascending
+    
+    def apply_filters(self, data: pd.DataFrame) -> pd.DataFrame:
+        """
+        Apply all filters to the data
+        
+        Args:
+            data: Original dataframe
+            
+        Returns:
+            Filtered dataframe
+        """
+        filtered_data = data.copy()
+        
+        for column, filter_config in self.filters.items():
+            if column not in filtered_data.columns:
+                continue
+                
+            filter_type = filter_config['type']
+            value = filter_config['value']
+            value2 = filter_config['value2']
+            
+            try:
+                if filter_type == 'equals':
+                    filtered_data = filtered_data[filtered_data[column] == value]
+                elif filter_type == 'not_equals':
+                    filtered_data = filtered_data[filtered_data[column] != value]
+                elif filter_type == 'contains':
+                    filtered_data = filtered_data[filtered_data[column].astype(str).str.contains(str(value), na=False)]
+                elif filter_type == 'not_contains':
+                    filtered_data = filtered_data[~filtered_data[column].astype(str).str.contains(str(value), na=False)]
+                elif filter_type == 'starts_with':
+                    filtered_data = filtered_data[filtered_data[column].astype(str).str.startswith(str(value), na=False)]
+                elif filter_type == 'ends_with':
+                    filtered_data = filtered_data[filtered_data[column].astype(str).str.endswith(str(value), na=False)]
+                elif filter_type == 'greater_than':
+                    filtered_data = filtered_data[pd.to_numeric(filtered_data[column], errors='coerce') > float(value)]
+                elif filter_type == 'less_than':
+                    filtered_data = filtered_data[pd.to_numeric(filtered_data[column], errors='coerce') < float(value)]
+                elif filter_type == 'greater_equal':
+                    filtered_data = filtered_data[pd.to_numeric(filtered_data[column], errors='coerce') >= float(value)]
+                elif filter_type == 'less_equal':
+                    filtered_data = filtered_data[pd.to_numeric(filtered_data[column], errors='coerce') <= float(value)]
+                elif filter_type == 'between':
+                    if value2 is not None:
+                        numeric_col = pd.to_numeric(filtered_data[column], errors='coerce')
+                        filtered_data = filtered_data[(numeric_col >= float(value)) & (numeric_col <= float(value2))]
+                elif filter_type == 'in_list':
+                    if isinstance(value, (list, tuple)):
+                        filtered_data = filtered_data[filtered_data[column].isin(value)]
+                elif filter_type == 'not_in_list':
+                    if isinstance(value, (list, tuple)):
+                        filtered_data = filtered_data[~filtered_data[column].isin(value)]
+                elif filter_type == 'is_null':
+                    filtered_data = filtered_data[filtered_data[column].isna()]
+                elif filter_type == 'is_not_null':
+                    filtered_data = filtered_data[filtered_data[column].notna()]
+                    
+            except Exception as e:
+                logger.warning(f"Error applying filter {filter_type} to column {column}: {e}")
+                continue
+        
+        # Apply sorting
+        if self.sort_column and self.sort_column in filtered_data.columns:
+            try:
+                filtered_data = filtered_data.sort_values(
+                    by=self.sort_column, 
+                    ascending=self.sort_ascending, 
+                    na_position='last'
+                )
+            except Exception as e:
+                logger.warning(f"Error sorting by column {self.sort_column}: {e}")
+        
+        return filtered_data
 
 class DataProcessor:
     """Handles data loading and processing operations"""
@@ -21,8 +135,10 @@ class DataProcessor:
     def __init__(self):
         """Initialize the data processor"""
         self.data = None
+        self.original_data = None  # Keep original data for filtering
         self.filename = None
         self.columns = []
+        self.data_filter = DataFilter()  # Excel-like filtering
         
     def load_csv_file(self, filepath: str) -> bool:
         """
@@ -74,9 +190,11 @@ class DataProcessor:
             if self.data.empty:
                 logger.warning("Loaded CSV file is empty")
                 return False
-            
-            # Clean data
+              # Clean data
             self._clean_data()
+            
+            # Store original data for filtering
+            self.original_data = self.data.copy()
             
             logger.info(f"Successfully loaded {len(self.data)} rows and {len(self.columns)} columns")
             logger.info(f"Headers: {self.columns}")
@@ -320,8 +438,183 @@ class DataProcessor:
             'memory_usage': self.data.memory_usage(deep=True).sum()
         }
     
+    # Excel-like filtering methods
+    def add_filter(self, column: str, filter_type: str, value: Any, value2: Any = None) -> bool:
+        """
+        Add a filter for a specific column
+        
+        Args:
+            column: Column name to filter
+            filter_type: Type of filter
+            value: Filter value
+            value2: Second value for 'between' filter
+            
+        Returns:
+            bool: True if filter was added successfully        """
+        if self.original_data is None:
+            logger.warning("No data loaded, cannot add filter")
+            return False
+            
+        if column not in self.columns:
+            logger.warning(f"Column '{column}' not found in data")
+            return False
+        
+        self.data_filter.add_filter(column, filter_type, value, value2)
+        self._apply_filters()
+        return True
+    
+    def remove_filter(self, column: str) -> bool:
+        """
+        Remove filter for a specific column
+        
+        Args:
+            column: Column name
+            
+        Returns:
+            bool: True if filter was removed        """
+        if self.original_data is None:
+            return False
+            
+        self.data_filter.remove_filter(column)
+        self._apply_filters()
+        return True
+    
+    def clear_filters(self) -> bool:
+        """
+        Clear all filters and restore original data
+        
+        Returns:
+            bool: True if filters were cleared
+        """
+        if self.original_data is None:
+            return False
+            
+        self.data_filter.clear_filters()
+        self.data = self.original_data.copy()
+        logger.info("All filters cleared, data restored to original")
+        return True
+    
+    def set_sort(self, column: str, ascending: bool = True) -> bool:
+        """
+        Set sorting for data
+        
+        Args:
+            column: Column to sort by
+            ascending: Sort direction
+            
+        Returns:
+            bool: True if sort was applied
+        """
+        if self.original_data is None:
+            return False
+            
+        if column not in self.columns:
+            logger.warning(f"Column '{column}' not found in data")
+            return False
+        
+        self.data_filter.set_sort(column, ascending)
+        self._apply_filters()
+        return True
+    
+    def get_filter_info(self) -> Dict[str, Any]:
+        """
+        Get information about current filters
+        
+        Returns:
+            Dict: Filter information
+        """
+        if self.original_data is None:
+            return {}
+            
+        return {
+            'filters': self.data_filter.filters.copy(),
+            'sort_column': self.data_filter.sort_column,
+            'sort_ascending': self.data_filter.sort_ascending,
+            'original_rows': len(self.original_data),
+            'filtered_rows': len(self.data) if self.data is not None else 0,
+            'filter_applied': len(self.data_filter.filters) > 0 or self.data_filter.sort_column is not None
+        }
+    
+    def get_unique_values(self, column: str, limit: int = 100) -> List[Any]:
+        """
+        Get unique values for a column (for filter dropdowns)
+        
+        Args:
+            column: Column name
+            limit: Maximum number of unique values to return
+            
+        Returns:
+            List of unique values
+        """
+        if self.original_data is None or column not in self.columns:
+            return []
+        
+        try:
+            unique_vals = self.original_data[column].dropna().unique()
+            # Sort values if possible
+            try:
+                unique_vals = sorted(unique_vals)
+            except:
+                pass  # Can't sort mixed types
+                
+            return list(unique_vals[:limit])
+        except Exception as e:
+            logger.warning(f"Error getting unique values for column {column}: {e}")
+            return []
+    
+    def get_column_stats_for_filter(self, column: str) -> Dict[str, Any]:
+        """
+        Get column statistics for filter UI
+        
+        Args:
+            column: Column name
+            
+        Returns:
+            Dict with column statistics
+        """
+        if self.original_data is None or column not in self.columns:
+            return {}
+        
+        try:
+            col_data = self.original_data[column]
+            stats = {
+                'name': column,
+                'type': str(col_data.dtype),
+                'non_null_count': col_data.count(),
+                'null_count': col_data.isna().sum(),
+                'unique_count': col_data.nunique(),
+                'is_numeric': pd.api.types.is_numeric_dtype(col_data)
+            }
+            
+            if stats['is_numeric']:
+                numeric_data = pd.to_numeric(col_data, errors='coerce').dropna()
+                if len(numeric_data) > 0:
+                    stats.update({
+                        'min': numeric_data.min(),
+                        'max': numeric_data.max(),
+                        'mean': numeric_data.mean(),
+                        'median': numeric_data.median()
+                    })
+            
+            return stats
+        except Exception as e:
+            logger.warning(f"Error getting column stats for {column}: {e}")
+            return {}
+    
+    def _apply_filters(self):
+        """Apply current filters to the data"""
+        if self.original_data is None:
+            return
+            
+        try:
+            self.data = self.data_filter.apply_filters(self.original_data)
+            logger.info(f"Filters applied: {len(self.original_data)} -> {len(self.data)} rows")
+        except Exception as e:
+            logger.error(f"Error applying filters: {e}")
+            self.data = self.original_data.copy()
+
     def clear_data(self):
         """Clear the loaded data"""
         self.data = None
+        self.original_data = None
         self.filename = None
-        self.columns = []
