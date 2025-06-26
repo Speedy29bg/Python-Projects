@@ -1,0 +1,18 @@
+2025-06-25 11:57:31,162 - InteractiveChartGenerator - INFO - Logging initialized. Log file: c:\Users\GILIEV\Documents\GitHub\Python-Projects\Chart generator\ChartGenerator_Interactive\logs\chart_generator_20250625_115731.log
+2025-06-25 11:57:31,162 - InteractiveChartGenerator - INFO - Starting Interactive Chart Generator v2.0
+2025-06-25 11:57:31,453 - InteractiveChartGenerator - INFO - Initializing application controller
+2025-06-25 11:57:33,196 - InteractiveChartGenerator - INFO - Applied responsive styling for 1536px width screen
+2025-06-25 11:57:33,196 - InteractiveChartGenerator - INFO - Interactive Chart Application initialized
+2025-06-25 11:57:33,238 - InteractiveChartGenerator - INFO - Screen size: 1536x864
+2025-06-25 11:57:33,238 - InteractiveChartGenerator - INFO - Window size: 1305x691
+2025-06-25 11:57:33,239 - InteractiveChartGenerator - INFO - Minimum size: 1000x700
+2025-06-25 11:57:33,355 - InteractiveChartGenerator - INFO - Platform: Windows 11
+2025-06-25 11:57:33,356 - InteractiveChartGenerator - INFO - Application started successfully
+2025-06-25 11:57:40,641 - InteractiveChartGenerator - INFO - Loading CSV file with smart header detection: C:/Users/GILIEV/Downloads/Logs_BR223_Downloaded_02.06.2025/Logs_BR223_Downloaded_02.06.2025/C-01/C-01/3_PTL/15-04-2025_17.25.01/DUT4_SN_VLIMS_SS 1#30.csv
+2025-06-25 11:57:40,648 - InteractiveChartGenerator - INFO - Detected header row at index 0 (mostly non-numeric)
+2025-06-25 11:57:40,649 - InteractiveChartGenerator - INFO - Using first row as header (standard CSV format)
+2025-06-25 11:57:40,652 - InteractiveChartGenerator - ERROR - Error loading CSV file: Error tokenizing data. C error: Expected 2 fields in line 25, saw 29
+
+2025-06-25 11:57:40,653 - InteractiveChartGenerator - INFO - Status: Failed to load file
+2025-06-25 11:57:44,333 - InteractiveChartGenerator - INFO - Cleaning up application resources
+2025-06-25 11:57:44,334 - InteractiveChartGenerator - WARNING - Error during cleanup: can't invoke "destroy" command: application has been destroyed

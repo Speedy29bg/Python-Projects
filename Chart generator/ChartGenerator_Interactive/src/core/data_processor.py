@@ -173,6 +173,20 @@ class DataProcessor:
                 except UnicodeDecodeError:
                     logger.warning("UTF-8 encoding failed, trying latin1")
                     self.data = pd.read_csv(filepath, encoding='latin1', skiprows=header_row_idx, header=0)
+
+                # --- Robustness: Check for data shift (first column missing/shifted) ---
+                if self.data.shape[1] > 1 and self.data.columns[0] == '' and self.data.iloc[:, 0].isnull().all():
+                    logger.warning("First column header is empty and all values are NaN. Retrying with header_row_idx - 1.")
+                    try:
+                        self.data = pd.read_csv(filepath, encoding='utf-8', skiprows=max(header_row_idx-1, 0), header=0)
+                    except UnicodeDecodeError:
+                        self.data = pd.read_csv(filepath, encoding='latin1', skiprows=max(header_row_idx-1, 0), header=0)
+
+                # Additional check: If first data row matches column names, shift header
+                if not self.data.empty and list(self.data.columns) == list(self.data.iloc[0]):
+                    logger.warning("First data row matches column names. Shifting header row by one.")
+                    self.data.columns = self.data.iloc[0]
+                    self.data = self.data[1:].reset_index(drop=True)
             else:
                 logger.warning("No header row detected, loading with default settings")
                 try:
@@ -180,22 +194,18 @@ class DataProcessor:
                 except UnicodeDecodeError:
                     logger.warning("UTF-8 encoding failed, trying latin1")
                     self.data = pd.read_csv(filepath, encoding='latin1')
-            
+
             self.filename = os.path.basename(filepath)
-            
             # Process column names
             self.columns = list(self.data.columns)
-            
             # Validate data
             if self.data.empty:
                 logger.warning("Loaded CSV file is empty")
                 return False
-              # Clean data
+            # Clean data
             self._clean_data()
-            
             # Store original data for filtering
             self.original_data = self.data.copy()
-            
             logger.info(f"Successfully loaded {len(self.data)} rows and {len(self.columns)} columns")
             logger.info(f"Headers: {self.columns}")
             logger.info(f"Data types: {dict(self.data.dtypes)}")

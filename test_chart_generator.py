@@ -84,7 +84,26 @@ You should see:
         instruction_label = tk.Label(root, text=instruction_text, 
                                    font=('Arial', 14, 'bold'), fg='red')
         instruction_label.pack(side='top', pady=5)
-        
+
+        # Add clipboard export button (ensure it's visible before mainloop)
+        def export_to_clipboard():
+            try:
+                df = app.file_data_cache[csv_path]
+                # Convert DataFrame to CSV string
+                csv_str = df.to_csv(index=False)
+                # Use tkinter clipboard
+                root.clipboard_clear()
+                root.clipboard_append(csv_str)
+                root.update()
+                app.update_status("Data exported to clipboard!")
+                print("Data exported to clipboard!")
+            except Exception as e:
+                print(f"Clipboard export failed: {e}")
+                app.update_status(f"Clipboard export failed: {e}")
+
+        clipboard_btn = tk.Button(root, text="Export Data to Clipboard", command=export_to_clipboard, bg="#4caf50", fg="white", font=("Arial", 12, "bold"))
+        clipboard_btn.pack(side='top', pady=8)
+
         root.mainloop()
         
     except Exception as e:

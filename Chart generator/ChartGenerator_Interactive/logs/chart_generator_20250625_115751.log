@@ -1,0 +1,100 @@
+2025-06-25 11:57:51,538 - InteractiveChartGenerator - INFO - Logging initialized. Log file: c:\Users\GILIEV\Documents\GitHub\Python-Projects\Chart generator\ChartGenerator_Interactive\logs\chart_generator_20250625_115751.log
+2025-06-25 11:57:51,538 - InteractiveChartGenerator - INFO - Starting Interactive Chart Generator v2.0
+2025-06-25 11:57:51,803 - InteractiveChartGenerator - INFO - Initializing application controller
+2025-06-25 11:57:53,593 - InteractiveChartGenerator - INFO - Applied responsive styling for 1536px width screen
+2025-06-25 11:57:53,594 - InteractiveChartGenerator - INFO - Interactive Chart Application initialized
+2025-06-25 11:57:53,642 - InteractiveChartGenerator - INFO - Screen size: 1536x864
+2025-06-25 11:57:53,642 - InteractiveChartGenerator - INFO - Window size: 1305x691
+2025-06-25 11:57:53,642 - InteractiveChartGenerator - INFO - Minimum size: 1000x700
+2025-06-25 11:57:53,718 - InteractiveChartGenerator - INFO - Platform: Windows 11
+2025-06-25 11:57:53,722 - InteractiveChartGenerator - INFO - Application started successfully
+2025-06-25 11:58:24,113 - InteractiveChartGenerator - INFO - Loading CSV file with smart header detection: C:/Users/GILIEV/Downloads/Logs_BR223_Downloaded_02.06.2025/Logs_BR223_Downloaded_02.06.2025/C-01/C-01/3_PTL/15-04-2025_17.25.01/DUT1_SN_VLIMS_SS 1#31.csv
+2025-06-25 11:58:24,122 - InteractiveChartGenerator - INFO - Found non-empty cell in column E at row 24
+2025-06-25 11:58:24,122 - InteractiveChartGenerator - INFO - Detected header row at index 24 (line 25)
+2025-06-25 11:58:24,130 - InteractiveChartGenerator - WARNING - UTF-8 encoding failed, trying latin1
+2025-06-25 11:58:24,146 - InteractiveChartGenerator - INFO - Numeric columns: [' DUT Mode', ' Probe of Humidity(%)', ' Dry contact value', ' Reference Voltage(V)', 'Current[A] Status', ' CDD_Display_Temp_Status', 'CID ON/OFF', ' CDD ON/OFF', ' CID_BackLight ', ' CDD_BackLight', ' CID_X_Coordinates', ' CID_Y_Coordinates', ' CDD_X_Coordinates', ' CDD_Y_Coordinates', ' Light_Sensor_On', 'Temp_2', ' Watchdog_reset', ' Hardware_reset', ' Power_reset', ' Clock_reset', ' DTC Stored']
+2025-06-25 11:58:24,146 - InteractiveChartGenerator - INFO - Text columns: ['No:', ' Date & Time', 'Probe of Temperature(°C)', 'Current[A]', ' CAN_status', 'CID_Display_Temp_Status']
+2025-06-25 11:58:24,146 - InteractiveChartGenerator - INFO - Successfully loaded 759 rows and 29 columns
+2025-06-25 11:58:24,146 - InteractiveChartGenerator - INFO - Headers: ['No:', ' Date & Time', ' DUT Mode', ' Probe of Humidity(%)', 'Probe of Temperature(°C)', ' Dry contact value', ' Reference Voltage(V)', 'Current[A]', 'Current[A] Status', ' CAN_status', 'CID_Display_Temp_Status', ' CDD_Display_Temp_Status', 'CID ON/OFF', ' CDD ON/OFF', ' CID_BackLight ', ' CDD_BackLight', ' CID_X_Coordinates', ' CID_Y_Coordinates', ' CDD_X_Coordinates', ' CDD_Y_Coordinates', ' Light_Sensor_On', ' Light_Sensor_Off', ' Temp_1', 'Temp_2', ' Watchdog_reset', ' Hardware_reset', ' Power_reset', ' Clock_reset', ' DTC Stored']
+2025-06-25 11:58:24,147 - InteractiveChartGenerator - INFO - Data types: {'No:': dtype('O'), ' Date & Time': dtype('O'), ' DUT Mode': dtype('float64'), ' Probe of Humidity(%)': dtype('float64'), 'Probe of Temperature(°C)': dtype('O'), ' Dry contact value': dtype('float64'), ' Reference Voltage(V)': dtype('float64'), 'Current[A]': dtype('O'), 'Current[A] Status': dtype('int64'), ' CAN_status': dtype('O'), 'CID_Display_Temp_Status': dtype('O'), ' CDD_Display_Temp_Status': dtype('int64'), 'CID ON/OFF': dtype('int64'), ' CDD ON/OFF': dtype('int64'), ' CID_BackLight ': dtype('int64'), ' CDD_BackLight': dtype('int64'), ' CID_X_Coordinates': dtype('int64'), ' CID_Y_Coordinates': dtype('int64'), ' CDD_X_Coordinates': dtype('int64'), ' CDD_Y_Coordinates': dtype('int64'), ' Light_Sensor_On': dtype('int64'), ' Light_Sensor_Off': dtype('bool'), ' Temp_1': dtype('bool'), 'Temp_2': dtype('int64'), ' Watchdog_reset': dtype('int64'), ' Hardware_reset': dtype('int64'), ' Power_reset': dtype('int64'), ' Clock_reset': dtype('int64'), ' DTC Stored': dtype('float64')}
+2025-06-25 11:58:24,166 - InteractiveChartGenerator - INFO - All columns: ['No:', ' Date & Time', ' DUT Mode', ' Probe of Humidity(%)', 'Probe of Temperature(°C)', ' Dry contact value', ' Reference Voltage(V)', 'Current[A]', 'Current[A] Status', ' CAN_status', 'CID_Display_Temp_Status', ' CDD_Display_Temp_Status', 'CID ON/OFF', ' CDD ON/OFF', ' CID_BackLight ', ' CDD_BackLight', ' CID_X_Coordinates', ' CID_Y_Coordinates', ' CDD_X_Coordinates', ' CDD_Y_Coordinates', ' Light_Sensor_On', ' Light_Sensor_Off', ' Temp_1', 'Temp_2', ' Watchdog_reset', ' Hardware_reset', ' Power_reset', ' Clock_reset', ' DTC Stored']
+2025-06-25 11:58:24,166 - InteractiveChartGenerator - INFO - Numeric columns: [' DUT Mode', ' Probe of Humidity(%)', ' Dry contact value', ' Reference Voltage(V)', 'Current[A] Status', ' CDD_Display_Temp_Status', 'CID ON/OFF', ' CDD ON/OFF', ' CID_BackLight ', ' CDD_BackLight', ' CID_X_Coordinates', ' CID_Y_Coordinates', ' CDD_X_Coordinates', ' CDD_Y_Coordinates', ' Light_Sensor_On', 'Temp_2', ' Watchdog_reset', ' Hardware_reset', ' Power_reset', ' Clock_reset', ' DTC Stored']
+2025-06-25 11:58:24,166 - InteractiveChartGenerator - INFO - Chartable columns: ['No:', ' DUT Mode', ' Probe of Humidity(%)', ' Dry contact value', ' Reference Voltage(V)', 'Current[A] Status', ' CDD_Display_Temp_Status', 'CID ON/OFF', ' CDD ON/OFF', ' CID_BackLight ', ' CDD_BackLight', ' CID_X_Coordinates', ' CID_Y_Coordinates', ' CDD_X_Coordinates', ' CDD_Y_Coordinates', ' Light_Sensor_On', ' Light_Sensor_Off', ' Temp_1', 'Temp_2', ' Watchdog_reset', ' Hardware_reset', ' Power_reset', ' Clock_reset', ' DTC Stored']
+2025-06-25 11:58:24,168 - InteractiveChartGenerator - INFO - Status: Loaded: DUT1_SN_VLIMS_SS 1#31.csv
+2025-06-25 11:58:24,172 - InteractiveChartGenerator - INFO - Converted column 'No:' to datetime for charting
+2025-06-25 11:58:24,175 - InteractiveChartGenerator - INFO - Converted column 'No:' to datetime for charting
+2025-06-25 11:58:24,313 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series
+2025-06-25 11:58:24,314 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-25 11:58:24,314 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-25 11:58:24,314 - InteractiveChartGenerator - INFO - File loaded successfully: DUT1_SN_VLIMS_SS 1#31.csv
+2025-06-25 11:58:30,924 - InteractiveChartGenerator - INFO - Converted column 'No:' to datetime for charting
+2025-06-25 11:58:30,927 - InteractiveChartGenerator - INFO - Converted column 'No:' to datetime for charting
+2025-06-25 11:58:31,051 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series
+2025-06-25 11:58:31,052 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-25 11:58:31,052 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-25 11:58:33,789 - InteractiveChartGenerator - INFO - Converted column 'No:' to datetime for charting
+2025-06-25 11:58:33,792 - InteractiveChartGenerator - INFO - Converted column 'No:' to datetime for charting
+2025-06-25 11:58:33,897 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series
+2025-06-25 11:58:33,898 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-25 11:58:33,898 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-25 11:58:35,406 - InteractiveChartGenerator - INFO - Converted column 'No:' to datetime for charting
+2025-06-25 11:58:35,409 - InteractiveChartGenerator - INFO - Converted column ' Date & Time' to categorical codes for charting
+2025-06-25 11:58:35,495 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series
+2025-06-25 11:58:35,495 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-25 11:58:35,496 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-25 11:58:45,823 - InteractiveChartGenerator - INFO - Converted column 'No:' to datetime for charting
+2025-06-25 11:58:45,826 - InteractiveChartGenerator - INFO - Converted column ' Date & Time' to categorical codes for charting
+2025-06-25 11:58:45,916 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series
+2025-06-25 11:58:45,916 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-25 11:58:45,917 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-25 11:58:48,482 - InteractiveChartGenerator - INFO - Converted column 'No:' to datetime for charting
+2025-06-25 11:58:48,484 - InteractiveChartGenerator - INFO - Converted column ' Date & Time' to categorical codes for charting
+2025-06-25 11:58:48,572 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series
+2025-06-25 11:58:48,572 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-25 11:58:48,573 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-25 11:58:51,591 - InteractiveChartGenerator - INFO - Converted column 'No:' to datetime for charting
+2025-06-25 11:58:51,594 - InteractiveChartGenerator - INFO - Converted column ' Date & Time' to categorical codes for charting
+2025-06-25 11:58:51,596 - InteractiveChartGenerator - INFO - Converted column 'Probe of Temperature(°C)' to categorical codes for charting
+2025-06-25 11:58:51,688 - InteractiveChartGenerator - INFO - Created interactive line chart with 2 series
+2025-06-25 11:58:51,689 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-25 11:58:51,689 - InteractiveChartGenerator - INFO - Chart preview updated: 2 series, line type
+2025-06-25 11:58:53,129 - InteractiveChartGenerator - INFO - Converted column 'No:' to datetime for charting
+2025-06-25 11:58:53,132 - InteractiveChartGenerator - INFO - Converted column ' Date & Time' to categorical codes for charting
+2025-06-25 11:58:53,220 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series
+2025-06-25 11:58:53,220 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-25 11:58:53,221 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-25 11:58:53,786 - InteractiveChartGenerator - INFO - Converted column 'No:' to datetime for charting
+2025-06-25 11:58:53,788 - InteractiveChartGenerator - INFO - Converted column ' Date & Time' to categorical codes for charting
+2025-06-25 11:58:53,877 - InteractiveChartGenerator - INFO - Created interactive line chart with 2 series
+2025-06-25 11:58:53,877 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-25 11:58:53,877 - InteractiveChartGenerator - INFO - Chart preview updated: 2 series, line type
+2025-06-25 11:58:55,675 - InteractiveChartGenerator - INFO - Converted column 'No:' to datetime for charting
+2025-06-25 11:58:55,677 - InteractiveChartGenerator - INFO - Converted column ' Date & Time' to categorical codes for charting
+2025-06-25 11:58:55,774 - InteractiveChartGenerator - INFO - Created interactive line chart with 3 series
+2025-06-25 11:58:55,774 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-25 11:58:55,774 - InteractiveChartGenerator - INFO - Chart preview updated: 3 series, line type
+2025-06-25 11:58:57,520 - InteractiveChartGenerator - INFO - Converted column 'No:' to datetime for charting
+2025-06-25 11:58:57,524 - InteractiveChartGenerator - INFO - Converted column ' Date & Time' to categorical codes for charting
+2025-06-25 11:58:57,526 - InteractiveChartGenerator - INFO - Converted column 'Probe of Temperature(°C)' to categorical codes for charting
+2025-06-25 11:58:57,627 - InteractiveChartGenerator - INFO - Created interactive line chart with 4 series
+2025-06-25 11:58:57,627 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-25 11:58:57,627 - InteractiveChartGenerator - INFO - Chart preview updated: 4 series, line type
+2025-06-25 11:58:58,612 - InteractiveChartGenerator - INFO - Converted column 'No:' to datetime for charting
+2025-06-25 11:58:58,615 - InteractiveChartGenerator - INFO - Converted column ' Date & Time' to categorical codes for charting
+2025-06-25 11:58:58,708 - InteractiveChartGenerator - INFO - Created interactive line chart with 3 series
+2025-06-25 11:58:58,708 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-25 11:58:58,708 - InteractiveChartGenerator - INFO - Chart preview updated: 3 series, line type
+2025-06-25 11:59:02,396 - InteractiveChartGenerator - INFO - Converted column 'No:' to datetime for charting
+2025-06-25 11:59:02,398 - InteractiveChartGenerator - INFO - Converted column ' Date & Time' to categorical codes for charting
+2025-06-25 11:59:02,533 - InteractiveChartGenerator - INFO - Created interactive line chart with 3 series on 3 axes
+2025-06-25 11:59:02,533 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-25 11:59:02,534 - InteractiveChartGenerator - INFO - Chart preview updated: 3 series, line type
+2025-06-25 12:00:20,634 - InteractiveChartGenerator - INFO - Converted column 'No:' to datetime for charting
+2025-06-25 12:00:20,637 - InteractiveChartGenerator - INFO - Converted column 'No:' to datetime for charting
+2025-06-25 12:00:20,732 - InteractiveChartGenerator - INFO - Created interactive line chart with 1 series on 1 axes
+2025-06-25 12:00:20,732 - InteractiveChartGenerator - INFO - Status: Chart updated
+2025-06-25 12:00:20,732 - InteractiveChartGenerator - INFO - Chart preview updated: 1 series, line type
+2025-06-25 12:00:20,732 - InteractiveChartGenerator - INFO - Data filtered - showing 759 rows
+2025-06-25 12:00:20,732 - InteractiveChartGenerator - INFO - Applied filters - showing 759 of 759 rows
+2025-06-25 12:00:23,081 - InteractiveChartGenerator - INFO - Cleaning up application resources
+2025-06-25 12:00:23,082 - InteractiveChartGenerator - WARNING - Error during cleanup: can't invoke "destroy" command: application has been destroyed
