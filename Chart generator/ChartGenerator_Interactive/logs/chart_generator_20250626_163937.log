@@ -1,0 +1,14 @@
+2025-06-26 16:39:37,829 - InteractiveChartGenerator - INFO - Logging initialized. Log file: c:\Users\GILIEV\Documents\GitHub\Python-Projects\Chart generator\ChartGenerator_Interactive\logs\chart_generator_20250626_163937.log
+2025-06-26 16:39:37,831 - InteractiveChartGenerator - INFO - Starting Interactive Chart Generator v2.0
+2025-06-26 16:39:38,007 - InteractiveChartGenerator - INFO - Initializing application controller
+2025-06-26 16:39:39,781 - InteractiveChartGenerator - INFO - Applied responsive styling for 1920px width screen
+2025-06-26 16:39:39,781 - InteractiveChartGenerator - INFO - Interactive Chart Application initialized
+2025-06-26 16:39:39,825 - InteractiveChartGenerator - INFO - Screen size: 1920x1080
+2025-06-26 16:39:39,826 - InteractiveChartGenerator - INFO - Window size: 1632x864
+2025-06-26 16:39:39,826 - InteractiveChartGenerator - INFO - Minimum size: 1152x700
+2025-06-26 16:39:39,827 - InteractiveChartGenerator - INFO - Platform: Windows 11
+2025-06-26 16:39:39,827 - InteractiveChartGenerator - INFO - Application started successfully
+2025-06-26 16:39:51,266 - InteractiveChartGenerator - INFO - Detected delimiter: ','
+2025-06-26 16:39:51,267 - InteractiveChartGenerator - INFO - Loading CSV file with smart header detection: C:/Users/GILIEV/Documents/GitHub/Python-Projects/DUT5_SN_VLIMS_SS 1#9.csv
+2025-06-26 16:39:51,268 - InteractiveChartGenerator - INFO - Found non-empty cell in column E at row 24
+2025-06-26 16:39:51,268 - InteractiveChartGenerator - INFO - Detected header row at index 24 (line 25)

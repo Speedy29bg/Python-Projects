@@ -140,13 +140,37 @@ class DataProcessor:
         self.columns = []
         self.data_filter = DataFilter()  # Excel-like filtering
         
+    def _detect_delimiter(self, filepath: str) -> str:
+        """Detect the delimiter of a CSV file using csv.Sniffer, fallback to comma."""
+        try:
+            with open(filepath, 'r', encoding='utf-8', errors='replace') as f:
+                sample = f.read(2048)
+                sniffer = csv.Sniffer()
+                return sniffer.sniff(sample).delimiter
+        except Exception as e:
+            logger.warning(f"Could not detect delimiter, defaulting to comma: {e}")
+            return ','
+
+    def _try_read_csv(self, filepath, header_row_idx, delimiter, encodings):
+        """Try reading CSV with multiple encodings."""
+        last_err = None
+        for enc in encodings:
+            try:
+                return pd.read_csv(filepath, encoding=enc, skiprows=header_row_idx, header=0, delimiter=delimiter)
+            except UnicodeDecodeError as e:
+                logger.warning(f"Encoding {enc} failed: {e}")
+                last_err = e
+            except Exception as e:
+                logger.warning(f"Error reading CSV with encoding {enc}: {e}")
+                last_err = e
+        raise last_err if last_err else ValueError("Failed to read CSV with provided encodings.")
+
     def load_csv_file(self, filepath: str) -> bool:
         """
-        Load a CSV file with smart header detection
-        
+        Load a CSV file with smart header and delimiter detection, robust encoding handling, and validation.
+
         Args:
             filepath: Path to the CSV file
-            
         Returns:
             bool: True if successful, False otherwise
         """
@@ -155,33 +179,33 @@ class DataProcessor:
             if not os.path.exists(filepath):
                 logger.error(f"File not found: {filepath}")
                 return False
-            
             # Validate file extension
             if not filepath.lower().endswith('.csv'):
                 logger.error(f"Invalid file type. Expected CSV file: {filepath}")
                 return False
-            
-            # Smart header detection - look for non-empty cell in column E (index 4)
+            # Detect delimiter
+            delimiter = self._detect_delimiter(filepath)
+            logger.info(f"Detected delimiter: '{delimiter}'")
+            # Smart header detection
             logger.info(f"Loading CSV file with smart header detection: {filepath}")
             header_row_idx = self._detect_header_row(filepath)
-            
-            # Load the CSV file with detected header row
+            encodings = ['utf-8', 'utf-16', 'latin1', 'cp1252']
+            # Load the CSV file with detected header row and delimiter
             if header_row_idx is not None:
                 logger.info(f"Detected header row at index {header_row_idx} (line {header_row_idx + 1})")
                 try:
-                    self.data = pd.read_csv(filepath, encoding='utf-8', skiprows=header_row_idx, header=0)
-                except UnicodeDecodeError:
-                    logger.warning("UTF-8 encoding failed, trying latin1")
-                    self.data = pd.read_csv(filepath, encoding='latin1', skiprows=header_row_idx, header=0)
-
+                    self.data = self._try_read_csv(filepath, header_row_idx, delimiter, encodings)
+                except Exception as e:
+                    logger.error(f"Failed to read CSV with detected header: {e}")
+                    return False
                 # --- Robustness: Check for data shift (first column missing/shifted) ---
                 if self.data.shape[1] > 1 and self.data.columns[0] == '' and self.data.iloc[:, 0].isnull().all():
                     logger.warning("First column header is empty and all values are NaN. Retrying with header_row_idx - 1.")
                     try:
-                        self.data = pd.read_csv(filepath, encoding='utf-8', skiprows=max(header_row_idx-1, 0), header=0)
-                    except UnicodeDecodeError:
-                        self.data = pd.read_csv(filepath, encoding='latin1', skiprows=max(header_row_idx-1, 0), header=0)
-
+                        self.data = self._try_read_csv(filepath, max(header_row_idx-1, 0), delimiter, encodings)
+                    except Exception as e:
+                        logger.error(f"Retry with header_row_idx-1 failed: {e}")
+                        return False
                 # Additional check: If first data row matches column names, shift header
                 if not self.data.empty and list(self.data.columns) == list(self.data.iloc[0]):
                     logger.warning("First data row matches column names. Shifting header row by one.")
@@ -190,11 +214,13 @@ class DataProcessor:
             else:
                 logger.warning("No header row detected, loading with default settings")
                 try:
-                    self.data = pd.read_csv(filepath, encoding='utf-8')
+                    self.data = pd.read_csv(filepath, encoding='utf-8', delimiter=delimiter)
                 except UnicodeDecodeError:
                     logger.warning("UTF-8 encoding failed, trying latin1")
-                    self.data = pd.read_csv(filepath, encoding='latin1')
-
+                    self.data = pd.read_csv(filepath, encoding='latin1', delimiter=delimiter)
+                except Exception as e:
+                    logger.error(f"Failed to read CSV with default settings: {e}")
+                    return False
             self.filename = os.path.basename(filepath)
             # Process column names
             self.columns = list(self.data.columns)
@@ -202,16 +228,19 @@ class DataProcessor:
             if self.data.empty:
                 logger.warning("Loaded CSV file is empty")
                 return False
+            if len(set(self.columns)) != len(self.columns):
+                logger.warning("Duplicate column names detected")
+            if any(col == '' for col in self.columns):
+                logger.warning("Empty column name detected")
             # Clean data
             self._clean_data()
+            temp = self.data.get('No:')
             # Store original data for filtering
             self.original_data = self.data.copy()
             logger.info(f"Successfully loaded {len(self.data)} rows and {len(self.columns)} columns")
             logger.info(f"Headers: {self.columns}")
             logger.info(f"Data types: {dict(self.data.dtypes)}")
-            
             return True
-            
         except Exception as e:
             logger.error(f"Error loading CSV file: {e}")
             return False

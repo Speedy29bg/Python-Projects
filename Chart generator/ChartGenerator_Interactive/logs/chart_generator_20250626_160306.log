@@ -1,0 +1,32 @@
+2025-06-26 16:03:06,314 - InteractiveChartGenerator - INFO - Logging initialized. Log file: c:\Users\GILIEV\Documents\GitHub\Python-Projects\Chart generator\ChartGenerator_Interactive\logs\chart_generator_20250626_160306.log
+2025-06-26 16:03:06,315 - InteractiveChartGenerator - INFO - Starting Interactive Chart Generator v2.0
+2025-06-26 16:03:06,473 - InteractiveChartGenerator - INFO - Initializing application controller
+2025-06-26 16:03:08,210 - InteractiveChartGenerator - INFO - Applied responsive styling for 1920px width screen
+2025-06-26 16:03:08,211 - InteractiveChartGenerator - INFO - Interactive Chart Application initialized
+2025-06-26 16:03:08,256 - InteractiveChartGenerator - INFO - Screen size: 1920x1080
+2025-06-26 16:03:08,257 - InteractiveChartGenerator - INFO - Window size: 1632x864
+2025-06-26 16:03:08,257 - InteractiveChartGenerator - INFO - Minimum size: 1152x700
+2025-06-26 16:03:08,257 - InteractiveChartGenerator - INFO - Platform: Windows 11
+2025-06-26 16:03:08,258 - InteractiveChartGenerator - INFO - Application started successfully
+2025-06-26 16:03:16,282 - InteractiveChartGenerator - INFO - Detected delimiter: ','
+2025-06-26 16:03:16,282 - InteractiveChartGenerator - INFO - Loading CSV file with smart header detection: C:/Users/GILIEV/Downloads/Logs_BR223_Downloaded_02.06.2025/Logs_BR223_Downloaded_02.06.2025/C-01/C-01/3_PTL/15-04-2025_17.25.01/DUT4_SN_VLIMS_SS 1#30.csv
+2025-06-26 16:03:16,283 - InteractiveChartGenerator - INFO - Found non-empty cell in column E at row 24
+2025-06-26 16:03:16,283 - InteractiveChartGenerator - INFO - Detected header row at index 24 (line 25)
+2025-06-26 16:03:16,287 - InteractiveChartGenerator - WARNING - Encoding utf-8 failed: 'utf-8' codec can't decode byte 0xb0 in position 21: invalid start byte
+2025-06-26 16:03:16,290 - InteractiveChartGenerator - WARNING - Encoding utf-16 failed: 'utf-16' codec can't decode bytes in position 0-1: Stream does not start with BOM
+2025-06-26 16:03:16,308 - InteractiveChartGenerator - INFO - Numeric columns: [' DUT Mode', ' Probe of Humidity(%)', ' Dry contact value', ' Reference Voltage(V)', 'Current[A] Status', ' CDD_Display_Temp_Status', 'CID ON/OFF', ' CDD ON/OFF', ' CID_BackLight ', ' CDD_BackLight', ' CID_X_Coordinates', ' CID_Y_Coordinates', ' CDD_X_Coordinates', ' CDD_Y_Coordinates', ' Light_Sensor_On', 'Temp_2', ' Watchdog_reset', ' Hardware_reset', ' Power_reset', ' Clock_reset', ' DTC Stored']
+2025-06-26 16:03:16,308 - InteractiveChartGenerator - INFO - Text columns: ['No:', ' Date & Time', 'Probe of Temperature(°C)', 'Current[A]', ' CAN_status', 'CID_Display_Temp_Status']
+2025-06-26 16:03:16,309 - InteractiveChartGenerator - ERROR - Error loading CSV file: 0
+2025-06-26 16:03:16,309 - InteractiveChartGenerator - INFO - Status: Failed to load file
+2025-06-26 16:03:33,381 - InteractiveChartGenerator - INFO - Detected delimiter: ','
+2025-06-26 16:03:33,382 - InteractiveChartGenerator - INFO - Loading CSV file with smart header detection: C:/Users/GILIEV/Documents/GitHub/Python-Projects/DUT2_SN_VLIMS_SS 1#23.csv
+2025-06-26 16:03:33,383 - InteractiveChartGenerator - INFO - Found non-empty cell in column E at row 24
+2025-06-26 16:03:33,383 - InteractiveChartGenerator - INFO - Detected header row at index 24 (line 25)
+2025-06-26 16:03:33,385 - InteractiveChartGenerator - WARNING - Encoding utf-8 failed: 'utf-8' codec can't decode byte 0xb0 in position 21: invalid start byte
+2025-06-26 16:03:33,386 - InteractiveChartGenerator - WARNING - Encoding utf-16 failed: 'utf-16' codec can't decode bytes in position 0-1: Stream does not start with BOM
+2025-06-26 16:03:33,393 - InteractiveChartGenerator - INFO - Numeric columns: [' DUT Mode', ' Probe of Humidity(%)', ' Dry contact value', ' Reference Voltage(V)', 'Current[A] Status', ' CDD_Display_Temp_Status', 'CID ON/OFF', ' CDD ON/OFF', ' CID_BackLight ', ' CDD_BackLight', ' CID_X_Coordinates', ' CID_Y_Coordinates', ' CDD_X_Coordinates', ' CDD_Y_Coordinates', ' Light_Sensor_On', 'Temp_2', ' Watchdog_reset', ' Hardware_reset', ' Power_reset', ' Clock_reset', ' DTC Stored']
+2025-06-26 16:03:33,394 - InteractiveChartGenerator - INFO - Text columns: ['No:', ' Date & Time', 'Probe of Temperature(°C)', 'Current[A]', ' CAN_status', 'CID_Display_Temp_Status']
+2025-06-26 16:03:33,394 - InteractiveChartGenerator - ERROR - Error loading CSV file: 0
+2025-06-26 16:03:33,395 - InteractiveChartGenerator - INFO - Status: Failed to load file
+2025-06-26 16:03:42,301 - InteractiveChartGenerator - INFO - Cleaning up application resources
+2025-06-26 16:03:42,301 - InteractiveChartGenerator - WARNING - Error during cleanup: can't invoke "destroy" command: application has been destroyed

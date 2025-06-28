@@ -1,0 +1,18 @@
+2025-06-26 16:56:13,653 - InteractiveChartGenerator - INFO - Logging initialized. Log file: c:\Users\GILIEV\Documents\GitHub\Python-Projects\Chart generator\ChartGenerator_Interactive\logs\chart_generator_20250626_165613.log
+2025-06-26 16:56:13,654 - InteractiveChartGenerator - INFO - Starting Interactive Chart Generator v2.0
+2025-06-26 16:56:14,323 - InteractiveChartGenerator - INFO - Initializing application controller
+2025-06-26 16:56:19,081 - InteractiveChartGenerator - INFO - Applied responsive styling for 1920px width screen
+2025-06-26 16:56:19,081 - InteractiveChartGenerator - INFO - Interactive Chart Application initialized
+2025-06-26 16:56:19,272 - InteractiveChartGenerator - INFO - Screen size: 1920x1080
+2025-06-26 16:56:19,272 - InteractiveChartGenerator - INFO - Window size: 1632x864
+2025-06-26 16:56:19,272 - InteractiveChartGenerator - INFO - Minimum size: 1152x700
+2025-06-26 16:56:19,273 - InteractiveChartGenerator - INFO - Platform: Windows 11
+2025-06-26 16:56:19,273 - InteractiveChartGenerator - INFO - Application started successfully
+2025-06-26 16:56:34,068 - InteractiveChartGenerator - INFO - Detected delimiter: ','
+2025-06-26 16:56:34,068 - InteractiveChartGenerator - INFO - Loading CSV file with smart header detection: C:/Users/GILIEV/Documents/GitHub/Python-Projects/DUT1_SN_VLIMS_SS 1#21.csv
+2025-06-26 16:56:34,071 - InteractiveChartGenerator - INFO - Found non-empty cell in column E at row 24
+2025-06-26 16:56:34,071 - InteractiveChartGenerator - INFO - Detected header row at index 24 (line 25)
+2025-06-26 16:56:34,076 - InteractiveChartGenerator - WARNING - Encoding utf-8 failed: 'utf-8' codec can't decode byte 0xb0 in position 21: invalid start byte
+2025-06-26 16:56:34,091 - InteractiveChartGenerator - WARNING - Encoding utf-16 failed: 'utf-16' codec can't decode bytes in position 0-1: Stream does not start with BOM
+2025-06-26 16:56:34,113 - InteractiveChartGenerator - INFO - Numeric columns: [' DUT Mode', ' Probe of Humidity(%)', ' Dry contact value', ' Reference Voltage(V)', 'Current[A] Status', ' CDD_Display_Temp_Status', 'CID ON/OFF', ' CDD ON/OFF', ' CID_BackLight ', ' CDD_BackLight', ' CID_X_Coordinates', ' CID_Y_Coordinates', ' CDD_X_Coordinates', ' CDD_Y_Coordinates', ' Light_Sensor_On', 'Temp_2', ' Watchdog_reset', ' Hardware_reset', ' Power_reset', ' Clock_reset', ' DTC Stored']
+2025-06-26 16:56:34,113 - InteractiveChartGenerator - INFO - Text columns: ['No:', ' Date & Time', 'Probe of Temperature(°C)', 'Current[A]', ' CAN_status', 'CID_Display_Temp_Status']

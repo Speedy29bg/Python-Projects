@@ -1,0 +1,26 @@
+2025-06-26 17:00:05,295 - InteractiveChartGenerator - INFO - Logging initialized. Log file: c:\Users\GILIEV\Documents\GitHub\Python-Projects\Chart generator\ChartGenerator_Interactive\logs\chart_generator_20250626_170005.log
+2025-06-26 17:00:05,296 - InteractiveChartGenerator - INFO - Starting Interactive Chart Generator v2.0
+2025-06-26 17:00:05,458 - InteractiveChartGenerator - INFO - Initializing application controller
+2025-06-26 17:00:07,121 - InteractiveChartGenerator - INFO - Applied responsive styling for 1920px width screen
+2025-06-26 17:00:07,121 - InteractiveChartGenerator - INFO - Interactive Chart Application initialized
+2025-06-26 17:00:07,161 - InteractiveChartGenerator - INFO - Screen size: 1920x1080
+2025-06-26 17:00:07,161 - InteractiveChartGenerator - INFO - Window size: 1632x864
+2025-06-26 17:00:07,161 - InteractiveChartGenerator - INFO - Minimum size: 1152x700
+2025-06-26 17:00:07,162 - InteractiveChartGenerator - INFO - Platform: Windows 11
+2025-06-26 17:00:07,162 - InteractiveChartGenerator - INFO - Application started successfully
+2025-06-26 17:00:13,504 - InteractiveChartGenerator - INFO - Detected delimiter: ','
+2025-06-26 17:00:13,504 - InteractiveChartGenerator - INFO - Loading CSV file with smart header detection: C:/Users/GILIEV/Documents/GitHub/Python-Projects/DUT1_SN_VLIMS_SS 1#21.csv
+2025-06-26 17:00:13,506 - InteractiveChartGenerator - INFO - Found non-empty cell in column E at row 24
+2025-06-26 17:00:13,506 - InteractiveChartGenerator - INFO - Detected header row at index 24 (line 25)
+2025-06-26 17:00:13,511 - InteractiveChartGenerator - WARNING - Error reading CSV with encoding utf-8: Error tokenizing data. C error: Expected 29 fields in line 26, saw 30
+
+2025-06-26 17:00:13,516 - InteractiveChartGenerator - WARNING - Encoding utf-16 failed: 'utf-16' codec can't decode bytes in position 0-1: Stream does not start with BOM
+2025-06-26 17:00:13,518 - InteractiveChartGenerator - WARNING - Error reading CSV with encoding latin1: Error tokenizing data. C error: Expected 29 fields in line 26, saw 30
+
+2025-06-26 17:00:13,521 - InteractiveChartGenerator - WARNING - Error reading CSV with encoding cp1252: Error tokenizing data. C error: Expected 29 fields in line 26, saw 30
+
+2025-06-26 17:00:13,522 - InteractiveChartGenerator - ERROR - Failed to read CSV with detected header: Error tokenizing data. C error: Expected 29 fields in line 26, saw 30
+
+2025-06-26 17:00:13,522 - InteractiveChartGenerator - INFO - Status: Failed to load file
+2025-06-26 17:00:23,572 - InteractiveChartGenerator - INFO - Cleaning up application resources
+2025-06-26 17:00:23,572 - InteractiveChartGenerator - WARNING - Error during cleanup: can't invoke "destroy" command: application has been destroyed
