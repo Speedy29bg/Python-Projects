@@ -30,7 +30,6 @@ class FilterWindow:
         self.parent = parent
         self.data_processor = data_processor
         self.on_data_changed = on_data_changed
-        self.filters = {}  # column -> selected_values
         self.sort_column = None
         self.sort_ascending = True
         self.window = None
@@ -190,31 +189,173 @@ class FilterWindow:
         self.tree.pack(side="left", fill="both", expand=True)
         
     def add_filter(self):
-        """Show dialog to add a new filter"""
+        """Show dialog to add a new filter with type selection and backend integration"""
         if self.data_processor.original_data is None or self.data_processor.original_data.empty:
             tk.messagebox.showwarning("No Data", "Please load data first")
             return
-            
-        # Get available columns
         columns = list(self.data_processor.original_data.columns)
-        
-        # Show column selection dialog
         column = self.select_column_dialog(columns)
         if not column:
             return
-            
-        # Get unique values for the column
         unique_values = self.data_processor.original_data[column].dropna().unique().tolist()
         if not unique_values:
             tk.messagebox.showwarning("No Values", f"No values found in column '{column}'")
             return
-            
-        # Show filter values dialog
-        selected_values = self.select_values_dialog(column, unique_values)
-        if selected_values:
-            self.filters[column] = selected_values
+        # Get column type
+        col_stats = self.data_processor.get_column_stats_for_filter(column)
+        is_numeric = col_stats.get('is_numeric', False)
+        # Show filter type and value dialog
+        filter_type, value, value2 = self.select_filter_type_and_value_dialog(column, unique_values, is_numeric)
+        if filter_type is not None:
+            # Convert value(s) to correct type if numeric
+            if is_numeric:
+                try:
+                    if filter_type == 'between' and value2 is not None:
+                        value = float(value)
+                        value2 = float(value2)
+                    elif filter_type in ('greater_than', 'less_than', 'greater_equal', 'less_equal', 'equals', 'not_equals'):
+                        value = float(value)
+                except Exception:
+                    tk.messagebox.showerror("Type Error", "Please enter a valid number for the filter value.")
+                    return
+            # Add filter to backend
+            self.data_processor.add_filter(column, filter_type, value, value2)
             self.update_filters_display()
             self.refresh_preview()
+    def select_filter_type_and_value_dialog(self, column: str, unique_values: list, is_numeric: bool):
+        """Show dialog to select filter type and value(s)"""
+        dialog = tk.Toplevel(self.window)
+        dialog.title(f"Filter - {column}")
+        dialog.geometry("400x300")
+        dialog.grab_set()
+        dialog.resizable(False, False)
+
+        filter_types = [
+            ("Equals", "equals"),
+            ("Not Equals", "not_equals"),
+            ("In List", "in_list"),
+            ("Not In List", "not_in_list"),
+            ("Contains", "contains"),
+            ("Not Contains", "not_contains"),
+            ("Starts With", "starts_with"),
+            ("Ends With", "ends_with"),
+            ("Is Null", "is_null"),
+            ("Is Not Null", "is_not_null")
+        ]
+        if is_numeric:
+            filter_types += [
+                ("Greater Than", "greater_than"),
+                ("Less Than", "less_than"),
+                ("Greater or Equal", "greater_equal"),
+                ("Less or Equal", "less_equal"),
+                ("Between", "between")
+            ]
+
+        selected_type = tk.StringVar(value=filter_types[0][1])
+        value_var = tk.StringVar()
+        value2_var = tk.StringVar()
+        selected_values = []
+
+        main_frame = ttk.Frame(dialog, padding=10)
+        main_frame.pack(fill='both', expand=True)
+
+        ttk.Label(main_frame, text=f"Select filter type for '{column}':").pack(anchor='w')
+        type_combo = ttk.Combobox(main_frame, values=[ft[0] for ft in filter_types], state='readonly')
+        type_combo.current(0)
+        type_combo.pack(fill='x', pady=(5, 10))
+
+        value_frame = ttk.Frame(main_frame)
+        value_frame.pack(fill='x', pady=(5, 0))
+
+        value_label = ttk.Label(value_frame, text="Value:")
+        value_entry = ttk.Entry(value_frame, textvariable=value_var)
+        value2_label = ttk.Label(value_frame, text="and")
+        value2_entry = ttk.Entry(value_frame, textvariable=value2_var)
+
+        # Listbox for in_list/not_in_list
+        listbox = tk.Listbox(main_frame, selectmode=tk.MULTIPLE, height=8)
+        if len(unique_values) > 100:
+            ttk.Label(main_frame, text="Warning: Too many unique values, showing first 100.", foreground="red").pack()
+            unique_values = unique_values[:100]
+        for v in unique_values:
+            listbox.insert(tk.END, str(v))
+
+        def update_value_widgets(event=None):
+            ft = type_combo.get()
+            # Hide all
+            value_label.pack_forget()
+            value_entry.pack_forget()
+            value2_label.pack_forget()
+            value2_entry.pack_forget()
+            listbox.pack_forget()
+            if ft in ["Equals", "Not Equals", "Contains", "Not Contains", "Starts With", "Ends With", "Greater Than", "Less Than", "Greater or Equal", "Less or Equal"]:
+                value_label.pack(side='left')
+                value_entry.pack(side='left', fill='x', expand=True)
+            elif ft == "Between":
+                value_label.pack(side='left')
+                value_entry.pack(side='left', fill='x', expand=True)
+                value2_label.pack(side='left', padx=5)
+                value2_entry.pack(side='left', fill='x', expand=True)
+            elif ft in ["In List", "Not In List"]:
+                listbox.pack(fill='both', expand=True)
+
+        type_combo.bind('<<ComboboxSelected>>', update_value_widgets)
+        update_value_widgets()
+
+        result = {'filter_type': None, 'value': None, 'value2': None}
+
+        def on_ok():
+            ft_label = type_combo.get()
+            ft = None
+            for label, code in filter_types:
+                if label == ft_label:
+                    ft = code
+                    break
+            if ft is None:
+                tk.messagebox.showerror("Error", "Please select a filter type.")
+                return
+            if ft in ["in_list", "not_in_list"]:
+                indices = listbox.curselection()
+                if not indices:
+                    tk.messagebox.showwarning("No Selection", "Please select at least one value.")
+                    return
+                selected = [unique_values[i] for i in indices]
+                result['filter_type'] = ft
+                result['value'] = selected
+                result['value2'] = None
+            elif ft == "between":
+                v1 = value_var.get()
+                v2 = value2_var.get()
+                if not v1 or not v2:
+                    tk.messagebox.showwarning("Missing Value", "Please enter both values for 'between' filter.")
+                    return
+                result['filter_type'] = ft
+                result['value'] = v1
+                result['value2'] = v2
+            elif ft in ["is_null", "is_not_null"]:
+                result['filter_type'] = ft
+                result['value'] = None
+                result['value2'] = None
+            else:
+                v = value_var.get()
+                if not v:
+                    tk.messagebox.showwarning("Missing Value", "Please enter a value for the filter.")
+                    return
+                result['filter_type'] = ft
+                result['value'] = v
+                result['value2'] = None
+            dialog.destroy()
+
+        def on_cancel():
+            dialog.destroy()
+
+        button_frame = ttk.Frame(main_frame)
+        button_frame.pack(fill='x', pady=(10, 0))
+        ttk.Button(button_frame, text="OK", command=on_ok).pack(side='right', padx=(5, 0))
+        ttk.Button(button_frame, text="Cancel", command=on_cancel).pack(side='right')
+
+        dialog.wait_window()
+        return result['filter_type'], result['value'], result['value2']
     
     def select_column_dialog(self, columns: List[str]) -> Optional[str]:
         """Show dialog to select a column for filtering"""
@@ -352,39 +493,28 @@ class FilterWindow:
         if not selection:
             tk.messagebox.showwarning("No Selection", "Please select a filter to remove")
             return
-            
-        # Get the filter text and extract column name
         filter_text = self.filters_listbox.get(selection[0])
         column = filter_text.split(":")[0]
-        
-        if column in self.filters:
-            del self.filters[column]
-            self.update_filters_display()
-            self.refresh_preview()
+        self.data_processor.remove_filter(column)
+        self.update_filters_display()
+        self.refresh_preview()
     
     def clear_all_filters(self):
         """Clear all filters and sorting"""
-        self.filters.clear()
+        self.data_processor.clear_filters()
         self.sort_column = None
         self.sort_ascending = True
-        
         try:
-            # Only update UI components if they exist
             if hasattr(self, 'sort_column_var') and self.sort_column_var:
                 self.sort_column_var.set("")
             if hasattr(self, 'sort_direction_var') and self.sort_direction_var:
                 self.sort_direction_var.set("Ascending")
-            
-            # Update sort status label
             if hasattr(self, 'sort_status_label') and self.sort_status_label:
                 self.sort_status_label.config(text="No sorting applied", foreground="gray")
-            
-            # Only update UI if window exists
             if self.window and self.window.winfo_exists():
                 self.update_filters_display()
                 self.refresh_preview()
         except tk.TclError:
-            # Widget has been destroyed, ignore
             pass
         except Exception as e:
             logger.warning(f"Error clearing filters: {e}")
@@ -454,19 +584,25 @@ class FilterWindow:
     def update_filters_display(self):
         """Update the filters listbox"""
         try:
-            # Only update if listbox exists
             if not (hasattr(self, 'filters_listbox') and self.filters_listbox):
                 return
-                
             self.filters_listbox.delete(0, tk.END)
-            for column, values in self.filters.items():
-                if len(values) <= 3:
-                    values_text = ", ".join(str(v) for v in values[:3])
+            filters = getattr(self.data_processor.data_filter, 'filters', {})
+            for column, f in filters.items():
+                ftype = f.get('type', '')
+                val = f.get('value', '')
+                val2 = f.get('value2', None)
+                if ftype == 'between' and val2 is not None:
+                    values_text = f"{ftype}: {val} and {val2}"
+                elif isinstance(val, (list, tuple)):
+                    if len(val) <= 3:
+                        values_text = f"{ftype}: {', '.join(str(v) for v in val[:3])}"
+                    else:
+                        values_text = f"{ftype}: {', '.join(str(v) for v in val[:3])} + {len(val)-3} more"
                 else:
-                    values_text = f"{', '.join(str(v) for v in values[:3])} + {len(values)-3} more"
+                    values_text = f"{ftype}: {val}"
                 self.filters_listbox.insert(tk.END, f"{column}: {values_text}")
         except tk.TclError:
-            # Widget has been destroyed, ignore
             pass
         except Exception as e:
             logger.warning(f"Error updating filters display: {e}")
@@ -504,37 +640,28 @@ class FilterWindow:
             logger.warning(f"Error refreshing preview: {e}")
     
     def get_filtered_data(self) -> pd.DataFrame:
-        """Get filtered and sorted data"""
+        """Get filtered and sorted data (delegates to backend)"""
         if self.data_processor.original_data is None:
             return pd.DataFrame()
-        
-        data = self.data_processor.original_data.copy()
-        
-        # Apply filters
-        for column, selected_values in self.filters.items():
-            if column in data.columns and selected_values:
-                data = data[data[column].isin(selected_values)]
-        
-        # Apply sorting - check if UI components exist
+        # Apply sorting if set in UI
         sort_column = None
         ascending = True
-        
         try:
             if hasattr(self, 'sort_column_var') and self.sort_column_var:
                 sort_column = self.sort_column_var.get()
-            
             if hasattr(self, 'sort_direction_var') and self.sort_direction_var:
                 ascending = self.sort_direction_var.get() == "Ascending"
         except tk.TclError:
-            # Variable has been destroyed, ignore
             pass
         except Exception as e:
             logger.warning(f"Error getting sort parameters: {e}")
-        
-        if sort_column and sort_column in data.columns:
-            data = data.sort_values(by=sort_column, ascending=ascending, na_position='last')
-        
-        return data
+        # Set sort in backend
+        if sort_column and sort_column in self.data_processor.original_data.columns:
+            self.data_processor.data_filter.set_sort(sort_column, ascending)
+        else:
+            self.data_processor.data_filter.set_sort(None)
+        # Apply filters and sorting
+        return self.data_processor.data_filter.apply_filters(self.data_processor.original_data)
     
     def update_tree(self, data: pd.DataFrame):
         """Update the treeview with data"""

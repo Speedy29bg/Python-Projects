@@ -1,0 +1,12 @@
+2025-07-01 11:23:26,739 - InteractiveChartGenerator - INFO - Logging initialized. Log file: c:\Users\GILIEV\Documents\GitHub\Python-Projects\ChartGenerator_Interactive\logs\chart_generator_20250701_112326.log
+2025-07-01 11:23:26,740 - InteractiveChartGenerator - INFO - Starting Interactive Chart Generator v2.0
+2025-07-01 11:23:27,757 - InteractiveChartGenerator - INFO - Initializing application controller
+2025-07-01 11:23:32,604 - InteractiveChartGenerator - INFO - Applied responsive styling for 1536px width screen
+2025-07-01 11:23:32,604 - InteractiveChartGenerator - INFO - Interactive Chart Application initialized
+2025-07-01 11:23:32,671 - InteractiveChartGenerator - INFO - Screen size: 1536x864
+2025-07-01 11:23:32,671 - InteractiveChartGenerator - INFO - Window size: 1305x691
+2025-07-01 11:23:32,672 - InteractiveChartGenerator - INFO - Minimum size: 1000x700
+2025-07-01 11:23:32,886 - InteractiveChartGenerator - INFO - Platform: Windows 11
+2025-07-01 11:23:32,886 - InteractiveChartGenerator - INFO - Application started successfully
+2025-07-01 11:24:09,791 - InteractiveChartGenerator - INFO - Cleaning up application resources
+2025-07-01 11:24:09,792 - InteractiveChartGenerator - WARNING - Error during cleanup: can't invoke "destroy" command: application has been destroyed
